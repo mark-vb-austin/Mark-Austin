@@ -28,104 +28,74 @@ const Layout = (props) => {
               </div>
             </div>
           </a>
+
           <nav id="swup" className="site-head-left">
             <ul className="nav" role="menu">
-              <li
-                className={`nav-home  ${data.pathname === "/" ? "nav-current" : ""} `}
-                role="menuitem"
-              >
+              <li className={`nav-home  ${data.pathname === "/" ? "nav-current" : ""} `} role="menuitem">
                 <Link to={`/`}>Home</Link>
               </li>
-              <li
-                className={`nav-home  ${data.pathname.includes("/bio") ? "nav-current" : ""} `}
-                role="menuitem"
-              >
+              
+              <li className={`nav-home  ${data.pathname.includes("/bio") ? "nav-current" : ""} `} role="menuitem">
                 <Link to={`/bio`}>Bio</Link>
               </li>
-              <li
-                className={`nav-home  ${data.pathname.includes("/work") ? "nav-current" : ""} `}
-                role="menuitem"
-              >
+              
+              <li className={`nav-home  ${data.pathname.includes("/work") ? "nav-current" : ""} `} role="menuitem">
                 <Link to={`/work`}>Work</Link>
               </li>
-              <li
-                className={`nav-home  ${data.pathname.includes("/news") ? "nav-current" : ""} `}
-                role="menuitem"
-              >
+              
+              {/* <li className={`nav-home  ${data.pathname.includes("/news") ? "nav-current" : ""} `} role="menuitem">
                 <Link to={`/news`}>News</Link>
-              </li>
-              <li
-                className={`nav-home  ${data.pathname.includes("/contact") ? "nav-current" : ""} `}
-                role="menuitem"
-              >
+              </li> */}
+              
+              <li className={`nav-home  ${data.pathname.includes("/contact") ? "nav-current" : ""} `} role="menuitem">
                 <Link to={`/contact`}>Contact</Link>
               </li>
-              <li
-                className={`nav-home  ${data.pathname.includes("/elements") ? "nav-current" : ""} `}
-                role="menuitem"
-              >
+              
+              <li className={`nav-home  ${data.pathname.includes("/elements") ? "nav-current" : ""} `} role="menuitem">
                 <Link to={`/elements`}>Elements</Link>
               </li>
             </ul>
           </nav>
+
           <div className="site-head-center">
             <Link className="site-head-logo" to={`/`}>
               {title}
             </Link>
           </div>
+
           <div className="site-head-right">
             <div className="social-links">
-              <Link
-                to={`https://facebook.com/${social.facebook}`}
-                title="Facebook"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Link to={`https://facebook.com/${social.facebook}`} title="Facebook" target="_blank" rel="noopener noreferrer">
                 Facebook
               </Link>
-              <Link
-                to={`https://instagram.com/${social.twitter}`}
-                title="Instagram"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Link to={`https://instagram.com/${social.instagram}`} title="Instagram" target="_blank" rel="noopener noreferrer">
                 Instagram
               </Link>
-
-              <Link
-                to={`https://github.com/lilxyzz/gatsby-clay`}
-                title="Github"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Github
+              <Link to={`https://twitter.com/${social.twitter}`} title="Twitter" target="_blank" rel="noopener noreferrer">
+                Twitter
               </Link>
+
             </div>
           </div>
+
         </div>
       </header>
+
       <main id="site-main" className="site-main">
         <div id="swup" className="transition-fade">
           {children}
         </div>
       </main>
+
       <footer className="site-foot">
-        &copy; {new Date().getFullYear()} <Link to={`/`}>{title}</Link> &mdash;
+        &copy; {new Date().getFullYear()} {title} &mdash;
         Built by {""}
         <a
-          href="https://travislord.xyz/"
+          href="https://markaustin.dev"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Travis Lord
-        </a>
-        {""} & {""}
-        <a
-          href="https://github.com/abdulwaqar844"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Abdul Waqar
+          Mark Austin
         </a>
       </footer>
     </div>

@@ -1,3 +1,5 @@
+@use "../vars.scss" as vars;
+
 /* Buttons
 /* ---------------------------------------------------------- */
 
@@ -7,15 +9,15 @@ input[type="button"],
 button,
 .button {
   display: inline-block;
-  height: var(--height);
+  height: vars.$height;
   padding: 0 2rem;
   border: 0;
-  border-radius: var(--radius);
+  border-radius: vars.$radius;
   cursor: pointer;
-  font-family: var(--font-sans-serif);
+  font-family: vars.$font-sans-serif;
   font-size: 1.4rem;
-  font-weight: var(--font-normal);
-  line-height: var(--height);
+  font-weight: vars.$font-normal;
+  line-height: vars.$height;
   text-align: center;
   text-decoration: none;
   white-space: nowrap;
@@ -36,8 +38,8 @@ input[type="reset"].small,
 input[type="button"].small,
 button.small,
 .button.small {
-  height: calc(var(--height) * 0.9);
-  line-height: calc(var(--height) * 0.9);
+  height: calc(vars.$height) * 0.9;
+  line-height: calc(vars.$height) * 0.9;
   padding: 0 1.5rem;
   font-size: 1.2rem;
 }
@@ -47,8 +49,8 @@ input[type="reset"].large,
 input[type="button"].large,
 button.large,
 .button.large {
-  height: calc(var(--height) * 1.14);
-  line-height: calc(var(--height) * 1.14);
+  height: calc(vars.$height) * 1.14;
+  line-height: calc(vars.$height) * 1.14;
   padding: 0 3rem;
   font-size: 1.6rem;
 }
@@ -83,8 +85,8 @@ input[type="button"]:hover,
 button:hover,
 .button:hover {
   text-decoration: none;
-  color: color(var(--color-primary) l(-15%)) !important;
-  box-shadow: inset 0 0 0 2px color(var(--color-primary) l(-10%));
+  color: vars.$color-base !important;
+  box-shadow: inset 0 0 0 2px vars.$color-base;
   transition: 0.2s ease;
 }
 
@@ -93,10 +95,10 @@ input[type="reset"].primary,
 input[type="button"].primary,
 button.primary,
 .button.primary {
-  color: #131313 !important;
+  color: vars.$color-base !important;
   background-color: #f8f8f8;
   box-shadow: none;
-  border: solid 1px #131313;
+  border: solid 1px vars.$color-base;
 }
 
 input[type="submit"].primary:hover,
@@ -104,11 +106,11 @@ input[type="reset"].primary:hover,
 input[type="button"].primary:hover,
 button.primary:hover,
 .button.primary:hover {
-  /* background-color: color(var(--color-primary) l(-10%)); */
+  /* background-color: color(vars.$color-primary) l(-10%); */
   color: #f8f8f8 !important;
-  background-color: #131313;
+  background-color: vars.$color-base;
   box-shadow: none;
-  border: solid 1px #131313;
+  border: solid 1px vars.$color-base;
 }
 .post-link {
   display: flex;

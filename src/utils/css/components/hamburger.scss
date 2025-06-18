@@ -1,3 +1,5 @@
+@use "../vars.scss" as vars;
+
 /* https://github.com/jonsuh/hamburgers */
 .hamburger {
     display: flex;
@@ -72,7 +74,7 @@
 .site-head-open .hamburger-inner,
 .site-head-open .hamburger-inner::before,
 .site-head-open .hamburger-inner::after {
-    background-color: var(--color-base);
+    background-color: vars.$color-base;
 }
 
 .site-head-open .hamburger-inner {

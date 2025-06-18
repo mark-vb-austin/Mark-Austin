@@ -14,10 +14,11 @@ module.exports = {
       twitter: siteConfig.twitter,
       facebook: siteConfig.facebook,
       github: siteConfig.github,
+      instagram: siteConfig.instagram,
     },
   },
   plugins: [
-
+    `gatsby-plugin-sass`,
     {
       // keep as first gatsby-source-filesystem plugin for gatsby image support
       resolve: "gatsby-source-filesystem",

@@ -1,8 +1,10 @@
+@use "../vars.scss" as vars;
+
 /* Forms
 /* ---------------------------------------------------------- */
 
 form {
-    margin: 0 0 var(--margin) 0;
+    margin: 0 0 vars.$margin 0;
 }
 
 fieldset {
@@ -12,11 +14,11 @@ fieldset {
 }
 
 label {
-    color: var(--color-primary);
+    color: vars.$color-primary;
     display: block;
     font-size: 0.9em;
-    font-weight: var(--font-bold);
-    margin: 0 0 (var(--margin) * 0.5) 0;
+    font-weight: vars.$font-bold;
+    margin: 0 0 calc((vars.$margin) * 0.5) 0;
 }
 
 input[type="text"],
@@ -27,10 +29,10 @@ input[type="search"],
 input[type="url"],
 select,
 textarea {
-    background: var(--color-bg);
-    border-radius: var(--radius);
+    background: vars.$color-bg;
+    border-radius: vars.$radius;
     border: none;
-    border: solid 1px #131313;
+    border: solid 1px vars.$color-base;
     color: inherit;
     display: block;
     outline: 0;
@@ -58,19 +60,19 @@ input[type="search"]:focus,
 input[type="url"]:focus,
 select:focus,
 textarea:focus {
-    border-color: #131313;
-    box-shadow: 0 0 0 1px #131313;
+    border-color: vars.$color-base;
+    box-shadow: 0 0 0 1px vars.$color-base;
 }
 
 select {
-    height: var(--height);
-    padding-right: var(--height);
+    height: vars.$height;
+    padding-right: vars.$height;
     text-overflow: ellipsis;
 }
 
 select option {
-    color: #131313;
-    background: var(--color-bg);
+    color: vars.$color-base;
+    background: vars.$color-bg;
 }
 
 select:focus::-ms-value {
@@ -89,7 +91,7 @@ input[type="tel"],
 input[type="search"],
 input[type="url"],
 select {
-    height: var(--height);
+    height: vars.$height;
 }
 
 textarea {
@@ -110,11 +112,11 @@ input[type="checkbox"] + label,
 input[type="radio"] + label {
     display: flex;
     align-items: center;
-    color: var(--color-base);
+    color: vars.$color-base;
     cursor: pointer;
     font-size: 1em;
-    font-weight: var(--font-normal);
-    padding-left: calc((var(--height) * 0.6) + 0.75em);
+    font-weight: vars.$font-normal;
+    padding-left: calc((vars.$height * 0.6) + 0.75em);
     padding-right: 2rem;
     position: relative;
     user-select: none;
@@ -122,15 +124,15 @@ input[type="radio"] + label {
 
 input[type="checkbox"] + label:before,
 input[type="radio"] + label:before {
-    background: var(--color-bg);
-    border-radius: var(--radius);
-    border: solid 1px #131313;
+    background: vars.$color-bg;
+    border-radius: vars.$radius;
+    border: solid 1px vars.$color-base;
     content: '';
     display: inline-block;
-    height: calc(var(--height) * 0.6);
-    line-height: calc(var(--height) * 0.56);
+    height: calc(vars.$height) * 0.6;
+    line-height: calc(vars.$height) * 0.56;
     text-align: center;
-    width: calc(var(--height) * 0.6);
+    width: calc(vars.$height) * 0.6;
     margin-right: 1rem;
 }
 
@@ -138,7 +140,7 @@ input[type="checkbox"]:checked + label:before,
 input[type="radio"]:checked + label:before {
     background: #000000;
     border-color: #000000;
-    color: var(--color-bg);
+    color: vars.$color-bg;
     content: '✓';
 }
 
@@ -150,7 +152,7 @@ input[type="radio"]:focus + label:before {
 
 
 input[type="checkbox"] + label:before {
-    border-radius: var(--radius);
+    border-radius: vars.$radius;
 }
 
 input[type="radio"] + label:before {

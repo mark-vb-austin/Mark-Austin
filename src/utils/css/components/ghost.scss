@@ -1,3 +1,5 @@
+@use "../vars.scss" as vars;
+
 /* Styling for Ghost-specific elements
 /* ---------------------------------------------------------- */
 
@@ -22,7 +24,7 @@
     font-size: 1.3rem;
     line-height: 1.4em;
     font-weight: 600;
-    color: var(--color-base);
+    color: vars.$color-base;
     text-align: center;
     opacity: 0.4;
 }

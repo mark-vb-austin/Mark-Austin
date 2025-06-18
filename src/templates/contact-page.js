@@ -6,8 +6,8 @@ import { navigate } from 'gatsby-link'
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-import "../utils/normalize.css"
-import "../utils/css/screen.css"
+import "../utils/normalize.scss"
+import "../utils/css/screen.scss"
 function encode(data) {
   return Object.keys(data)
     .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))

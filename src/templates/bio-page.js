@@ -4,13 +4,11 @@ import { graphql } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-// eslint-disable-next-line
-
 
 const BioPage = (props) => {
 
-
-    const { markdownRemark: post, site } = props.data;
+  const post = props.data.markdownRemark
+    const { site } = props.data;
 
     return (
         <Layout location={props.location} title={site.siteMetadata.title } social={site.siteMetadata.social}>
@@ -21,28 +19,33 @@ const BioPage = (props) => {
 
         />
         <article
-          className={`post-content ${post.frontmatter.thumbnail || `no-image`}`}
+          className={`post-content ${post.frontmatter.thumbnail.name || `no-image`}`}
         >
+       
           <header className="post-content-header">
             <h1 className="post-content-title">{post.frontmatter.title}</h1>
           </header>
+
           {post.frontmatter.description && (
             <p className="post-content-excerpt">{post.frontmatter.description}</p>
           )}
-          {post.frontmatter.thumbnail && (
+
+
+          {post.frontmatter.hero && (
             <div className="post-content-image">
               <GatsbyImage
-                image={getImage(post.frontmatter.thumbnail)}
-                className="kg-image"
+                image={getImage(post.frontmatter.hero)}
+                className="bio-page-hero"
                 alt={post.frontmatter.title} />
             </div>
           )}
+
           <div
             className="post-content-body"
             dangerouslySetInnerHTML={{ __html: post.html }}
           />
-          <footer className="post-content-footer">
-          </footer>
+
+          <footer className="post-content-footer"></footer>
         </article>
       </Layout>
     );
@@ -62,6 +65,7 @@ export const BioPageQuery = graphql`
           social{
             twitter
             facebook
+            instagram
           }
         }
       }
@@ -70,11 +74,18 @@ export const BioPageQuery = graphql`
           title
           description
           thumbnail {
+            name
             childImageSharp {
               gatsbyImageData
-            
             }
           }
+          hero {
+            name
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
+          templateKey
         }
         html
       }

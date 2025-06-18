@@ -49,7 +49,7 @@ const BlogPostTemplate = (props) => {
         />
         <div className="post-link">
           <div>
-          <a style={{ display: nextLinkStatus ? "flex" : 'none', alignItems: "center", color: "#131313", fontSize: "2rem" }} href={nextSlug} >
+          <a style={{ display: nextLinkStatus ? "flex" : 'none', alignItems: "center", color: "vars.$color-base", fontSize: "2rem" }} href={nextSlug} >
               <img src={LeftIcon} alt='' width={30} height={30} />
               <span>{pageContext.next ? pageContext.next.frontmatter.title : ""}
               </span>
@@ -57,7 +57,7 @@ const BlogPostTemplate = (props) => {
 
           </div>
           <div>
-          <a style={{ display: previousLinkStatus ? "flex" : 'none', alignItems: "center", color: "#131313", fontSize: "2rem" }} href={previousSlug}>
+          <a style={{ display: previousLinkStatus ? "flex" : 'none', alignItems: "center", color: "vars.$color-base", fontSize: "2rem" }} href={previousSlug}>
               <span>{pageContext.previous ? pageContext.previous.frontmatter.title : ""}
               </span>
               <img src={RightIcon} alt='' width={30} height={30} />
