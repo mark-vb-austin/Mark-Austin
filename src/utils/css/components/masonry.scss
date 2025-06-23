@@ -1,0 +1,18 @@
+.masonry-grid {
+  display: -webkit-box; /* Not needed with JS lib but doesn't hurt */
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: -1rem; /* gutter size offset */
+  width: auto;
+}
+
+.masonry-grid_column {
+  padding-left: 1rem; /* gutter size */
+  background-clip: padding-box;
+}
+
+.masonry-grid_column > * {
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  overflow: hidden;
+}
