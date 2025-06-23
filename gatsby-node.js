@@ -1,12 +1,11 @@
-const path = require("path");
-const { createFilePath } = require("gatsby-source-filesystem");
+const path = require(`path`);
+const { createFilePath } = require(`gatsby-source-filesystem`);
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
-  
 
-  // 1. Handle markdown pages (blog, work-sub-page, exhibitions, etc.)
-  const markdownResult = await graphql(`
+  // Query all markdown content
+  const result = await graphql(`
     {
       allMarkdownRemark(limit: 1000, sort: { frontmatter: { date: DESC } }) {
         edges {
@@ -26,48 +25,106 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     }
   `);
 
-  if (markdownResult.errors) throw markdownResult.errors;
+  if (result.errors) {
+    reporter.panicOnBuild(`Error while running GraphQL query.`, result.errors);
+    return;
+  }
 
-  
-  const posts = markdownResult.data.allMarkdownRemark.edges;
+  const posts = result.data.allMarkdownRemark.edges;
 
-  const templates = {
-    "blog-post": "blog-post.js",
-    "work-sub-page": "work-sub-page.js",
-    "exhibitions-sub-page": "exhibitions-sub-page.js",
-  };
+  // Create blog post pages
+  const blogPosts = posts.filter(
+    item => item.node.frontmatter.templateKey === "blog-post"
+  );
+  blogPosts.forEach((post, index) => {
+    const previous = index === blogPosts.length - 1 ? null : blogPosts[index + 1].node;
+    const next = index === 0 ? null : blogPosts[index - 1].node;
 
-  posts.forEach((post, index) => {
-    const templateKey = post.node.frontmatter.templateKey;
-    const slug = post.node.fields.slug;
-    // const shortPath = slug.split("/").slice(2, -1).join("/") || "/";
-
-    if (!templates[templateKey]) {
-      reporter.warn(`No template found for templateKey: ${templateKey}`);
-      return;
-    }
-
-    if (templates[templateKey]) {
-      createPage({
-        path: slug,
-        component: path.resolve(`src/templates/${templates[templateKey]}`),
-        context: {
-          slug,
-          previous: index < posts.length - 1 ? posts[index + 1].node : null,
-          next: index > 0 ? posts[index - 1].node : null,
-        },
-      });
-    } else {
-      createPage({
-        path: slug,
-        component: path.resolve(`src/templates/${templateKey}.js`),
-        context: { slug },
-      });
-    }
+    createPage({
+      path:
+        post.node.fields.slug.split("/").slice(2, -1).join("/") === ""
+          ? "/"
+          : `/${post.node.fields.slug.split("/").slice(2, -1).join("/")}`,
+      component: path.resolve(`src/templates/blog-post.js`),
+      context: {
+        slug: post.node.fields.slug,
+        previous,
+        next,
+      },
+    });
   });
 
-  // 2. Handle dynamic album pages from images
-  const albumsResult = await graphql(`
+  // Create work sub-pages
+  const workPages = posts.filter(
+    item => item.node.frontmatter.templateKey === "work-sub-page"
+  );
+  workPages.forEach((post, index) => {
+    const previous = index === workPages.length - 1 ? null : workPages[index + 1].node;
+    const next = index === 0 ? null : workPages[index - 1].node;
+
+    createPage({
+      path:
+        post.node.fields.slug.split("/").slice(2, -1).join("/") === ""
+          ? "/"
+          : `/${post.node.fields.slug.split("/").slice(2, -1).join("/")}`,
+      component: path.resolve(`src/templates/work-sub-page.js`),
+      context: {
+        slug: post.node.fields.slug,
+        previous,
+        next,
+      },
+    });
+  });
+
+  // Create exhibitions sub-pages
+  const exhibitionsPages = posts.filter(
+    item => item.node.frontmatter.templateKey === "exhibitions-sub-page"
+  );
+  exhibitionsPages.forEach((post, index) => {
+    const previous = index === exhibitionsPages.length - 1 ? null : exhibitionsPages[index + 1].node;
+    const next = index === 0 ? null : exhibitionsPages[index - 1].node;
+
+    createPage({
+      path:
+        post.node.fields.slug.split("/").slice(2, -1).join("/") === ""
+          ? "/"
+          : `/${post.node.fields.slug.split("/").slice(2, -1).join("/")}`,
+      component: path.resolve(`src/templates/exhibitions-sub-page.js`),
+      context: {
+        slug: post.node.fields.slug,
+        previous,
+        next,
+      },
+    });
+  });
+
+  // Catch-all for other templateKey values
+  const otherPages = posts.filter(
+    item =>
+      item.node.frontmatter.templateKey !== "blog-post" &&
+      item.node.frontmatter.templateKey !== "work-sub-page" &&
+      item.node.frontmatter.templateKey !== "exhibitions-sub-page"
+  );
+  otherPages.forEach((post, index) => {
+    const previous = index === otherPages.length - 1 ? null : otherPages[index + 1].node;
+    const next = index === 0 ? null : otherPages[index - 1].node;
+
+    createPage({
+      path:
+        post.node.fields.slug.split("/").slice(2, -1).join("/") === ""
+          ? "/"
+          : `/${post.node.fields.slug.split("/").slice(2, -1).join("/")}`,
+      component: path.resolve(`src/templates/${post.node.frontmatter.templateKey}.js`),
+      context: {
+        slug: post.node.fields.slug,
+        // previous,
+        // next,
+      },
+    });
+  });
+
+  // Create dynamic album pages from folders in /static/img/work
+  const albumResult = await graphql(`
     {
       allFile(filter: { sourceInstanceName: { eq: "work" } }) {
         nodes {
@@ -77,33 +134,31 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     }
   `);
 
-  if (albumsResult.errors) {
-    reporter.panic("Error loading albums", albumsResult.errors);
+  if (albumResult.errors) {
+    reporter.panic("Error loading images", albumResult.errors);
+    return;
   }
 
   const albums = Array.from(
-    new Set(albumsResult.data.allFile.nodes.map(node => node.relativeDirectory))
+    new Set(albumResult.data.allFile.nodes.map(node => node.relativeDirectory))
   );
 
   albums.forEach(album => {
     createPage({
       path: `/work/${album}`,
       component: path.resolve(`./src/templates/work-sub-page.js`),
-      context: { 
-        album,
-        slug: `/work/${album}/`, // or however your slugs are structured
-      },
+      context: { album },
     });
   });
 };
 
-// For generating slugs for markdown content
+// Add slug field to markdown nodes
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
-  if (node.internal.type === "MarkdownRemark") {
+  if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode });
     createNodeField({
-      name: "slug",
+      name: `slug`,
       node,
       value,
     });
