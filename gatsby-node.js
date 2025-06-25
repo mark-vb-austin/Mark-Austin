@@ -30,8 +30,13 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     return;
   }
 
-  const posts = result.data.allMarkdownRemark.edges;
-
+  // Filter out posts that do not have a templateKey or are albums
+  const posts = result.data.allMarkdownRemark.edges.filter(edge => {
+    const filePath = edge.node.fields.slug || '';
+    const templateKey = edge.node.frontmatter.templateKey;
+    return templateKey && !filePath.includes('/album');
+  });
+  
   // Create blog post pages
   const blogPosts = posts.filter(
     item => item.node.frontmatter.templateKey === "blog-post"
@@ -114,7 +119,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         post.node.fields.slug.split("/").slice(2, -1).join("/") === ""
           ? "/"
           : `/${post.node.fields.slug.split("/").slice(2, -1).join("/")}`,
-      component: path.resolve(`src/templates/${post.node.frontmatter.templateKey}.js`),
+      component: path.resolve(
+        `src/templates/${post.node.frontmatter.templateKey}.js`
+      ), //
       context: {
         slug: post.node.fields.slug,
         // previous,
@@ -143,11 +150,21 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     new Set(albumResult.data.allFile.nodes.map(node => node.relativeDirectory))
   );
 
-  albums.forEach(album => {
+  albums.forEach(dir => {
+    const parts = dir.split("/"); // ['2024', 'album-one']
+    if (parts.length !== 2) return;
+
+    const [year, album] = parts;
+
     createPage({
-      path: `/work/${album}`,
+      path: `/work/${year}/${album}/`,
       component: path.resolve(`./src/templates/work-sub-page.js`),
-      context: { album },
+      context: {
+        year,
+        album,
+        relativeDirectory: dir, // used in GraphQL query to find .md file
+        regex: `/${dir}/`,
+      },
     });
   });
 };

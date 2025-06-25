@@ -7,6 +7,7 @@ const WorkSubPage = ({ data, pageContext }) => {
   const { album } = pageContext
   const siteTitle = data.site.siteMetadata.title;
   const social = data.site.siteMetadata.social;
+  // const albumData = data.frontmatter;
   
  const getLastDir = (path) => {
     const parts = path.split('/')    
@@ -28,17 +29,26 @@ const WorkSubPage = ({ data, pageContext }) => {
           />
         ))}
       </div>
+      <p>
+        <br/>
+        {console.log(data)}
+        {/* {data.frontmatter.title} */}
+        {/* <br/>
+        {albumData.description}
+        <br/>
+        {albumData.date} */}
+      </p>
     </div>
          </Layout>
   )
 }
 
 export const query = graphql`
-  query($album: String!) {
+  query($relativeDirectory: String!, $regex: String!) {
     allFile(
       filter: {
         sourceInstanceName: { eq: "work" }
-        relativeDirectory: { eq: $album }
+        relativeDirectory: { eq: $relativeDirectory }
         extension: { regex: "/(jpg|jpeg|png)/" }
       }
     ) {
@@ -56,9 +66,16 @@ export const query = graphql`
          social{
            facebook
            instagram
-         }
-       }
-     }
+        }
+      }
+    }
+    markdownRemark(fileAbsolutePath: { regex: $regex }) {
+      frontmatter {
+        title
+        description
+        date(formatString: "MMMM D, YYYY")
+      }
+    }
   }
 `
 
