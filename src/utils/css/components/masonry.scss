@@ -1,18 +1,112 @@
 .masonry-grid {
-  display: -webkit-box; /* Not needed with JS lib but doesn't hurt */
+  display: -webkit-box;
+  /* Not needed with JS lib but doesn't hurt */
   display: -ms-flexbox;
   display: flex;
-  margin-left: -1rem; /* gutter size offset */
+  margin-left: -1rem;
+  /* gutter size offset */
   width: auto;
+  margin-top: 4rem;
 }
 
 .masonry-grid_column {
-  padding-left: 1rem; /* gutter size */
+  padding-left: 1rem;
+  /* gutter size */
   background-clip: padding-box;
 }
 
 .masonry-grid_column > * {
   margin-bottom: 1rem;
-  border-radius: 12px;
   overflow: hidden;
+}
+
+.masonry-grid_column .column-item {
+  transition:
+    transform 1s linear,
+    filter 1s linear opacity 1s ease-in;
+  transform-origin: 50% 50%; //fixes issue with font bluring on scale
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem;
+  width: 100%;
+
+  .column-wrap {
+    border-radius: 8px;
+  }
+
+  .masonry__titles {
+    opacity: 0;
+    text-decoration: none;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 2;
+    color: #fff;
+    transition: all .5s linear;
+
+    h2 {
+      font-size: 1.25em;
+      font-family: Roboto, Helvetica, Arial, sans-serif;
+      font-weight: bold;
+    }
+
+    h3 {
+      font-size: 1.125em;
+    }
+
+    .hl {
+      background-color: rgb(176, 142, 33);
+      height: 2px;
+      width: 50%;
+      margin: 10px auto;
+    }
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    object-fit: cover;
+    object-position: center center;
+    background-position: center;
+    background-size: cover;
+    max-width: 100%;
+    border-radius: 0;
+    transition: transform .5s linear, filter .5s linear;
+  }
+
+  &:hover {
+    transform: scale(0.97);
+
+    .masonry__titles {
+      transform: scale(1.15);
+      transition: transform .2s linear;
+    }
+
+    img {
+      filter: brightness(40%) blur(1px);
+      transform: scale(1.15);
+      transition:
+        transform .2 linear,
+        filter .2 linear;
+    }
+
+    .masonry__titles {
+      opacity: 1;
+      transition: opacity .2s linear;
+    }
+  }
 }

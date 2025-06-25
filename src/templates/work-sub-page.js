@@ -1,13 +1,23 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import Layout from "../components/layout"
 
 const WorkSubPage = ({ data, pageContext }) => {
   const { album } = pageContext
+  const siteTitle = data.site.siteMetadata.title;
+  const social = data.site.siteMetadata.social;
+  
+ const getLastDir = (path) => {
+    const parts = path.split('/')    
+    return parts[parts.length - 1]
+  }
 
   return (
+    <Layout location={data.location} title={siteTitle} social={social}>
+
     <div>
-      <h1>{album}</h1>
+      <h1>{getLastDir(album)}</h1>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
         {data.allFile.nodes.map(file => (
           <GatsbyImage
@@ -19,6 +29,7 @@ const WorkSubPage = ({ data, pageContext }) => {
         ))}
       </div>
     </div>
+         </Layout>
   )
 }
 
@@ -39,6 +50,15 @@ export const query = graphql`
         }
       }
     }
+    site {
+       siteMetadata {
+         title
+         social{
+           facebook
+           instagram
+         }
+       }
+     }
   }
 `
 
