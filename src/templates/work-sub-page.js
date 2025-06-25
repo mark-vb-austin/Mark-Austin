@@ -2,6 +2,8 @@ import React from "react"
 import { graphql } from "gatsby"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
+import Seo from "../components/seo";
+import Masonry from "react-masonry-css";
 
 const WorkSubPage = ({ data, pageContext }) => {
   const { album } = pageContext
@@ -14,21 +16,33 @@ const WorkSubPage = ({ data, pageContext }) => {
     return parts[parts.length - 1]
   }
 
+  const breakpointColumnsObj = {
+    default: 4,
+    1100: 3,
+    700: 2,
+    500: 1,
+  };
+
   return (
     <Layout location={data.location} title={siteTitle} social={social}>
 
     <div>
       <h1>{getLastDir(album)}</h1>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
+      <Masonry
+        breakpointCols={breakpointColumnsObj}
+        className="masonry-grid"
+        columnClassName="masonry-grid_column"
+      >
         {data.allFile.nodes.map(file => (
           <GatsbyImage
             key={file.id}
             image={getImage(file.childImageSharp.gatsbyImageData)}
             alt={file.name}
-            style={{ width: 300, height: 200 }}
+            // style={{ width: 300, height: 200 }}
           />
         ))}
-      </div>
+      </Masonry>
+
       <p>
         <br/>
         {console.log(data)}
@@ -56,7 +70,7 @@ export const query = graphql`
         id
         name
         childImageSharp {
-          gatsbyImageData(width: 300, height: 200, placeholder: BLURRED)
+          gatsbyImageData(placeholder: BLURRED)
         }
       }
     }
