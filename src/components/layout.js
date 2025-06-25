@@ -65,17 +65,13 @@ const Layout = (props) => {
 
           <div className="site-head-right">
             <div className="social-links">
-              {/* <Link to={`https://facebook.com/${social.facebook}`} title="Facebook" target="_blank" rel="noopener noreferrer">
+              <Link to={`https://facebook.com/${social.facebook}`} title="Facebook" target="_blank" rel="noopener noreferrer">
                 Facebook
-              </Link> */}
+              </Link>
            
               <Link to={`https://instagram.com/${social.instagram}`} title="Instagram" target="_blank" rel="noopener noreferrer">
                 Instagram
               </Link>
-         
-              {/* <Link to={`https://twitter.com/${social.twitter}`} title="Twitter" target="_blank" rel="noopener noreferrer">
-                Twitter
-              </Link> */}
             </div>
           </div>
 

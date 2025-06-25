@@ -14,7 +14,6 @@ const WorkPage = ({ data }) => {
     default: 4,
     1100: 3,
     700: 2,
-    500: 1,
   };
 
   // Get last Durectory from path
@@ -68,6 +67,14 @@ const WorkPage = ({ data }) => {
         }
       />
 
+      <div class="container-fluid !direction !spacing">
+        <div className="row">
+          <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+       
+
+
+
+
       <Masonry
         breakpointCols={breakpointColumnsObj}
         className="masonry-grid"
@@ -96,6 +103,11 @@ const WorkPage = ({ data }) => {
           </Link>
         ))}
       </Masonry>
+      
+    
+          </div>
+        </div>
+      </div>
     </Layout>
   );
 };

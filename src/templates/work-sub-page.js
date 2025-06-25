@@ -1,20 +1,35 @@
-import React from "react"
-import { graphql } from "gatsby"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
-import Layout from "../components/layout"
+import React, { useState } from "react";
+import { graphql } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import Layout from "../components/layout";
 import Seo from "../components/seo";
 import Masonry from "react-masonry-css";
 
+// Importing Lightbox and its plugins
+import Lightbox from "yet-another-react-lightbox";
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import "yet-another-react-lightbox/styles.css";
+import "yet-another-react-lightbox/plugins/thumbnails.css";
+
 const WorkSubPage = ({ data, pageContext }) => {
-  const { album } = pageContext
+  const { year, album } = pageContext;
+    const images = data.allFile.nodes;
+
   const siteTitle = data.site.siteMetadata.title;
   const social = data.site.siteMetadata.social;
-  // const albumData = data.frontmatter;
-  
- const getLastDir = (path) => {
-    const parts = path.split('/')    
-    return parts[parts.length - 1]
-  }
+  const meta = data.markdownRemark?.frontmatter;
+
+  const getLastDir = (path) => {
+    const parts = path.split("/");
+    return parts[parts.length - 1];
+  };
+
+    const [index, setIndex] = useState(-1);
+
+  const slides = images.map(file => ({
+  src: file.childImageSharp?.gatsbyImageData.images.fallback.src,
+    alt: file.name,
+  }));
 
   const breakpointColumnsObj = {
     default: 4,
@@ -25,40 +40,44 @@ const WorkSubPage = ({ data, pageContext }) => {
 
   return (
     <Layout location={data.location} title={siteTitle} social={social}>
-
-    <div>
-      <h1>{getLastDir(album)}</h1>
+      <Seo title={meta?.title || album} description={meta?.description} />
+      <h1>{meta?.title || album}</h1>
+      {meta?.description && <p>{meta.description}</p>}
+      {meta?.date && <small>{meta.date}</small>}
       <Masonry
         breakpointCols={breakpointColumnsObj}
         className="masonry-grid"
         columnClassName="masonry-grid_column"
       >
-        {data.allFile.nodes.map(file => (
-          <GatsbyImage
+        {images.map((file, i) => (
+          <div
             key={file.id}
-            image={getImage(file.childImageSharp.gatsbyImageData)}
-            alt={file.name}
-            // style={{ width: 300, height: 200 }}
-          />
+            onClick={() => setIndex(i)}
+            style={{ cursor: "pointer" }}
+          >
+            <GatsbyImage
+              key={file.id}
+              image={getImage(file.childImageSharp.gatsbyImageData)}
+              alt={file.name}
+              // style={{ width: 300, height: 200 }}
+            />
+          </div>
         ))}
       </Masonry>
 
-      <p>
-        <br/>
-        {console.log(data)}
-        {/* {data.frontmatter.title} */}
-        {/* <br/>
-        {albumData.description}
-        <br/>
-        {albumData.date} */}
-      </p>
-    </div>
-         </Layout>
-  )
-}
+      <Lightbox
+        open={index >= 0}
+        index={index}
+        close={() => setIndex(-1)}
+        slides={slides}
+        plugins={[Thumbnails]}
+      />
+    </Layout>
+  );
+};
 
 export const query = graphql`
-  query($relativeDirectory: String!, $regex: String!) {
+  query ($relativeDirectory: String!, $regex: String!) {
     allFile(
       filter: {
         sourceInstanceName: { eq: "work" }
@@ -75,11 +94,11 @@ export const query = graphql`
       }
     }
     site {
-       siteMetadata {
-         title
-         social{
-           facebook
-           instagram
+      siteMetadata {
+        title
+        social {
+          facebook
+          instagram
         }
       }
     }
@@ -91,10 +110,9 @@ export const query = graphql`
       }
     }
   }
-`
+`;
 
-export default WorkSubPage
-
+export default WorkSubPage;
 
 // import React from "react"
 // import { graphql } from "gatsby"
@@ -105,7 +123,6 @@ export default WorkSubPage
 // import Layout from "../components/layout"
 // import Seo from "../components/seo"
 // import { GatsbyImage, getImage } from "gatsby-plugin-image"
-
 
 // const BlogPostTemplate = (props, pageContext) => {
 //   const { album } = pageContext
@@ -122,16 +139,14 @@ export default WorkSubPage
 //   // const albumName = pageContextProps.albumName
 
 //   // const images = props.data.allFile.nodes
-  
+
 //   // const breakpointColumnsObj = {
 //   //   default: 4,
 //   //   1100: 3,
 //   //   700: 2,
 //   //   500: 1,
-//   // }  
-  
+//   // }
 
-  
 //   return (
 //     <Layout location={props.location} title={siteTitle} social={social}>
 //       <Seo
@@ -157,7 +172,7 @@ export default WorkSubPage
 //           ))}
 //         </div>
 //       </div>
-      
+
 //         {/* <header className="post-content-header">
 //           <h1 className="post-content-title">{post.frontmatter.title}</h1>
 //         </header> */}
@@ -286,10 +301,10 @@ export default WorkSubPage
 //         thumbnail {
 //           childImageSharp {
 //             gatsbyImageData(layout: FULL_WIDTH)
-        
+
 //           }
 //         }
-  
+
 //       }
 //     }
 //   }

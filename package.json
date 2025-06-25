@@ -5,6 +5,7 @@
   "version": "1.0.0",
   "author": "Travis lord <travis.lord89@gmail.com> & Abdul Waqar <abdulwaqar844@gmail.com>",
   "dependencies": {
+    "bootstrap": "^5.3.7",
     "gatsby": "^5.13.7",
     "gatsby-plugin-feed": "^5.13.1",
     "gatsby-plugin-google-analytics": "^5.13.1",
@@ -35,6 +36,7 @@
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
     "react-masonry-css": "^1.0.16",
+    "react-transition-group": "^4.4.5",
     "remark-mdx": "3.1.0",
     "sass": "^1.89.2",
     "sass-loader": "^16.0.5",

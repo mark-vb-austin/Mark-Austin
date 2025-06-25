@@ -9,12 +9,12 @@ module.exports = {
     author: siteConfig.author,
     description: siteConfig.description,
     image: siteConfig.image,
-    siteUrl: "https://clay-gatsby.netlify.app/",
+    siteUrl: "markaustin.photo",
     social: {
-      twitter: siteConfig.twitter,
-      facebook: siteConfig.facebook,
-      github: siteConfig.github,
       instagram: siteConfig.instagram,
+      facebook: siteConfig.facebook,
+      twitter: siteConfig.twitter,
+      github: siteConfig.github,
     },
   },
   plugins: [

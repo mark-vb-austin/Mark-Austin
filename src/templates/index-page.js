@@ -43,7 +43,7 @@ export const IndexPageQuery = graphql`
         siteMetadata {
           title
           social{
-            twitter
+            instagram
             facebook
           }    
         }
