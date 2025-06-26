@@ -13,7 +13,7 @@ import "yet-another-react-lightbox/plugins/thumbnails.css";
 
 const WorkSubPage = ({ data, pageContext }) => {
   const { year, album } = pageContext;
-    const images = data.allFile.nodes;
+  const images = data.allFile.nodes;
 
   const siteTitle = data.site.siteMetadata.title;
   const social = data.site.siteMetadata.social;
@@ -24,10 +24,10 @@ const WorkSubPage = ({ data, pageContext }) => {
     return parts[parts.length - 1];
   };
 
-    const [index, setIndex] = useState(-1);
+  const [index, setIndex] = useState(-1);
 
-  const slides = images.map(file => ({
-  src: file.childImageSharp?.gatsbyImageData.images.fallback.src,
+  const slides = images.map((file) => ({
+    src: file.childImageSharp?.gatsbyImageData.images.fallback.src,
     alt: file.name,
   }));
 
@@ -40,10 +40,11 @@ const WorkSubPage = ({ data, pageContext }) => {
 
   return (
     <Layout location={data.location} title={siteTitle} social={social}>
-      <Seo title={meta?.title || album} description={meta?.description} />
+      {/* <Seo title={meta?.title || album} description={meta?.description} /> */}
       <h1>{meta?.title || album}</h1>
       {meta?.description && <p>{meta.description}</p>}
       {meta?.date && <small>{meta.date}</small>}
+
       <Masonry
         breakpointCols={breakpointColumnsObj}
         className="masonry-grid"
@@ -66,11 +67,27 @@ const WorkSubPage = ({ data, pageContext }) => {
       </Masonry>
 
       <Lightbox
+        slides={slides}
         open={index >= 0}
         index={index}
         close={() => setIndex(-1)}
-        slides={slides}
+        animation={{ swipe: 0, fade: 300 }} // ✅ kills only the broken animation
         plugins={[Thumbnails]}
+        thumbnails={{ vignette: false }}
+        //  render={{
+        //   iconPrev: () => <div style={{ fontSize: "3rem" }}>←</div>,
+        //   iconNext: () => <div style={{ fontSize: "3rem" }}>→</div>,
+        //    iconClose: () => <div style={{ fontSize: "3rem" }}>→</div>,
+        // }}
+        styles={{
+          slide: {
+            backdropFilter: "blur(5px)",
+          },
+          image: {
+            objectFit: "contain",
+            maxHeight: "10vh", 
+          },
+        }}
       />
     </Layout>
   );
@@ -89,7 +106,14 @@ export const query = graphql`
         id
         name
         childImageSharp {
-          gatsbyImageData(placeholder: BLURRED)
+          gatsbyImageData(
+            # layout: CONSTRAINED
+            # quality: 100
+            width: 1600
+            # webpOptions: { quality: 100 }
+            # jpgOptions: { progressive: true, quality: 100 }
+            placeholder: BLURRED
+          )
         }
       }
     }

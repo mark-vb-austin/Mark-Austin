@@ -9,7 +9,7 @@ module.exports = {
     author: siteConfig.author,
     description: siteConfig.description,
     image: siteConfig.image,
-    siteUrl: "markaustin.photo",
+    siteUrl: "https://markaustin.photo",
     social: {
       instagram: siteConfig.instagram,
       facebook: siteConfig.facebook,
