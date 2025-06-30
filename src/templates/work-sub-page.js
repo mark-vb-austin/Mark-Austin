@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { graphql } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Layout from "../components/layout";
@@ -11,10 +11,22 @@ import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 
+import LeftIcon from "../img/left-icon.svg";
+import RightIcon from "../img/right-icon.svg";
+
+import Camera from "../../static/icons/icon--camera.svg";
+import CameraLens from "../../static/icons/icon--camera-lens.svg";
+
+import exifData from "../img/exif-data.json";
+
+import "yet-another-react-lightbox/styles.css"; 
+import { Helmet } from "react-helmet";
+
 const WorkSubPage = ({ data, pageContext }) => {
   const { year, album } = pageContext;
   const images = data.allFile.nodes;
 
+  const { pageContextProps } = data;
   const siteTitle = data.site.siteMetadata.title;
   const social = data.site.siteMetadata.social;
   const meta = data.markdownRemark?.frontmatter;
@@ -26,70 +38,143 @@ const WorkSubPage = ({ data, pageContext }) => {
 
   const [index, setIndex] = useState(-1);
 
-  const slides = images.map((file) => ({
-    src: file.childImageSharp?.gatsbyImageData.images.fallback.src,
-    alt: file.name,
-  }));
+  const slides = images.map((file) => {
+    const lookupKey = `work/${file.relativePath.replace(/^work\//, "")}`;
+    const meta = exifData[lookupKey] || {};
+ 
+    return {
+      src: file.childImageSharp.gatsbyImageData.images.fallback.src,
+      alt: file.name,
+      meta,
+    };
+  });
+
+  function LightboxSlide({ slide }) {
+    return (
+      <figure className="lightbox-figure__wrap">
+        <img src={slide.src} alt="" />
+        <figcaption className="exif-image-data__wrap">
+          {slide.meta && (
+            <section>
+                <ul>
+                <li><span aria-hidden="true"><img src={Camera} alt='' width={20} height={20} /></span> {slide.meta.Model || "n/a"}</li>
+                <li><span aria-hidden="true"><img src={CameraLens} alt='' width={18} height={18} /></span> {slide.meta.Lens || "n/a"}</li>
+                </ul>
+
+                <dl>
+                {slide.meta.FocalLength && (
+                  <div>
+                    <dt>Focal Length:</dt>
+                    <dd>{slide.meta.FocalLength  || "n/a"}<small> ({slide.meta.FocalLengthIn35mmFormat || "n/a"} equiv)</small></dd>
+                  </div>
+                )}
+                <div>
+                  <dt>Aperture:</dt>
+                  <dd>{slide.meta.FNumber ? `ƒ/${slide.meta.FNumber}` : "n/a"}</dd>
+                </div>
+                <div>
+                  <dt>Shutter Speed:</dt>
+                  <dd>{slide.meta.ExposureTime || "n/a"}</dd>
+                </div>
+                <div>
+                  <dt>ISO:</dt>
+                  <dd>{slide.meta.ISO || "n/a"}</dd>
+                </div>
+                {slide.meta.DateTimeOriginal && (
+                  <div>
+                    <dt>Date:</dt>
+                    <dd>{new Date(0, (slide.meta.DateTimeOriginal.month || 0) - 1).toLocaleString('default', { month: 'short' }) || "n/a"} {slide.meta.DateTimeOriginal.year || "n/a"}</dd>
+                  </div>
+                )}
+                </dl>
+            </section>
+          )}
+            
+        </figcaption>
+      </figure>
+    )
+}
 
   const breakpointColumnsObj = {
     default: 4,
     1100: 3,
     700: 2,
-    500: 1,
+    // 500: 1,
   };
+  
+  // Format the month number to a short month name
+  const shortMonth = new Date(0, 7 - 1).toLocaleString('default', { month: 'short' });
 
   return (
-    <Layout location={data.location} title={siteTitle} social={social}>
-      {/* <Seo title={meta?.title || album} description={meta?.description} /> */}
-      <h1>{meta?.title || album}</h1>
-      {meta?.description && <p>{meta.description}</p>}
-      {meta?.date && <small>{meta.date}</small>}
+    <>
+      <Helmet>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+          rel="stylesheet"
+        />
+      </Helmet>
 
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className="masonry-grid"
-        columnClassName="masonry-grid_column"
-      >
-        {images.map((file, i) => (
-          <div
-            key={file.id}
-            onClick={() => setIndex(i)}
-            style={{ cursor: "pointer" }}
-          >
-            <GatsbyImage
-              key={file.id}
-              image={getImage(file.childImageSharp.gatsbyImageData)}
-              alt={file.name}
-              // style={{ width: 300, height: 200 }}
-            />
+      <Layout location={data.location} title={siteTitle} social={social}>
+        {/* <Seo title={meta?.title || album} description={meta?.description} /> */}
+        <h1>{meta?.title || album}</h1>
+        {meta?.description && <p>{meta.description}</p>}
+        {meta?.date && <small>{meta.date}</small>}
+
+        <div class="container-fluid !direction !spacing">
+          <div className="row">
+            <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+              <Masonry
+                breakpointCols={breakpointColumnsObj}
+                className="masonry-grid"
+                columnClassName="masonry-grid_column"
+              >
+                {images.map((file, i) => (
+                  <div
+                    key={file.id}
+                    onClick={() => setIndex(i)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <GatsbyImage
+                      key={file.id}
+                      image={getImage(file.childImageSharp.gatsbyImageData)}
+                      alt={file.name}
+                      // style={{ width: 300, height: 200 }}
+                    />
+                  </div>
+                ))}
+              </Masonry>
+            </div>
           </div>
-        ))}
-      </Masonry>
+        </div>
 
-      <Lightbox
-        slides={slides}
-        open={index >= 0}
-        index={index}
-        close={() => setIndex(-1)}
-        animation={{ swipe: 0, fade: 300 }} // ✅ kills only the broken animation
-        plugins={[Thumbnails]}
-        thumbnails={{ vignette: false }}
-        //  render={{
-        //   iconPrev: () => <div style={{ fontSize: "3rem" }}>←</div>,
-        //   iconNext: () => <div style={{ fontSize: "3rem" }}>→</div>,
-        //    iconClose: () => <div style={{ fontSize: "3rem" }}>→</div>,
-        // }}
-        styles={{
-          slide: {
-            backdropFilter: "blur(5px)",
-          },
-          image: {
-            objectFit: "contain",
-            maxHeight: "10vh", 
-          },
-        }}
-      />
-    </Layout>
+        <Lightbox
+          slides={slides}
+          open={index >= 0}
+          index={index}
+          close={() => setIndex(-1)}
+          animation={{ swipe: 0, fade: 300 }} // ✅ kills only the broken animation
+          plugins={slides.length > 1 ? [Thumbnails] : []}
+          thumbnails={{ vignette: false }}
+          carousel={{ finite: true }}
+          render={{
+            slide: ({ slide }) => <LightboxSlide slide={slide} />, 
+            iconPrev: slides.length > 1 ? undefined : () => null,
+            iconNext: slides.length > 1 ? undefined : () => null,
+          }}
+          styles={{
+            slide: {
+              backdropFilter: "blur(5px)",
+            },
+            image: {
+              objectFit: "contain",
+              maxHeight: "10vh",
+            },
+          }}
+        />
+      </Layout>
+    </>
   );
 };
 
@@ -105,6 +190,7 @@ export const query = graphql`
       nodes {
         id
         name
+        relativePath
         childImageSharp {
           gatsbyImageData(
             # layout: CONSTRAINED
@@ -140,36 +226,37 @@ export default WorkSubPage;
 
 // import React from "react"
 // import { graphql } from "gatsby"
-// // import Masonry from "react-masonry-css"
-// // import { GatsbyImage, getImage } from "gatsby-plugin-image";
-// // import LeftIcon from '../img/left-icon.svg'
-// // import RightIcon from '../img/right-icon.svg'
+// import Masonry from "react-masonry-css"
+// import { GatsbyImage, getImage } from "gatsby-plugin-image";
+// import LeftIcon from '../img/left-icon.svg'
+// import RightIcon from '../img/right-icon.svg'
 // import Layout from "../components/layout"
 // import Seo from "../components/seo"
 // import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 // const BlogPostTemplate = (props, pageContext) => {
-//   const { album } = pageContext
+// const { album } = pageContext
 
-//   const { pageContextProps } = props
-//   const post = props.data.markdownRemark
-//   const siteTitle = props.data.site.siteMetadata.title
-//   const social = props.data.site.siteMetadata.social
-//   // const nextSlug = pageContextProps?.next ? pageContextProps?.next?.fields?.slug.split('/').slice(2, -1).join('/') === '' ? '/' :`/${pageContextProps.next.fields.slug.split('/').slice(2, -1).join('/')}` : '/';
-//   // const previousSlug = pageContextProps.previous ? pageContextProps?.previous?.fields?.slug?.split('/').slice(2, -1).join('/') === '' ? '/' :`/${pageContextProps.previous.fields.slug.split('/').slice(2, -1).join('/')}` : "/"
-//   // const nextLinkStatus = pageContextProps?.next ? pageContextProps?.next?.frontmatter?.templateKey === 'work-sub-page' ? true : false : false
-//   // const previousLinkStatus = pageContextProps?.previous ? pageContextProps?.previous?.frontmatter?.templateKey === 'work-sub-page' ? true : false : false
+// const { pageContextProps } = props
+// const post = props.data.markdownRemark
+// const siteTitle = props.data.site.siteMetadata.title
+// const social = props.data.site.siteMetadata.social
 
-//   // const albumName = pageContextProps.albumName
+// const nextSlug = pageContextProps?.next ? pageContextProps?.next?.fields?.slug.split('/').slice(2, -1).join('/') === '' ? '/' :`/${pageContextProps.next.fields.slug.split('/').slice(2, -1).join('/')}` : '/';
+// const previousSlug = pageContextProps.previous ? pageContextProps?.previous?.fields?.slug?.split('/').slice(2, -1).join('/') === '' ? '/' :`/${pageContextProps.previous.fields.slug.split('/').slice(2, -1).join('/')}` : "/"
+// const nextLinkStatus = pageContextProps?.next ? pageContextProps?.next?.frontmatter?.templateKey === 'work-sub-page' ? true : false : false
+// const previousLinkStatus = pageContextProps?.previous ? pageContextProps?.previous?.frontmatter?.templateKey === 'work-sub-page' ? true : false : false
 
-//   // const images = props.data.allFile.nodes
+// const albumName = pageContextProps.albumName
 
-//   // const breakpointColumnsObj = {
-//   //   default: 4,
-//   //   1100: 3,
-//   //   700: 2,
-//   //   500: 1,
-//   // }
+// const images = props.data.allFile.nodes
+
+// const breakpointColumnsObj = {
+// default: 4,
+// 1100: 3,
+// 700: 2,
+// 500: 1,
+// }
 
 //   return (
 //     <Layout location={props.location} title={siteTitle} social={social}>
@@ -264,7 +351,7 @@ export default WorkSubPage;
 //           dangerouslySetInnerHTML={{ __html: post.html }}
 //         /> */}
 
-//         {/* <div className="post-link">
+//         <div className="post-link">
 //           <div>
 //           <a style={{ display: nextLinkStatus ? "flex" : 'none', alignItems: "center", color: "vars.$color-base", fontSize: "2rem" }} href={nextSlug} >
 //               <img src={LeftIcon} alt='' width={30} height={30} />

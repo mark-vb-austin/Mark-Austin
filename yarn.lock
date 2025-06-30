@@ -2339,6 +2339,11 @@
   resolved "https://registry.yarnpkg.com/@petamoriken/float16/-/float16-3.8.7.tgz#16073fb1b9867eaa5b254573484d09100700aaa4"
   integrity sha512-/Ri4xDDpe12NT6Ex/DRgHzLlobiQXEW/hmG08w1wj/YU7hLemk97c+zHQFp0iZQ9r7YqgLEXZR2sls4HxBf9NA==
 
+"@photostructure/tz-lookup@^11.2.0":
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/@photostructure/tz-lookup/-/tz-lookup-11.2.0.tgz#f83cdcbf031e5b79738209c3428e519188d80144"
+  integrity sha512-DwrvodcXHNSdGdeSF7SBL5o8aBlsaeuCuG7633F04nYsL3hn5Hxe3z/5kCqxv61J1q7ggKZ27GPylR3x0cPNXQ==
+
 "@pmmmwh/react-refresh-webpack-plugin@^0.5.10":
   version "0.5.15"
   resolved "https://registry.yarnpkg.com/@pmmmwh/react-refresh-webpack-plugin/-/react-refresh-webpack-plugin-0.5.15.tgz#f126be97c30b83ed777e2aeabd518bc592e6e7c4"
@@ -2669,6 +2674,11 @@
   version "4.17.6"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.17.6.tgz#193ced6a40c8006cfc1ca3f4553444fb38f0e543"
   integrity sha512-OpXEVoCKSS3lQqjx9GGGOapBeuW5eUboYHRlHP9urXPX25IKZ6AnP5ZRxtVf63iieUbsHxLn8NQ5Nlftc6yzAA==
+
+"@types/luxon@^3.6.2":
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-3.6.2.tgz#be6536931801f437eafcb9c0f6d6781f72308041"
+  integrity sha512-R/BdP7OxEMc44l2Ex5lSXHoIXTB2JLNa3y2QISIbr58U/YcsffyQrYW//hZSdrfxrjRZj3GcUoxMPGdO8gSYuw==
 
 "@types/mdast@^3.0.0", "@types/mdast@^3.0.3":
   version "3.0.15"
@@ -3876,6 +3886,11 @@ base64id@2.0.0, base64id@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/base64id/-/base64id-2.0.0.tgz#2770ac6bc47d312af97a8bf9a634342e0cd25cb6"
   integrity sha512-lGe34o6EHj9y3Kts9R4ZYs/Gr+6N7MCaMlIFA3F1R2O5/m7K06AxfSeO5530PEERE6/WyEg3lsuyw4GHlPZHog==
+
+batch-cluster@^14.0.0:
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/batch-cluster/-/batch-cluster-14.0.0.tgz#7e19a035d91e1b19f6a55f2c273b726e2b7cd847"
+  integrity sha512-tymryLKMSho+WAaYiVQCMQ9SNHOrNDKO+J8l89RyICkSwK05XknrILAPUz6ABWa8MZOoTbLpIxFCFfyBTZGrIA==
 
 better-opn@^2.1.1:
   version "2.1.1"
@@ -6035,6 +6050,35 @@ exenv@^1.2.0:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
   integrity sha512-Z+ktTxTwv9ILfgKCk32OX3n/doe+OcLTRtqK9pcL+JsP3J1/VW8Uvl4ZjLlKqeW4rzK4oesDOGMEMRIZqtP4Iw==
+
+exiftool-vendored.exe@13.31.0:
+  version "13.31.0"
+  resolved "https://registry.yarnpkg.com/exiftool-vendored.exe/-/exiftool-vendored.exe-13.31.0.tgz#eb90b6ac0b2173c1f140796ce7332fc7e9336d2a"
+  integrity sha512-SjL+8N1dvLwJdxj5yviboAGfiPmyD6yssnmy9aqDDkJG/ffl/BKvw45ObjVnVD679PRPXs9x2uMTz4P4eHUlEw==
+
+exiftool-vendored.pl@13.31.0:
+  version "13.31.0"
+  resolved "https://registry.yarnpkg.com/exiftool-vendored.pl/-/exiftool-vendored.pl-13.31.0.tgz#d8cd6e14340304e2d6f1bb54b6cfc0a12a007a92"
+  integrity sha512-xaCzPLKkJD50znV5KCvNQMCgknPEfHQZQeO20JPgGt2S+MLSmpCBxSr9QYe4gycQN/BZPae9B5pY4Bo86dtO/A==
+
+exiftool-vendored@^30.3.0:
+  version "30.3.0"
+  resolved "https://registry.yarnpkg.com/exiftool-vendored/-/exiftool-vendored-30.3.0.tgz#b39c9bb537d7eb65e9c56d3e02580ccfbd579077"
+  integrity sha512-rkuivrunbckFFvUbk7aohOAk2nAqErB0XNIYU7Bip7L4FtBDfKz0Ka24VGXHTpUpxES3SEUi21wRwP+Wp+t7yQ==
+  dependencies:
+    "@photostructure/tz-lookup" "^11.2.0"
+    "@types/luxon" "^3.6.2"
+    batch-cluster "^14.0.0"
+    he "^1.2.0"
+    luxon "^3.6.1"
+  optionalDependencies:
+    exiftool-vendored.exe "13.31.0"
+    exiftool-vendored.pl "13.31.0"
+
+exiftool@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/exiftool/-/exiftool-0.0.3.tgz#f58a92bd77270adc54f3151ced61a4a3ab69d707"
+  integrity sha512-7xq/yI+ESuZEApWOTxp7bJ12XRjt+3LDqkCBLBkfrYDF3hQE65Lid/U2xYf7iCZ2LUBRWqsix1fXEfGvn9oTGw==
 
 expand-template@^2.0.3:
   version "2.0.3"
@@ -9034,6 +9078,11 @@ lru-queue@^0.1.0:
   integrity sha512-BpdYkt9EvGl8OfWHDQPISVpcl5xZthb+XPsbELj5AQXxIC8IriDZIQYjBJPEm5rS420sjZ0TLEzRcq5KdBhYrQ==
   dependencies:
     es5-ext "~0.10.2"
+
+luxon@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-3.6.1.tgz#d283ffc4c0076cb0db7885ec6da1c49ba97e47b0"
+  integrity sha512-tJLxrKJhO2ukZ5z0gyjY1zPh3Rh88Ej9P7jNrZiHMUXHae1yvI2imgOZtL1TO8TW6biMMKfTtAOoEJANgtWBMQ==
 
 make-dir@^3.0.0, make-dir@^3.0.2, make-dir@^3.1.0:
   version "3.1.0"
