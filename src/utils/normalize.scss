@@ -536,4 +536,4 @@ caption {
 }
 
 /* disable post content from being clickable */
-.post-content-body a:-webkit-any-link   { pointer-events: none !important;}
+.post-content-body a:-webkit-any-link:not(.thank-you a)   { pointer-events: none !important;}
