@@ -18,8 +18,9 @@ const BioPage = (props) => {
           image={post.frontmatter.thumbnail.childImageSharp.gatsbyImageData.images.fallback.src}
 
         />
+        
         <article
-          className={`post-content ${post.frontmatter.thumbnail.name || `no-image`}`}
+          className={`col-lg-6 offset-lg-3 col-md-10 offset-md-1 ${post.frontmatter.thumbnail.name || `no-image`}`}
         >
        
           <header className="post-content-header">

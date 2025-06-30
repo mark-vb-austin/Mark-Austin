@@ -118,13 +118,14 @@ const WorkSubPage = ({ data, pageContext }) => {
 
       <Layout location={data.location} title={siteTitle} social={social}>
         {/* <Seo title={meta?.title || album} description={meta?.description} /> */}
-        <h1>{meta?.title || album}</h1>
+        <h1 className="post-content-title">{meta?.title || album}</h1>
         {meta?.description && <p>{meta.description}</p>}
         {meta?.date && <small>{meta.date}</small>}
 
-        <div class="container-fluid !direction !spacing">
-          <div className="row">
+        
             <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+            <p class="post-content-excerpt">Hi, I'm Mark Austin—a photographer based in Scotland with a love for capturing real, candid moments.</p>
+
               <Masonry
                 breakpointCols={breakpointColumnsObj}
                 className="masonry-grid"
@@ -146,8 +147,7 @@ const WorkSubPage = ({ data, pageContext }) => {
                 ))}
               </Masonry>
             </div>
-          </div>
-        </div>
+
 
         <Lightbox
           slides={slides}

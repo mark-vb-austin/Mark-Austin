@@ -19,9 +19,9 @@ const WorkPage = ({ data }) => {
   // Get last Durectory from path
   // e.g. /work/portraits -> portraits
   const getLastDir = (path) => {
-    const parts = path.split('/')    
-    return parts[parts.length - 1]
-  }
+    const parts = path.split("/");
+    return parts[parts.length - 1];
+  };
 
   // Get all files from the work directory
   // and create a map of albums with their cover image and image count
@@ -66,47 +66,42 @@ const WorkPage = ({ data }) => {
           data.markdownRemark.frontmatter.thumbnail.childImageSharp.fluid.src
         }
       />
-
-      <div class="container-fluid !direction !spacing">
-        <div className="row">
-          <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-       
-
-
-
-
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className="masonry-grid"
-        columnClassName="masonry-grid_column"
-      >
-        {Object.entries(albumMap).map(([albumName, { imageCount, cover }]) => (
-          <Link
-            key={albumName}
-            to={`/work/${albumName}`}
-            className="column-item"
-          >
-            <GatsbyImage
-              key={cover}
-              image={getImage(cover.childImageSharp.gatsbyImageData)}
-              alt={albumName}
-              // aspectRatio={4/5}
-              className="column-wrap"
-            />
-            <div className="masonry__titles">
-              <h2>{getLastDir(albumName)}</h2>
-              <div className="hl"></div>
-              <h3>
-                {imageCount} image{imageCount > 1 ? "s" : ""}
-              </h3>
-            </div>
-          </Link>
-        ))}
-      </Masonry>
-      
-    
-          </div>
-        </div>
+      <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+        <p class="post-content-excerpt">
+          Hi, I'm Mark Austin—a photographer based in Scotland with a love for
+          capturing real, candid moments.
+        </p>
+        
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="masonry-grid"
+          columnClassName="masonry-grid_column"
+        >
+          {Object.entries(albumMap).map(
+            ([albumName, { imageCount, cover }]) => (
+              <Link
+                key={albumName}
+                to={`/work/${albumName}`}
+                className="column-item"
+              >
+                <GatsbyImage
+                  key={cover}
+                  image={getImage(cover.childImageSharp.gatsbyImageData)}
+                  alt={albumName}
+                  // aspectRatio={4/5}
+                  className="column-wrap"
+                />
+                <div className="masonry__titles">
+                  <h2>{getLastDir(albumName)}</h2>
+                  <div className="hl"></div>
+                  <h3>
+                    {imageCount} image{imageCount > 1 ? "s" : ""}
+                  </h3>
+                </div>
+              </Link>
+            )
+          )}
+        </Masonry>
       </div>
     </Layout>
   );

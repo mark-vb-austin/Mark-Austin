@@ -51,9 +51,9 @@ const Layout = (props) => {
                 <Link to={`/contact`}>Contact</Link>
               </li>
               
-              <li className={`nav-home  ${data.pathname.includes("/elements") ? "nav-current" : ""} `} role="menuitem">
+              {/* <li className={`nav-home  ${data.pathname.includes("/elements") ? "nav-current" : ""} `} role="menuitem">
                 <Link to={`/elements`}>Elements</Link>
-              </li>
+              </li> */}
             </ul>
           </nav>
 
@@ -78,8 +78,8 @@ const Layout = (props) => {
         </div>
       </header>
 
-      <main id="site-main" className="site-main">
-        <div id="swup" className="transition-fade">
+      <main id="site-main" className=" container site-main">
+        <div id="swup" className="transition-fade row">
           {children}
         </div>
       </main>
