@@ -1,5 +1,29 @@
 {
   "Clay-Gatsby-theme.png": {},
+  "new-gorbals_404.jpg": {
+    "Model": "NIKON Z 6_2",
+    "Lens": "NIKKOR Z 85mm f/1.8 S",
+    "FNumber": 9,
+    "ISO": 250,
+    "Flash": "No Flash",
+    "FocalLength": "85.0 mm",
+    "FocalLengthIn35mmFormat": "85 mm",
+    "HyperfocalDistance": "26.72 m",
+    "ExposureTime": "1/1000",
+    "DateTimeOriginal": {
+      "_ctor": "ExifDateTime",
+      "year": 2025,
+      "month": 6,
+      "day": 29,
+      "hour": 13,
+      "minute": 0,
+      "second": 21,
+      "tzoffsetMinutes": 60,
+      "rawValue": "2025:06:29 13:00:21",
+      "zoneName": "UTC+1",
+      "inferredZone": true
+    }
+  },
   "vase.png": {},
   "work/2024/farmland-2/DSD_6574__07-06-2021(3094 x 3868).jpg": {},
   "work/2024/farmland-2/DSD_6587 copy.jpg": {},
