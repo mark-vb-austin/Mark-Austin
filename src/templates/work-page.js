@@ -28,7 +28,7 @@ const WorkPage = ({ data }) => {
   data.allFile.nodes.forEach((file) => {
     const { relativeDirectory } = file;
     const dir = file.relativeDirectory;
-
+    
     // Skip if the directory is empty
     if (!albumMap[dir]) {
       albumMap[dir] = {
@@ -67,7 +67,7 @@ const WorkPage = ({ data }) => {
         }
       />
       <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-        <p class="post-content-excerpt">
+        <p className="post-content-excerpt">
           Hi, I'm Mark Austin—a photographer based in Scotland with a love for
           capturing real, candid moments.
         </p>
@@ -76,30 +76,41 @@ const WorkPage = ({ data }) => {
           breakpointCols={breakpointColumnsObj}
           className="masonry-grid"
           columnClassName="masonry-grid_column"
-        >
+        >          
           {Object.entries(albumMap).map(
-            ([albumName, { imageCount, cover }]) => (
-              <Link
-                key={albumName}
-                to={`/work/${albumName}`}
-                className="column-item"
-              >
-                <GatsbyImage
-                  key={cover}
-                  image={getImage(cover.childImageSharp.gatsbyImageData)}
-                  alt={albumName}
-                  // aspectRatio={4/5}
-                  className="column-wrap"
-                />
-                <div className="masonry__titles">
-                  <h2>{getLastDir(albumName)}</h2>
-                  <div className="hl"></div>
-                  <h3>
-                    {imageCount} image{imageCount > 1 ? "s" : ""}
-                  </h3>
-                </div>
-              </Link>
-            )
+            ([albumName, { imageCount, cover }]) => {
+              // albumName could be 'work/2024/album-one' or '2024/album-one'
+              const parts = albumName.split("/");
+              let year, album;
+              if (parts.length === 3 && parts[0] === 'work') {
+                [ , year, album] = parts;
+              } else if (parts.length === 2) {
+                [year, album] = parts;
+              } else {
+                return null;
+              }
+              return (
+                <Link
+                  key={albumName}
+                  to={`/work/${year}/${album}`}
+                  className="column-item"
+                >
+                  <GatsbyImage
+                    key={cover}
+                    image={getImage(cover.childImageSharp.gatsbyImageData)}
+                    alt={albumName}
+                    className="column-wrap"
+                  />
+                  <div className="masonry__titles">
+                    <h2>{getLastDir(albumName)}</h2>
+                    <div className="hl"></div>
+                    <h3>
+                      {imageCount} image{imageCount > 1 ? "s" : ""}
+                    </h3>
+                  </div>
+                </Link>
+              );
+            }
           )}
         </Masonry>
       </div>

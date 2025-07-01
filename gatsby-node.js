@@ -151,10 +151,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   );
 
   albums.forEach(dir => {
-    const parts = dir.split("/"); // ['2024', 'album-one']
-    if (parts.length !== 2) return;
-
-    const [year, album] = parts;
+    const parts = dir.split("/"); // e.g. ['work', '2024', 'album-one'] or ['2024', 'album-one']
+    // Support both cases: with or without 'work' as the first part
+    let year, album;
+    if (parts.length === 3 && parts[0] === 'work') {
+      [ , year, album] = parts;
+    } else if (parts.length === 2) {
+      [year, album] = parts;
+    } else {
+      return;
+    }
 
     createPage({
       path: `/work/${year}/${album}/`,
