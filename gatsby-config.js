@@ -109,7 +109,8 @@ module.exports = {
       options: {
         printRejected: true, // Print removed selectors and processed file names
         safelist: [
-          /^yarl/, // This will keep all classes that start with 'yarl'
+          /^yarl/, // all yarl classes
+          /yet-another-react-lightbox/, // sometimes the package name is used in classnames
         ],
         // develop: true, // Enable while using `gatsby develop`
         // tailwind: true, // Enable tailwindcss support
@@ -134,7 +135,6 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#ffffff`,
         display: `standalone`,
-        resolve: `gatsby-plugin-manifest`,
         icon: siteConfig.manifest_icon,
       },
     },
