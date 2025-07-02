@@ -24,8 +24,8 @@ production stylesheet in assets/built/screen.css using gulp dev
  
 /* Lib - Third-party imports
 /* ---------------------------------------------------------- */
-@import "~yet-another-react-lightbox/styles.css"; // @Import instead of use because of CSS specificity issues
-@import "~yet-another-react-lightbox/plugins/thumbnails.css";// @Import instead of use because of CSS specificity issues
+@use "./vendors/yet-another-react-lightbox/styles.scss";
+@use "./vendors/yet-another-react-lightbox/thumbnails.scss";
 
 /* Main - Theme styles
 /* ---------------------------------------------------------- */
