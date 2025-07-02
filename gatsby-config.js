@@ -109,17 +109,13 @@ module.exports = {
       options: {
         printRejected: true, // Print removed selectors and processed file names
         safelist: [
-          'yarl-',
-          'yarl_',
-          'yarl__',
           /^yarl/, // all yarl classes
           /yet-another-react-lightbox/, // package name
-          /^yet-another-react-lightbox/, // package name
         ],
         ignore: [
-          "node_modules/yet-another-react-lightbox/",
-          "node_modules/yet-another-react-lightbox/dist/styles.css",
-          "node_modules/yet-another-react-lightbox/dist/plugins/thumbnails/thumbnails.css",
+          "node_modules/yet-another-react-lightbox/styles.css",
+          "node_modules/yet-another-react-lightbox/plugins/thumbnails.css",
+          
         ],
       },
     },
