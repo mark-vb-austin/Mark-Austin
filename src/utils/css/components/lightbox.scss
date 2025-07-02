@@ -96,7 +96,7 @@ body {
 // Portal animation
 .yarl__portal {
   transform: scale(0.9);
-  transition: all 3s ease;
+  transition: all .3s ease;
 
   &.yarl__portal_open {
     transform: scale(1);
