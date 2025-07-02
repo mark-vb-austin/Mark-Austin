@@ -111,8 +111,10 @@ module.exports = {
         safelist: [
           /^yarl/, // all yarl classes
           /yet-another-react-lightbox/, // package name
+          /^yet-another-react-lightbox/, // package name
         ],
         ignore: [
+          "node_modules/yet-another-react-lightbox/",
           "node_modules/yet-another-react-lightbox/dist/styles.css",
           "node_modules/yet-another-react-lightbox/dist/plugins/thumbnails/thumbnails.css",
         ],
