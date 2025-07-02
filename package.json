@@ -1,14 +1,9 @@
 {
-  "name": "markaustin.photo",
+  "name": "clay-personal-gatsby-theme",
   "private": true,
-  "description": "personal website of Mark Austin, a photographer and developer",
-  "homepage": "https://markaustin.photo",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mark-vb-austin/Mark-Austin.git"
-  },
+  "description": "A custom, image-centric theme for Gatsby",
   "version": "1.0.0",
-  "author": "Mark Austin (boiler by Travis lord & Abdul Waqar) ",
+  "author": "Travis lord <travis.lord89@gmail.com> & Abdul Waqar <abdulwaqar844@gmail.com>",
   "dependencies": {
     "bootstrap": "^5.3.7",
     "exiftool": "^0.0.3",
@@ -63,6 +58,7 @@
     "prettier": "^3.3.3",
     "pretty-quick": "^4.0.0"
   },
+  "homepage": "https://github.com/lilxyzz/gatsby-clay#readme",
   "keywords": [
     "gatsby",
     "personal-website",
@@ -72,6 +68,10 @@
   ],
   "license": "MIT",
   "main": "n/a",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lilxyzz/gatsby-clay.git"
+  },
   "scripts": {
     "build": "npm run generate:exif && gatsby clean && gatsby build",
     "develop": "npm run generate:exif && gatsby clean && gatsby develop",
