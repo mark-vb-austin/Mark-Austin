@@ -104,16 +104,20 @@ module.exports = {
         ],
       },
     },
-    // {
-    //   resolve: `gatsby-plugin-purgecss`,
-    //   options: {
-    //     printRejected: true, // Print removed selectors and processed file names
-    //     safelist: [
-    //       /^yarl/, // all yarl classes
-    //       /yet-another-react-lightbox/, // sometimes the package name is used in classnames
-    //     ],
-    //   },
-    // },
+    {
+      resolve: `gatsby-plugin-purgecss`,
+      options: {
+        printRejected: true, // Print removed selectors and processed file names
+        safelist: [
+          /^yarl/, // all yarl classes
+          /yet-another-react-lightbox/, // package name
+        ],
+        ignore: [
+          "node_modules/yet-another-react-lightbox/styles.css",
+          "node_modules/yet-another-react-lightbox/plugins/thumbnails.css",
+        ],
+      },
+    },
     // {
     //   resolve: `gatsby-plugin-google-analytics`,
     //   options: {
