@@ -76,11 +76,17 @@ main#site-main {
       // padding: 0 10px;
     }
   }
+
+  h1.vertical-title {
+    flex-direction: column;
+  }
 }
 
 .site-wrapper {
-  padding: 3vw;
+    position: relative;
   min-height: 100vh;
+  padding: 3vw;
+  // min-height: calc(100vh - 90px);
   max-width: 1920px;
   margin-right: auto;
   margin-left: auto;
@@ -152,10 +158,13 @@ main#site-main {
 
 .site-foot {
   font-family: 'Muli', sans-serif;
-  margin: 3vw 0 1vw;
   text-align: center;
   color: vars.$color-base;
   font-size: 1.5rem;
+  position: absolute;
+  bottom: 25px;
+  width: 100%;
+  height: 2.5rem;   
   
 }
 footer.site-foot a {
