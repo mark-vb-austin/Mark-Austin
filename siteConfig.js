@@ -9,8 +9,8 @@ const siteConfig = {
   instagram: 'mark.vb.austin',
   facebook:'mark.vb.austin',
   github:'',
-  manifest_icon:`src/img/vase.png`,
-  image:`/vase.png`
+  manifest_icon:`src/img/favicon.png`,
+  image:`/favicon.png`
 
 }
 

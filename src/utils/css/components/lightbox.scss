@@ -9,11 +9,10 @@ body {
   .yarl__carousel {
     max-height: 100%;
     height: auto;
+    
     img {
-
       @media screen and (max-width: 1024px) {
-        margin-left: 0 !important;
-        
+        margin-left: 0 !important; 
       }
     }
   }
