@@ -5,7 +5,7 @@
   "homepage": "https://markaustin.photo",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mark-vb-austin/Mark-Austin.git",
+    "url": "git+https://github.com/mark-vb-austin/Mark-Austin.git"
   },
   "version": "1.0.0",
   "author": "Mark Austin (boiler by Travis lord & Abdul Waqar) ",
