@@ -21,6 +21,12 @@ production stylesheet in assets/built/screen.css using gulp dev
 @use "./components/masonry.scss";
 @use "./components/lightbox.scss";
 
+ 
+/* Lib - Third-party imports
+/* ---------------------------------------------------------- */
+@import "~yet-another-react-lightbox/styles.css"; // @Import instead of use because of CSS specificity issues
+@import "~yet-another-react-lightbox/plugins/thumbnails.css";// @Import instead of use because of CSS specificity issues
+
 /* Main - Theme styles
 /* ---------------------------------------------------------- */
 
