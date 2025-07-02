@@ -109,6 +109,9 @@ module.exports = {
       options: {
         printRejected: true, // Print removed selectors and processed file names
         safelist: [
+          'yarl-',
+          'yarl_',
+          'yarl__',
           /^yarl/, // all yarl classes
           /yet-another-react-lightbox/, // package name
         ],
