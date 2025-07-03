@@ -8,8 +8,6 @@ import Masonry from "react-masonry-css";
 // Importing Lightbox and its plugins
 import Lightbox from "yet-another-react-lightbox";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
-import "yet-another-react-lightbox/styles.css";
-import "yet-another-react-lightbox/plugins/thumbnails.css";
 
 import LeftIcon from "../img/left-icon.svg";
 import RightIcon from "../img/right-icon.svg";
