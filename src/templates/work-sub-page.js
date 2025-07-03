@@ -171,6 +171,9 @@ const WorkSubPage = ({ data, pageContext }) => {
               maxHeight: "10vh",
             },
           }}
+          // Enable drag for slides and thumbnails
+          draggable={true}
+          thumbnailsProps={{ draggable: true }}
         />
       </Layout>
     </>
