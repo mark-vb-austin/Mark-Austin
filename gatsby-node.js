@@ -148,9 +148,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   const albums = Array.from(
     new Set(albumResult.data.allFile.nodes.map(node => node.relativeDirectory))
-  );
+  ).sort(); // Sort albums for consistent navigation order
 
-  albums.forEach(dir => {
+  albums.forEach((dir, index) => {
     const parts = dir.split("/"); // e.g. ['work', '2024', 'album-one'] or ['2024', 'album-one']
     // Support both cases: with or without 'work' as the first part
     let year, album;
@@ -162,6 +162,32 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       return;
     }
 
+    // Get previous and next albums for navigation
+    const previousAlbum = index > 0 ? albums[index - 1] : null;
+    const nextAlbum = index < albums.length - 1 ? albums[index + 1] : null;
+
+    // Parse previous album details
+    let previousYear, previousAlbumName;
+    if (previousAlbum) {
+      const prevParts = previousAlbum.split("/");
+      if (prevParts.length === 3 && prevParts[0] === 'work') {
+        [ , previousYear, previousAlbumName] = prevParts;
+      } else if (prevParts.length === 2) {
+        [previousYear, previousAlbumName] = prevParts;
+      }
+    }
+
+    // Parse next album details
+    let nextYear, nextAlbumName;
+    if (nextAlbum) {
+      const nextParts = nextAlbum.split("/");
+      if (nextParts.length === 3 && nextParts[0] === 'work') {
+        [ , nextYear, nextAlbumName] = nextParts;
+      } else if (nextParts.length === 2) {
+        [nextYear, nextAlbumName] = nextParts;
+      }
+    }
+
     createPage({
       path: `/work/${year}/${album}/`,
       component: path.resolve(`./src/templates/work-sub-page.js`),
@@ -170,6 +196,17 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         album,
         relativeDirectory: dir, // used in GraphQL query to find .md file
         regex: `/${dir}/`,
+        // Navigation context
+        previousAlbum: previousAlbum ? {
+          year: previousYear,
+          album: previousAlbumName,
+          path: `/work/${previousYear}/${previousAlbumName}/`
+        } : null,
+        nextAlbum: nextAlbum ? {
+          year: nextYear,
+          album: nextAlbumName,
+          path: `/work/${nextYear}/${nextAlbumName}/`
+        } : null,
       },
     });
   });

@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Layout from "../components/layout";
 import { Helmet } from "react-helmet";
@@ -12,11 +12,13 @@ import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 
 import Camera from "../../static/icons/icon--camera.svg";
 import CameraLens from "../../static/icons/icon--camera-lens.svg";
+import LeftIcon from '../img/left-icon.svg';
+import RightIcon from '../img/right-icon.svg';
 
 import exifData from "../img/exif-data.json";
 
 const WorkSubPage = ({ data, pageContext }) => {
-  const { album } = pageContext;
+  const { album, previousAlbum, nextAlbum } = pageContext;
   const images = data.allFile.nodes;
 
   // const { pageContextProps } = data;
@@ -108,6 +110,25 @@ const WorkSubPage = ({ data, pageContext }) => {
 
       <Layout location={data.location} title={siteTitle} social={social}>
         {/* <Seo title={meta?.title || album} description={meta?.description} /> */}
+        
+        {/* Back to Albums Button */}
+        <div style={{ marginBottom: "2rem" }}>
+          <Link 
+            to="/work/"
+            style={{ 
+              display: "inline-flex", 
+              alignItems: "center", 
+              color: "inherit", 
+              fontSize: "1.2rem",
+              textDecoration: "none",
+              fontWeight: "300"
+            }}
+          >
+            <img src={LeftIcon} alt='' width={20} height={20} style={{ marginRight: "0.5rem" }} />
+            <span>Back to Albums</span>
+          </Link>
+        </div>
+
         <h1 className="post-content-title">{meta?.title || album}</h1>
 
         
@@ -175,6 +196,47 @@ const WorkSubPage = ({ data, pageContext }) => {
           draggable={true}
           thumbnailsProps={{ draggable: true }}
         />
+
+        {/* Album Navigation */}
+        {(previousAlbum || nextAlbum) && (
+          <div className="post-link">
+            <div>
+              {previousAlbum && (
+                <Link 
+                  to={previousAlbum.path}
+                  style={{ 
+                    display: "flex", 
+                    alignItems: "center", 
+                    color: "inherit", 
+                    fontSize: "2rem",
+                    textDecoration: "none"
+                  }}
+                >
+                  <img src={LeftIcon} alt='' width={30} height={30} />
+                  <span>{previousAlbum.album}</span>
+                </Link>
+              )}
+            </div>
+            <div>
+              {nextAlbum && (
+                <Link 
+                  to={nextAlbum.path}
+                  style={{ 
+                    display: "flex", 
+                    alignItems: "center", 
+                    color: "inherit", 
+                    fontSize: "2rem",
+                    textDecoration: "none"
+                  }}
+                >
+                  <span>{nextAlbum.album}</span>
+                  <img src={RightIcon} alt='' width={30} height={30} />
+                </Link>
+              )}
+            </div>
+          </div>
+        )}
+
       </Layout>
     </>
   );
