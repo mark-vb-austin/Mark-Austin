@@ -92,7 +92,7 @@ const Layout = (props) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Mark Austin
+          Mark Austin.dev
         </a>
       </footer>
     </div>
