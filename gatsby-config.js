@@ -111,11 +111,11 @@ module.exports = {
         safelist: [
           /^yarl/, // all yarl classes
           /yet-another-react-lightbox/, // package name
+          // Add patterns to safelist all classes from the lightbox CSS files
+          /^yarl-/, // common prefix for yet-another-react-lightbox classes
+          /^yarl__/, // BEM style classes
         ],
-         ignore: [
-          "./src/utils/css/vendors/yet-another-react-lightbox/styles.scss",
-          "./src/utils/css/vendors/yet-another-react-lightbox/thumbnails.scss",
-        ],
+        // Remove the ignore option, as it does not prevent purging
       },
     },
     // {
