@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 
-export default props => (
+const PostCard = props => (
   <article
     className={`post-card ${props.count % 3 === 0 && `post-card-large`} ${
       props.postClass
@@ -23,3 +23,5 @@ export default props => (
     </Link>
   </article>
 )
+
+export default PostCard

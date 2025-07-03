@@ -5,7 +5,7 @@ const siteConfig = require("./siteConfig")
 
 module.exports = {
   siteMetadata: {
-    title: siteConfig.name,
+    title: siteConfig.shortName,
     author: siteConfig.author,
     description: siteConfig.description,
     image: siteConfig.image,

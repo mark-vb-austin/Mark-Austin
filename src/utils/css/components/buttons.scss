@@ -72,7 +72,7 @@ button:disabled,
 input[type="submit"],
 input[type="reset"],
 input[type="button"],
-button,
+button:not(.nav-burger),
 .button {
   color: #fff !important;
   background-color: #000;
@@ -82,7 +82,7 @@ button,
 input[type="submit"]:hover,
 input[type="reset"]:hover,
 input[type="button"]:hover,
-button:hover,
+button:hover:not(.nav-burger),
 .button:hover {
   text-decoration: none;
   color: vars.$color-base !important;

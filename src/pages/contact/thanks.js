@@ -3,7 +3,7 @@ import React from "react"
 import { graphql } from "gatsby"
 
 import Layout from "../../components/layout"
-import SEO from "../../components/seo"
+import Seo from "../../components/seo"
 
 const Thanks = (props) => {
     const { data } = props
@@ -12,7 +12,7 @@ const Thanks = (props) => {
 
     return (
         <Layout location={props.location} title={siteTitle} social={social}>
-            <SEO title="Thank You | Form submitted successfully" />
+            <Seo title="Thank You | Form submitted successfully" />
 
 
             <article className="post-content page-template no-image">

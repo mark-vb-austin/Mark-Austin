@@ -2,7 +2,7 @@ import React from "react"
 import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Seo from "../components/seo"
 
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
@@ -15,7 +15,7 @@ class NotFoundPage extends React.Component {
 
     return (
       <Layout location={this.props.location} title={siteTitle} social={social}>
-        <SEO title='404: Not Found' />
+        <Seo title='404: Not Found' />
 
         <section className='py-0'>
           <div className='container-fluid'>

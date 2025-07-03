@@ -4,7 +4,7 @@ import { useLocation } from "@reach/router";
 
 const Layout = (props) => {
   const data = useLocation();
-  const { title, children, social } = props;
+  const { title, children } = props;
   // const path = props&&props.location&&props.location
 
   const [toggleNav, setToggleNav] = React.useState(false);
@@ -12,46 +12,44 @@ const Layout = (props) => {
     <div className={`site-wrapper ${toggleNav ? `site-head-open` : ``}`}>
       <header className="site-head">
         <div className="site-head-container">
-          <a
+          <button
             className="nav-burger"
-            href={`#`}
+            type="button"
             onClick={() => setToggleNav(!toggleNav)}
+            aria-label="Menu"
+            aria-controls="navigation"
+            aria-expanded={toggleNav}
           >
-            <div
-              className="hamburger hamburger--collapse"
-              aria-label="Menu"
-              role="button"
-              aria-controls="navigation"
-            >
+            <div className="hamburger hamburger--collapse">
               <div className="hamburger-box">
                 <div className="hamburger-inner" />
               </div>
             </div>
-          </a>
+          </button>
 
           <nav id="swup" className="site-head-left">
-            <ul className="nav" role="menu">
-              <li className={`nav-home  ${data.pathname === "/" ? "nav-current" : ""} `} role="menuitem">
+            <ul className="nav">
+              <li className={`nav-home  ${data.pathname === "/" ? "nav-current" : ""} `}>
                 <Link to={`/`}>Home</Link>
               </li>
               
-              <li className={`nav-home  ${data.pathname.includes("/bio") ? "nav-current" : ""} `} role="menuitem">
+              <li className={`nav-home  ${data.pathname.includes("/bio") ? "nav-current" : ""} `}>
                 <Link to={`/bio`}>Bio</Link>
               </li>
               
-              <li className={`nav-home  ${data.pathname.includes("/work") ? "nav-current" : ""} `} role="menuitem">
+              <li className={`nav-home  ${data.pathname.includes("/work") ? "nav-current" : ""} `}>
                 <Link to={`/work`}>Work</Link>
               </li>
               
-              {/* <li className={`nav-home  ${data.pathname.includes("/news") ? "nav-current" : ""} `} role="menuitem">
+              {/* <li className={`nav-home  ${data.pathname.includes("/news") ? "nav-current" : ""} `}>
                 <Link to={`/news`}>News</Link>
               </li> */}
               
-              <li className={`nav-home  ${data.pathname.includes("/contact") ? "nav-current" : ""} `} role="menuitem">
+              <li className={`nav-home  ${data.pathname.includes("/contact") ? "nav-current" : ""} `}>
                 <Link to={`/contact`}>Contact</Link>
               </li>
               
-              {/* <li className={`nav-home  ${data.pathname.includes("/elements") ? "nav-current" : ""} `} role="menuitem">
+              {/* <li className={`nav-home  ${data.pathname.includes("/elements") ? "nav-current" : ""} `}>
                 <Link to={`/elements`}>Elements</Link>
               </li> */}
             </ul>
