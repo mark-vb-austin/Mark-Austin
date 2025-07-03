@@ -256,6 +256,11 @@ footer.site-foot a {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 3px;
+
+  @media (max-width: 850px) {
+    padding: 5px 10px;
+    margin-left: 30px;
+  }
 }
 
 .site-head-logo:hover {
