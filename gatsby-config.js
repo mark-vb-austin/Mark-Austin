@@ -115,9 +115,17 @@ module.exports = {
           /^yarl-/, // common prefix for yet-another-react-lightbox classes
           /^yarl__/, // BEM style classes
         ],
-        // Remove the ignore option, as it does not prevent purging
+        purgeCSSOptions: {
+          safelist: [
+            /^yarl/, // all yarl classes
+            /yet-another-react-lightbox/, // package name
+            // Add patterns to safelist all classes from the lightbox CSS files
+            /^yarl-/, // common prefix for yet-another-react-lightbox classes
+            /^yarl__/, // BE
+          ],// Don't remove this selector
+        },
       },
-    },
+    },    
     // {
     //   resolve: `gatsby-plugin-google-analytics`,
     //   options: {
