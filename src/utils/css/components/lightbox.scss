@@ -97,7 +97,7 @@ body {
 // Portal animation
 .yarl__portal {
   transform: scale(0.9);
-  transition: all .3s ease;
+  // transition: all .3s ease;
 
   &.yarl__portal_open {
     transform: scale(1);
@@ -105,10 +105,10 @@ body {
 
   // Container background + slide blur
   .yarl__container {
-    background-color: rgba(0, 0, 0, 0.8);
+    // background-color: rgba(0, 0, 0, 0.8);
 
     @media screen and (max-width: 700px) {
-      background-color: rgba(0, 0, 0, 0.9);
+      // background-color: rgba(0, 0, 0, 0.9);
     }
 
     .yarl__slide {
@@ -119,11 +119,11 @@ body {
 
   // Thumbnail strip styling
   .yarl__thumbnails_container {
-    background-color: rgba(0, 0, 0, 0.8);
+    // background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(5px);
 
     @media screen and (max-width: 700px) {
-      background-color: rgba(0, 0, 0, 0.9);
+      // background-color: rgba(0, 0, 0, 0.9);
     }
   }
   
@@ -179,7 +179,7 @@ body {
     color: #b08e21;
     width: 6rem;
     height: 6rem;
-    transition: color 0.3s ease;
+    // transition: color 0.3s ease;
 
     &:hover {
       color: #fff;

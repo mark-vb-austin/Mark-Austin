@@ -65,7 +65,7 @@ const Layout = (props) => {
 
           <div className="site-head-right">
             <div className="social-links">
-              <Link to={`https://www.facebook.com/markvbaustin/`} title="Facebook" target="_blank" rel="noopener noreferrer">
+              <Link to={`https://www.facebook.com/markvbaustin`} title="Facebook" target="_blank" rel="noopener noreferrer">
                 Facebook
               </Link>
            
