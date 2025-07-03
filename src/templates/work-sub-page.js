@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState} from "react";
 import { graphql } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Layout from "../components/layout";
@@ -9,8 +9,8 @@ import Masonry from "react-masonry-css";
 import Lightbox from "yet-another-react-lightbox";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 
-import LeftIcon from "../img/left-icon.svg";
-import RightIcon from "../img/right-icon.svg";
+// import LeftIcon from "../img/left-icon.svg";
+// import RightIcon from "../img/right-icon.svg";
 
 import Camera from "../../static/icons/icon--camera.svg";
 import CameraLens from "../../static/icons/icon--camera-lens.svg";
@@ -20,18 +20,18 @@ import exifData from "../img/exif-data.json";
 import { Helmet } from "react-helmet";
 
 const WorkSubPage = ({ data, pageContext }) => {
-  const { year, album } = pageContext;
+  const { album } = pageContext;
   const images = data.allFile.nodes;
 
-  const { pageContextProps } = data;
+  // const { pageContextProps } = data;
   const siteTitle = data.site.siteMetadata.title;
   const social = data.site.siteMetadata.social;
   const meta = data.markdownRemark?.frontmatter;
 
-  const getLastDir = (path) => {
-    const parts = path.split("/");
-    return parts[parts.length - 1];
-  };
+  // const getLastDir = (path) => {
+  //   const parts = path.split("/");
+  //   return parts[parts.length - 1];
+  // };
 
   const [index, setIndex] = useState(-1);
 
@@ -99,9 +99,6 @@ const WorkSubPage = ({ data, pageContext }) => {
     // 500: 1,
   };
   
-  // Format the month number to a short month name
-  const shortMonth = new Date(0, 7 - 1).toLocaleString('default', { month: 'short' });
-
   return (
     <>
       <Helmet>

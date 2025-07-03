@@ -26,7 +26,6 @@ const WorkPage = ({ data }) => {
   // Get all files from the work directory
   // and create a map of albums with their cover image and image count
   data.allFile.nodes.forEach((file) => {
-    const { relativeDirectory } = file;
     const dir = file.relativeDirectory;
     
     // Skip if the directory is empty
