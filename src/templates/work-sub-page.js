@@ -109,12 +109,16 @@ const WorkSubPage = ({ data, pageContext }) => {
       <Layout location={data.location} title={siteTitle} social={social}>
         {/* <Seo title={meta?.title || album} description={meta?.description} /> */}
         <h1 className="post-content-title">{meta?.title || album}</h1>
-        {meta?.description && <p>{meta.description}</p>}
-        {meta?.date && <small>{meta.date}</small>}
 
         
             <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-            <p class="post-content-excerpt">Hi, I'm Mark Austin—a photographer based in Scotland with a love for capturing real, candid moments.</p>
+              
+              {meta?.description && 
+                <p className="post-content-excerpt">
+                  {meta.description} <br />
+                  {meta?.date && <small>- {meta.date}</small>}
+                </p>
+              }
 
               <Masonry
                 breakpointCols={breakpointColumnsObj}
@@ -125,6 +129,11 @@ const WorkSubPage = ({ data, pageContext }) => {
                   <div
                     key={file.id}
                     onClick={() => setIndex(i)}
+                    onKeyDown={e => {
+                      if (e.key === 'Enter' || e.key === ' ') setIndex(i);
+                    }}
+                    role="button"
+                    tabIndex={0}
                     style={{ cursor: "pointer" }}
                   >
                     <GatsbyImage
