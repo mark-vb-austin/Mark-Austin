@@ -66,10 +66,7 @@ const WorkPage = ({ data }) => {
         }
       />
       <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-        <p className="post-content-excerpt">
-          Hi, I'm Mark Austin—a photographer based in Scotland with a love for
-          capturing real, candid moments.
-        </p>
+      
         
         <Masonry
           breakpointCols={breakpointColumnsObj}
