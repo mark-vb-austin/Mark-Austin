@@ -19,7 +19,6 @@ import CameraLens from "../../static/icons/icon--camera-lens.svg";
 
 import exifData from "../img/exif-data.json";
 
-import "yet-another-react-lightbox/styles.css"; 
 import { Helmet } from "react-helmet";
 
 const WorkSubPage = ({ data, pageContext }) => {

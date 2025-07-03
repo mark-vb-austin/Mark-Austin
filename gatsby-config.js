@@ -104,26 +104,26 @@ module.exports = {
         ],
       },
     },
-    // {
-    //   resolve: `gatsby-plugin-purgecss`,
-    //   options: {
-    //     printRejected: true, // Print removed selectors and processed file names
-    //     safelist: [
-    //       /^yarl/, // all yarl classes
-    //       /yet-another-react-lightbox/, // package name
-    //     ],
-    //     ignore: [
-    //       "node_modules/yet-another-react-lightbox/styles.css",
-    //       "node_modules/yet-another-react-lightbox/plugins/thumbnails.css",
-    //     ],
-    //   },
-    // },
-    // {
-    //   resolve: `gatsby-plugin-google-analytics`,
-    //   options: {
-    //     //trackingId: `ADD YOUR TRACKING ID HERE`,
-    //   },
-    // },
+    {
+      resolve: `gatsby-plugin-purgecss`,
+      options: {
+        printRejected: true, // Print removed selectors and processed file names
+        safelist: [
+          /^yarl/, // all yarl classes
+          /yet-another-react-lightbox/, // package name
+        ],
+        ignore: [
+          "node_modules/yet-another-react-lightbox/styles.css",
+          "node_modules/yet-another-react-lightbox/plugins/thumbnails.css",
+        ],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        //trackingId: `ADD YOUR TRACKING ID HERE`,
+      },
+    },
     // `gatsby-plugin-feed`,
     {
       resolve: `gatsby-plugin-manifest`,
