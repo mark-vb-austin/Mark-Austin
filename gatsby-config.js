@@ -112,6 +112,10 @@ module.exports = {
           /^yarl/, // all yarl classes
           /yet-another-react-lightbox/, // package name
         ],
+         ignore: [
+          "./src/utils/css/vendors/yet-another-react-lightbox/styles.scss",
+          "./src/utils/css/vendors/yet-another-react-lightbox/thumbnails.scss",
+        ],
       },
     },
     // {
