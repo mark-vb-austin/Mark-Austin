@@ -2,22 +2,18 @@ import React, { useState} from "react";
 import { graphql } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Layout from "../components/layout";
-import Seo from "../components/seo";
+import { Helmet } from "react-helmet";
+// import Seo from "../components/seo";
 import Masonry from "react-masonry-css";
 
 // Importing Lightbox and its plugins
 import Lightbox from "yet-another-react-lightbox";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 
-// import LeftIcon from "../img/left-icon.svg";
-// import RightIcon from "../img/right-icon.svg";
-
 import Camera from "../../static/icons/icon--camera.svg";
 import CameraLens from "../../static/icons/icon--camera-lens.svg";
 
 import exifData from "../img/exif-data.json";
-
-import { Helmet } from "react-helmet";
 
 const WorkSubPage = ({ data, pageContext }) => {
   const { album } = pageContext;
