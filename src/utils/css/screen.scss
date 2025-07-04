@@ -11,7 +11,6 @@ production stylesheet in assets/built/screen.css using gulp dev
 @use "./components/global.scss";
 @use "./components/ghost.scss";
 @use "./components/lists.scss";
-@use "./components/grid.scss";
 @use "./components/tables.scss";
 @use "./components/forms.scss";
 @use "./components/buttons.scss";
@@ -20,6 +19,7 @@ production stylesheet in assets/built/screen.css using gulp dev
 @use "./components/animations.scss";
 @use "./components/masonry.scss";
 @use "./components/lightbox.scss";
+@use "./pages/homepage.scss";
 
  
 /* Lib - Third-party imports
@@ -52,12 +52,32 @@ body {
   text-indent: -9999px;
 }
 
+.mt-50 {
+  margin-top: 50px;
+}
+
+.pt-100 {
+  padding-top: 100px;
+}
+
+// Margin utilities
+.mt-100 {
+  margin-top: 100px;
+}
+
+.mb-100 {
+  margin-bottom: 100px;
+}
+
+.my-100 {
+  margin: 100px 0;
+}
+
 /* Layout
 /* ---------------------------------------------------------- */
 .site-main {
-    padding-top: 50px;
-    padding-bottom: 3rem;
-  }
+  padding-bottom: 3rem;
+}
 
 main#site-main {
   
@@ -89,9 +109,8 @@ main#site-main {
 }
 
 .site-wrapper {
-    position: relative;
+  position: relative;
   min-height: 100vh;
-  padding: 3vw;
   // min-height: calc(100vh - 90px);
   max-width: 1920px;
   margin-right: auto;
@@ -185,13 +204,17 @@ footer.site-foot a {
 /* ---------------------------------------------------------- */
 
 .site-head {
-  position: relative;
+  padding: 3vw 3vw 0;
+  position: absolute;
   z-index: 300;
   margin-top: -10px;
   font-size: 1.35rem;
+  width: 100%;
+  left: 0;
 }
 
 .site-head-container {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -237,11 +260,15 @@ footer.site-foot a {
 }
 
 .site-head-center {
-  position: absolute;
+  // position: absolute;
   display: flex;
   justify-content: center;
   width: 100%;
   margin-left: -10px;
+
+  @media (min-width: 850px) {
+    margin-left: -40px;
+  }
 }
 
 .site-head-logo {

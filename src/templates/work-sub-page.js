@@ -99,40 +99,33 @@ const WorkSubPage = ({ data, pageContext }) => {
   
   return (
     <>
-      <Helmet>
+      <Helmet> {/* Helmet for SEO and styles */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
           href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
           rel="stylesheet"
         />
-      </Helmet>
-
-      <Layout location={data.location} title={siteTitle} social={social}>
         {/* <Seo title={meta?.title || album} description={meta?.description} /> */}
-        
+
+      </Helmet>
+      
+      <Layout location={data.location} title={siteTitle} social={social}>
+
         {/* Back to Albums Button */}
-        <div style={{ marginBottom: "2rem" }}>
-          <Link 
-            to="/work/"
-            style={{ 
-              display: "inline-flex", 
-              alignItems: "center", 
-              color: "inherit", 
-              fontSize: "1.2rem",
-              textDecoration: "none",
-              fontWeight: "300"
-            }}
-          >
+        <div style={{ marginBottom: "2rem", padding: "0 3vw"}}>
+          <Link to="/work/" style={{display: "inline-flex", alignItems: "center", color: "inherit", fontSize: "1.2rem", textDecoration: "none", fontWeight: "300"}}>
             <img src={LeftIcon} alt='' width={20} height={20} style={{ marginRight: "0.5rem" }} />
             <span>Back to Albums</span>
           </Link>
         </div>
-
-        <h1 className="post-content-title">{meta?.title || album}</h1>
-
         
+        <div className="container mt-50">
+          <div className="row">
+
             <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+              
+              <h1 className="post-content-title">{meta?.title || album}</h1>
               
               {meta?.description && 
                 <p className="post-content-excerpt">
@@ -168,74 +161,76 @@ const WorkSubPage = ({ data, pageContext }) => {
               </Masonry>
             </div>
 
+            <Lightbox
+              slides={slides}
+              open={index >= 0}
+              index={index}
+              close={() => setIndex(-1)}
+              animation={{ swipe: 0, fade: 300 }} // ✅ kills only the broken animation
+              plugins={slides.length > 1 ? [Thumbnails] : []}
+              thumbnails={{ vignette: false }}
+              carousel={{ finite: true }}
+              render={{
+                slide: ({ slide }) => <LightboxSlide slide={slide} />, 
+                iconPrev: slides.length > 1 ? undefined : () => null,
+                iconNext: slides.length > 1 ? undefined : () => null,
+              }}
+              styles={{
+                slide: {
+                  backdropFilter: "blur(5px)",
+                },
+                image: {
+                  objectFit: "contain",
+                  maxHeight: "10vh",
+                },
+              }}
+              // Enable drag for slides and thumbnails
+              draggable={true}
+              thumbnailsProps={{ draggable: true }}
+            />
 
-        <Lightbox
-          slides={slides}
-          open={index >= 0}
-          index={index}
-          close={() => setIndex(-1)}
-          animation={{ swipe: 0, fade: 300 }} // ✅ kills only the broken animation
-          plugins={slides.length > 1 ? [Thumbnails] : []}
-          thumbnails={{ vignette: false }}
-          carousel={{ finite: true }}
-          render={{
-            slide: ({ slide }) => <LightboxSlide slide={slide} />, 
-            iconPrev: slides.length > 1 ? undefined : () => null,
-            iconNext: slides.length > 1 ? undefined : () => null,
-          }}
-          styles={{
-            slide: {
-              backdropFilter: "blur(5px)",
-            },
-            image: {
-              objectFit: "contain",
-              maxHeight: "10vh",
-            },
-          }}
-          // Enable drag for slides and thumbnails
-          draggable={true}
-          thumbnailsProps={{ draggable: true }}
-        />
+            {/* Album Navigation */}
+            {(previousAlbum || nextAlbum) && (
+              <div className="post-link">
+                <div>
+                  {previousAlbum && (
+                    <Link 
+                      to={previousAlbum.path}
+                      style={{ 
+                        display: "flex", 
+                        alignItems: "center", 
+                        color: "inherit", 
+                        fontSize: "2rem",
+                        textDecoration: "none"
+                      }}
+                    >
+                      <img src={LeftIcon} alt='' width={30} height={30} />
+                      <span>{previousAlbum.album}</span>
+                    </Link>
+                  )}
+                </div>
+                <div>
+                  {nextAlbum && (
+                    <Link 
+                      to={nextAlbum.path}
+                      style={{ 
+                        display: "flex", 
+                        alignItems: "center", 
+                        color: "inherit", 
+                        fontSize: "2rem",
+                        textDecoration: "none"
+                      }}
+                    >
+                      <span>{nextAlbum.album}</span>
+                      <img src={RightIcon} alt='' width={30} height={30} />
+                    </Link>
+                  )}
+                </div>
+              </div>
+            )}
 
-        {/* Album Navigation */}
-        {(previousAlbum || nextAlbum) && (
-          <div className="post-link">
-            <div>
-              {previousAlbum && (
-                <Link 
-                  to={previousAlbum.path}
-                  style={{ 
-                    display: "flex", 
-                    alignItems: "center", 
-                    color: "inherit", 
-                    fontSize: "2rem",
-                    textDecoration: "none"
-                  }}
-                >
-                  <img src={LeftIcon} alt='' width={30} height={30} />
-                  <span>{previousAlbum.album}</span>
-                </Link>
-              )}
-            </div>
-            <div>
-              {nextAlbum && (
-                <Link 
-                  to={nextAlbum.path}
-                  style={{ 
-                    display: "flex", 
-                    alignItems: "center", 
-                    color: "inherit", 
-                    fontSize: "2rem",
-                    textDecoration: "none"
-                  }}
-                >
-                  <span>{nextAlbum.album}</span>
-                  <img src={RightIcon} alt='' width={30} height={30} />
-                </Link>
-              )}
-            </div>
           </div>
-        )}
+        </div>
 
       </Layout>
     </>

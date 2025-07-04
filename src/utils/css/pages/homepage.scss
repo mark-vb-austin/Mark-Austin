@@ -1,0 +1,77 @@
+/* Homepage specific styles */
+
+.hero-section {
+  background: linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%);
+}
+
+.hero-section .display-1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  letter-spacing: 2px;
+  line-height: 1.2;
+}
+
+.intro-image-container {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.intro-image-container .gatsby-image-wrapper {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.intro-image-container img {
+  object-fit: cover !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.portfolio-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.portfolio-item:hover .overlay {
+  opacity: 1 !important;
+}
+
+.portfolio-item .overlay {
+  transition: all 0.3s ease;
+  background: rgba(0,0,0,0.8);
+}
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #ddd, transparent);
+  margin: 3rem 0;
+}
+
+.btn-outline-dark {
+  border-color: #333;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-dark:hover {
+  background-color: #333;
+  border-color: #333;
+  color: white;
+}
+
+.featured-work-overlay {
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+}
+
+@media (max-width: 768px) {
+  .hero-section .display-1 {
+    font-size: 2.5rem;
+  }
+  
+  .intro-image-container {
+    aspect-ratio: 3/4;
+  }
+}

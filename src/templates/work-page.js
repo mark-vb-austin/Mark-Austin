@@ -65,50 +65,58 @@ const WorkPage = ({ data }) => {
           data.markdownRemark.frontmatter.thumbnail.childImageSharp.fluid.src
         }
       />
-      <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-      
-        
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className="masonry-grid"
-          columnClassName="masonry-grid_column"
-        >          
-          {Object.entries(albumMap).map(
-            ([albumName, { imageCount, cover }]) => {
-              // albumName could be 'work/2024/album-one' or '2024/album-one'
-              const parts = albumName.split("/");
-              let year, album;
-              if (parts.length === 3 && parts[0] === 'work') {
-                [ , year, album] = parts;
-              } else if (parts.length === 2) {
-                [year, album] = parts;
-              } else {
-                return null;
-              }
-              return (
-                <Link
-                  key={albumName}
-                  to={`/work/${year}/${album}`}
-                  className="column-item"
-                >
-                  <GatsbyImage
-                    key={cover}
-                    image={getImage(cover.childImageSharp.gatsbyImageData)}
-                    alt={albumName}
-                    className="column-wrap"
-                  />
-                  <div className="masonry__titles">
-                    <h2>{getLastDir(albumName)}</h2>
-                    <div className="hl"></div>
-                    <h3>
-                      {imageCount} image{imageCount > 1 ? "s" : ""}
-                    </h3>
-                  </div>
-                </Link>
-              );
-            }
-          )}
-        </Masonry>
+
+      <div className="container mt-50">
+        <div className="row">
+
+
+          <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+          
+            
+            <Masonry
+              breakpointCols={breakpointColumnsObj}
+              className="masonry-grid"
+              columnClassName="masonry-grid_column"
+            >          
+              {Object.entries(albumMap).map(
+                ([albumName, { imageCount, cover }]) => {
+                  // albumName could be 'work/2024/album-one' or '2024/album-one'
+                  const parts = albumName.split("/");
+                  let year, album;
+                  if (parts.length === 3 && parts[0] === 'work') {
+                    [ , year, album] = parts;
+                  } else if (parts.length === 2) {
+                    [year, album] = parts;
+                  } else {
+                    return null;
+                  }
+                  return (
+                    <Link
+                      key={albumName}
+                      to={`/work/${year}/${album}`}
+                      className="column-item"
+                    >
+                      <GatsbyImage
+                        key={cover}
+                        image={getImage(cover.childImageSharp.gatsbyImageData)}
+                        alt={albumName}
+                        className="column-wrap"
+                      />
+                      <div className="masonry__titles">
+                        <h2>{getLastDir(albumName)}</h2>
+                        <div className="hl"></div>
+                        <h3>
+                          {imageCount} image{imageCount > 1 ? "s" : ""}
+                        </h3>
+                      </div>
+                    </Link>
+                  );
+                }
+              )}
+            </Masonry>
+          </div>
+
+        </div>
       </div>
     </Layout>
   );

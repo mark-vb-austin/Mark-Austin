@@ -41,15 +41,20 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const blogPosts = posts.filter(
     item => item.node.frontmatter.templateKey === "blog-post"
   );
+  
   blogPosts.forEach((post, index) => {
     const previous = index === blogPosts.length - 1 ? null : blogPosts[index + 1].node;
     const next = index === 0 ? null : blogPosts[index - 1].node;
 
+    // Extract the filename from the slug and create a simple path
+    const slug = post.node.fields.slug;
+    // Remove trailing slash, split, and get the last non-empty part
+    const slugParts = slug.replace(/\/$/, '').split('/');
+    const filename = slugParts[slugParts.length - 1];
+    const newsPath = `/news/${filename}/`;
+
     createPage({
-      path:
-        post.node.fields.slug.split("/").slice(2, -1).join("/") === ""
-          ? "/"
-          : `/${post.node.fields.slug.split("/").slice(2, -1).join("/")}`,
+      path: newsPath,
       component: path.resolve(`src/templates/blog-post.js`),
       context: {
         slug: post.node.fields.slug,

@@ -76,9 +76,11 @@ const Layout = (props) => {
         </div>
       </header>
 
-      <main id="site-main" className=" container site-main">
-        <div id="swup" className="transition-fade row">
-          {children}
+      <main id="site-main" className=" container-fluid site-main">
+        <div id="swup" className="transition-fade row pt-100">
+          <div className="col p-0">
+            {children}
+          </div>
         </div>
       </main>
 
