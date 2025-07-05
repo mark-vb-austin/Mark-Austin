@@ -14,6 +14,68 @@ const IndexPage = ({ data }) => {
   const heroImage = data.heroImage;
   const aboutImage = data.aboutImage;
   const recentWorkImages = data.recentWorkImages.nodes;
+  const recentAlbums = data.recentAlbums.nodes;
+  const albumMetadata = data.albumMetadata.nodes;
+
+  // Create a map of album metadata by directory
+  const metadataMap = {};
+  albumMetadata.forEach((file) => {
+    if (file.childMarkdownRemark && file.childMarkdownRemark.frontmatter) {
+      metadataMap[file.relativeDirectory] = file.childMarkdownRemark.frontmatter;
+    }
+  });
+
+  // Process album data to group by directory and get recent albums
+  const albumMap = {};
+  
+  recentAlbums.forEach((file) => {
+    const dir = file.relativeDirectory;
+    // Only process files that are in the work/20XX/ directory structure and have images
+    if (dir && dir.startsWith('work/20') && file.childImageSharp) {
+      if (!albumMap[dir]) {
+        albumMap[dir] = {
+          imageCount: 1,
+          cover: file,
+          images: [file],
+          metadata: metadataMap[dir] || null
+        };
+      } else {
+        albumMap[dir].imageCount += 1;
+        albumMap[dir].images.push(file);
+      }
+    }
+  });
+
+  // Get the 3 most recent albums (sorted by directory name which includes year)
+  const recentAlbumEntries = Object.entries(albumMap)
+    .sort(([a], [b]) => b.localeCompare(a)) // Sort by directory name descending (most recent first)
+    .slice(0, 3);
+
+  // Helper function to create album title from directory path or metadata
+  const createAlbumTitle = (dir, albumData) => {
+    // Use metadata title if available
+    if (albumData.metadata && albumData.metadata.title) {
+      return albumData.metadata.title;
+    }
+    // Fallback to directory name
+    const parts = dir.split('/');
+    if (parts.length >= 3) {
+      const albumName = parts[parts.length - 1];
+      return albumName.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    }
+    return 'Album';
+  };
+
+  // Helper function to create album URL
+  const createAlbumUrl = (dir) => {
+    const parts = dir.split('/');
+    if (parts.length >= 3) {
+      const year = parts[1];
+      const albumName = parts[2];
+      return `/work/${year}/${albumName}`;
+    }
+    return '/work';
+  };
 
   return (
     <>
@@ -75,8 +137,7 @@ const IndexPage = ({ data }) => {
                   THE HEART OF MY WORK
                   <br />
                   ISN'T IN POSED PERFECTION —<br />
-                  IT'S IN REAL MOMENTS
-                  <br />
+                  <strong>IT'S IN REAL MOMENTS</strong><br />
                   YOU'LL WANT TO REMEMBER.
                   <br />
                 </div>
@@ -87,11 +148,11 @@ const IndexPage = ({ data }) => {
               <div className='mb-3'>
                 HONEST
                 <br />
-                CANDID
+                <strong>CANDID</strong>
                 <br />
                 STORY-LED
                 <br />
-                MEANINGFUL
+                <strong>MEANINGFUL</strong>
                 <br />
               </div>
               <div className='intro-image-container' style={{ aspectRatio: "4/5", overflow: "hidden" }}>
@@ -101,33 +162,53 @@ const IndexPage = ({ data }) => {
           </div>
         </section>
 
-        {/* About Section */}
-        <section className='py-5'>
+        {/* CHAT - THERE STYLE SLIDE */}
+        <section className='py-5' style={{ backgroundColor: "#ffffff" }}>
           <div className='container'>
-            <div className='row align-items-center'>
-              <div className='col-lg-6 mb-4 mb-lg-0'>
-                <div className='row g-3'>
-                  <div className='col-6'>
-                    <GatsbyImage image={getImage(aboutImage)} alt='About' className='w-100' style={{ height: "300px", objectFit: "cover" }} />
-                  </div>
-                  <div className='col-6'>
-                    <GatsbyImage image={getImage(recentWorkImages[2])} alt='Portfolio' className='w-100' style={{ height: "300px", objectFit: "cover" }} />
-                  </div>
-                  <div className='col-12'>
-                    <GatsbyImage image={getImage(recentWorkImages[3])} alt='Portfolio' className='w-100' style={{ height: "200px", objectFit: "cover" }} />
-                  </div>
-                </div>
+            <div className='row'>
+              <div className='col-12 text-center mb-5'>
+                <h2 className='display-5 fw-light'>Recent Albums</h2>
               </div>
-              <div className='col-lg-6'>
-                <div className='ps-lg-5 position-relative'>
-                  <div className='rotating-text position-absolute' style={{ right: "-2rem", top: "50%", transform: "translateY(-50%)" }}>
-                    <span>ABOUT THE ARTIST</span>
-                  </div>
-                  <h2 className='display-5 fw-light mb-4'>Karen Martinez is a Lifestyle Photographer & Visual Storyteller based in Berlin.</h2>
-                  <p className='text-muted mb-4'>With over 10 years of experience capturing life's most precious moments, Karen brings a unique perspective to every shoot. Her work focuses on authentic emotions and natural beauty.</p>
-                  <Link to='/bio' className='btn btn-outline-dark'>
-                    Learn More
-                  </Link>
+            </div>
+            <div className='row justify-content-center'>
+              <div className='col-12'>
+                <div className='d-flex justify-content-center align-items-center gap-4 flex-wrap'>
+                  {recentAlbumEntries.map(([albumDir, albumData], index) => {
+                      const albumTitle = createAlbumTitle(albumDir, albumData);
+                      const albumUrl = createAlbumUrl(albumDir);
+                      const images = albumData.images.slice(0, 2); // Get first 2 images for sliding
+                      
+                      return (
+                        <Link key={albumDir} to={albumUrl} className='text-decoration-none'>
+                          <div className={`album-card ${index === 1 ? 'album-card-center' : ''}`} style={{ width: index === 1 ? '320px' : '280px', height: index === 1 ? '400px' : '350px' }}>
+                            <div className='album-card-container position-relative overflow-hidden' style={{ width: '100%', height: '100%' }}>
+                              <div className={`album-slide album-slide-${index + 1} d-flex`} style={{ width: '200%', height: '100%', transform: 'translateX(0%)', transition: 'transform 0.5s ease' }}>
+                                <div className='album-image-1' style={{ width: '50%', height: '100%' }}>
+                                  <GatsbyImage 
+                                    image={getImage(images[0])} 
+                                    alt={`${albumTitle} - Image 1`} 
+                                    className='w-100 h-100' 
+                                    style={{ objectFit: 'cover' }} 
+                                  />
+                                </div>
+                                <div className='album-image-2' style={{ width: '50%', height: '100%' }}>
+                                  <GatsbyImage 
+                                    image={getImage(images[1] || images[0])} 
+                                    alt={`${albumTitle} - Image 2`} 
+                                    className='w-100 h-100' 
+                                    style={{ objectFit: 'cover' }} 
+                                  />
+                                </div>
+                              </div>
+                              <div className='album-overlay position-absolute bottom-0 start-0 w-100 p-3'>
+                                <h5 className='mb-1'>{albumTitle}</h5>
+                                <p className='mb-0 small'>{albumData.imageCount} Image{albumData.imageCount !== 1 ? 's' : ''}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+                      );
+                    })}
                 </div>
               </div>
             </div>
@@ -278,6 +359,42 @@ export const IndexPageQuery = graphql`
       nodes {
         childImageSharp {
           gatsbyImageData(width: 600, height: 400, placeholder: NONE)
+        }
+      }
+    }
+    recentAlbums: allFile(
+      filter: { 
+        sourceInstanceName: { eq: "work" },
+        extension: { in: ["jpg", "jpeg", "png"] },
+        relativeDirectory: { regex: "/work\\/20/" }
+      },
+      limit: 50,
+      sort: { relativePath: ASC }
+    ) {
+      nodes {
+        relativePath
+        relativeDirectory
+        childImageSharp {
+          gatsbyImageData(width: 600, height: 400, placeholder: NONE)
+        }
+      }
+    }
+    albumMetadata: allFile(
+      filter: { 
+        sourceInstanceName: { eq: "work" },
+        name: { eq: "album" },
+        extension: { eq: "md" }
+      },
+      sort: { relativePath: DESC }
+    ) {
+      nodes {
+        relativeDirectory
+        childMarkdownRemark {
+          frontmatter {
+            title
+            description
+            date
+          }
         }
       }
     }
