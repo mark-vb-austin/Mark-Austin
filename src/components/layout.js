@@ -63,13 +63,13 @@ const Layout = (props) => {
 
           <div className="site-head-right">
             <div className="social-links">
-              <Link to={`https://www.facebook.com/markvbaustin`} title="Facebook" target="_blank" rel="noopener noreferrer">
+              <a href={`https://www.facebook.com/markvbaustin`} title="Facebook" target="_blank" rel="noopener noreferrer">
                 Facebook
-              </Link>
+              </a>
            
-              <Link to={`https://instagram.com/mark.vb.austin`} title="Instagram" target="_blank" rel="noopener noreferrer">
+              <a href={`https://instagram.com/mark.vb.austin`} title="Instagram" target="_blank" rel="noopener noreferrer">
                 Instagram
-              </Link>
+              </a>
             </div>
           </div>
 
