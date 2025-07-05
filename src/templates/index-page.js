@@ -167,24 +167,24 @@ const IndexPage = ({ data }) => {
         </section>
 
         {/* CHAT - THERE STYLE SLIDE */}
-        <section className='py-5' style={{ backgroundColor: "#ffffff" }}>
-          <div className='container'>
+        <section className='py-5 container' style={{ backgroundColor: "#ffffff" }}>
             <div className='row'>
               <div className='col-12 text-center mb-5'>
                 <h2 className='display-5 fw-light'>Recent Albums</h2>
               </div>
             </div>
-            <div className='row justify-content-center'>
-              <div className='col-12'>
-                <div className='d-flex justify-content-center align-items-center gap-4 flex-wrap'>
+            <div className='row '>
+              <div className='col-md-8 offset-md-2 col-12'>
+                <div className='d-flex justify-content-center align-items-center gap-2 gap-sm-3'>
                   {recentAlbumEntries.map(([albumDir, albumData], index) => {
                       const albumTitle = createAlbumTitle(albumDir, albumData);
                       const albumUrl = createAlbumUrl(albumDir);
                       const images = albumData.images.slice(0, 2); // Get first 2 images for sliding
                       
                       return (
-                        <Link key={albumDir} to={albumUrl} className='text-decoration-none'>
-                          <div className={`album-card ${index === 1 ? 'album-card-center' : ''}`} style={{ width: index === 1 ? '320px' : '280px', height: index === 1 ? '400px' : '350px' }}>
+                        <Link key={albumDir} to={albumUrl} className='text-decoration-none' style={{ width: index === 1 ? '35%' : '30%', aspectRatio:'4/5' }}>
+                          <div className={`album-card ${index === 1 ? 'album-card-center' : ''}`} >
+
                             <div className='album-card-container position-relative overflow-hidden' style={{ width: '100%', height: '100%' }}>
                               <div className={`album-slide album-slide-${index + 1} d-flex`} style={{ width: '200%', height: '100%', transform: 'translateX(0%)', transition: 'transform 0.5s ease' }}>
                                 <div className='album-image-1' style={{ width: '50%', height: '100%' }}>
@@ -213,7 +213,6 @@ const IndexPage = ({ data }) => {
                         </Link>
                       );
                     })}
-                </div>
               </div>
             </div>
           </div>
