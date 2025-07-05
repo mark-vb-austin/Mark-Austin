@@ -91,11 +91,6 @@ const IndexPage = ({ data }) => {
               .hero-section {
                 margin-top: -100px;
               }
-              @media (max-width: 850px) {
-                .site-wrapper {
-                  padding: 0vw !important;
-                }
-              }
             `}
         </style>
       </Helmet>
@@ -241,39 +236,63 @@ const IndexPage = ({ data }) => {
                 const blogPostUrl = `/news/${filename}/`;
 
                 return (
-                  <div key={index} className='col-lg-6 col-md-6'>
-                    <article className='blog-post-card'>
-                      <div className='mb-3'>
-                        <small className='text-muted'>
-                          {node.frontmatter.date}
-                          {node.frontmatter.tags && (
-                            <span className='ms-2'>
-                              {node.frontmatter.tags.map((tag) => (
-                                <span key={tag} className='badge bg-light text-dark me-1'>
-                                  {tag}
-                                </span>
-                              ))}
-                            </span>
+                  <div key={index} className='blog-cards col-6 p-0 m-0'>
+                    <Link to={blogPostUrl} className='text-decoration-none'>
+                      <article className='blog-post-card position-relative overflow-hidden' style={{ height: "400px", cursor: "pointer" }}>
+                        {/* Background Image */}
+                        <div className='position-absolute w-100 h-100' style={{ zIndex: 1 }}>
+                          {node.frontmatter.thumbnail ? (
+                            <GatsbyImage 
+                              image={getImage(node.frontmatter.thumbnail)} 
+                              alt={node.frontmatter.title} 
+                              className='w-100 h-100' 
+                              style={{ objectFit: "cover" }} 
+                            />
+                          ) : (
+                            <div className='w-100 h-100 d-flex align-items-center justify-content-center bg-light'>
+                              <span className='text-muted'>BACKGROUND IMAGE</span>
+                            </div>
                           )}
-                        </small>
-                      </div>
-                      <h5 className='mb-3'>
-                        <Link to={blogPostUrl} className='text-decoration-none text-dark'>
-                          {node.frontmatter.title}
-                        </Link>
-                      </h5>
-                      {node.frontmatter.thumbnail && (
-                        <div className='mb-3'>
-                          <Link to={blogPostUrl}>
-                            <GatsbyImage image={getImage(node.frontmatter.thumbnail)} alt={node.frontmatter.title} className='w-100' style={{ height: "250px", objectFit: "cover" }} />
-                          </Link>
                         </div>
-                      )}
-                      <p className='text-muted mb-3'>{node.frontmatter.description}</p>
-                      <Link to={blogPostUrl} className='btn btn-outline-dark btn-sm'>
-                        Read More
-                      </Link>
-                    </article>
+                        
+                        {/* Date, Tags, and Title Overlay */}
+                        <div className='position-absolute top-0 start-0 p-3' style={{ zIndex: 3 }}>
+                          <div className='d-flex align-items-center flex-wrap mb-2'>
+                            <small className='text-white bg-dark px-2 py-1 rounded me-2'>
+                              {node.frontmatter.date}
+                            </small>
+                            {node.frontmatter.tags && (
+                              <>
+                                {node.frontmatter.tags.map((tag) => (
+                                  <small key={tag} className='badge bg-light text-dark px-2 py-0 rounded me-2'>
+                                    {tag}
+                                  </small>
+                                ))}
+                              </>
+                            )}
+                          </div>
+                          <h5 className='text-white my-0' style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}>
+                            {node.frontmatter.title}
+                          </h5>
+                        </div>
+
+                        {/* Hover Description Overlay */}
+                        <div className='blog-post-hover-overlay position-absolute bottom-0 start-0 w-100 p-4' style={{ 
+                          zIndex: 4, 
+                          backgroundColor: "rgba(0,0,0,0.75)", 
+                          backdropFilter: "blur(10px)",
+                          transform: "translateY(100%)",
+                          transition: "transform 0.4s ease" 
+                        }}>
+                          <div className='text-start'>
+                            <p className='text-white mb-3'>{node.frontmatter.description}</p>
+                            <span className='btn btn-light btn-sm text-white text-decoration-underline'>
+                              Read More {'>'}
+                            </span>
+                          </div>
+                        </div>
+                      </article>
+                    </Link>
                   </div>
                 );
               })}
@@ -414,7 +433,7 @@ export const IndexPageQuery = graphql`
             slug
           }
           frontmatter {
-            date(formatString: "MMMM DD, YYYY")
+            date(formatString: "DD MMMM YYYY")
             title
             description
             tags

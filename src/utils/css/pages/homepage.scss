@@ -75,3 +75,39 @@
     aspect-ratio: 3/4;
   }
 }
+
+/* Target specific blog card positions */
+.blog-cards{
+  img { border-radius: 0;}
+
+  &.col-lg-6:nth-child(1) img {
+    border-top-left-radius:18px;
+  }
+  &.col-lg-6:nth-child(2) img {
+      border-top-right-radius:18px;
+  }
+  
+  &.col-lg-6:nth-child(5) img {
+      border-bottom-left-radius:18px;
+  }
+  
+  &.col-lg-6:nth-child(6) img {
+      border-bottom-right-radius:18px;
+  }
+  
+  /* Blog post card hover effect */
+  .blog-post-card:hover .blog-post-hover-overlay {
+    transform: translateY(0%) !important;
+  }
+  
+  .blog-post-card {
+    transition: transform 0.3s ease;
+  }
+  
+  @media (max-width: 850px) {
+    .site-wrapper {
+      padding: 0vw !important;
+    }
+  }
+}
+
