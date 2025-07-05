@@ -117,16 +117,25 @@ const IndexPage = ({ data }) => {
               </h1>
               <p className='lead mb-4'>Photography is the art of frozen time... the ability to store emotion and feelings within a frame.</p>
               <div className='mt-5'>
-                <div className='border rounded-circle d-inline-flex align-items-center justify-content-center' style={{ width: "60px", height: "60px", borderColor: "white" }}>
+                <button 
+                  onClick={() => {
+                    document.getElementById('home-main-content')?.scrollIntoView({ 
+                      behavior: 'smooth' 
+                    });
+                  }}
+                  className='border rounded-circle d-inline-flex align-items-center justify-content-center bg-transparent text-white' 
+                  style={{ width: "60px", height: "60px", borderColor: "white", cursor: "pointer", boxShadow: "none" }}
+                  aria-label="Scroll to main content"
+                >
                   <span style={{ fontSize: "24px" }}>↓</span>
-                </div>
+                </button>
               </div>
             </div>
           </div>
         </section>
 
         {/* intro Content */}
-        <section className='container'>
+        <section className='container' id="home-main-content">
           <div className='row my-100 px-4 px-md-0'>
             <div className='col-md-4 offset-md-2 col-6'>
               <div className='intro-image-container' style={{ aspectRatio: "4/5", overflow: "hidden" }}>

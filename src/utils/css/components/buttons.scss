@@ -90,6 +90,16 @@ button:hover:not(.nav-burger),
   transition: 0.2s ease;
 }
 
+// Remove hover effects for rounded-circle buttons
+button.rounded-circle:hover,
+.button.rounded-circle:hover {
+  color: #fff !important;
+  background-color: transparent;
+  box-shadow: none;
+  border-color: white;
+  transition: none;
+}
+
 input[type="submit"].primary,
 input[type="reset"].primary,
 input[type="button"].primary,
