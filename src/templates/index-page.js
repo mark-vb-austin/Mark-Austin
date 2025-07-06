@@ -83,6 +83,9 @@ const IndexPage = ({ data }) => {
       <Helmet>
         <style>
           {`
+              .site-main {
+                margin-top: -75px;
+              }
               .site-head-container *,
               .site-head-container a {
                 color: white;
@@ -90,6 +93,10 @@ const IndexPage = ({ data }) => {
 
               .hero-section {
                 margin-top: -100px;
+              }
+              .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after,
+              .site-head-open .hamburger-inner, .site-head-open .hamburger-inner::before, .site-head-open .hamburger-inner::after {
+                background-color: #fff;
               }
             `}
         </style>
@@ -99,7 +106,7 @@ const IndexPage = ({ data }) => {
         <Seo keywords={[`Gatsby Theme`, `Free Gatsby Template`, `Clay Gatsby Theme`]} title={data.markdownRemark.frontmatter.title} description={data.markdownRemark.frontmatter.description || ""} image={data.markdownRemark.frontmatter.thumbnail.childImageSharp.fluid.src} />
 
         {/* HERO SECTION */}
-        <section className='hero-section position-relative' style={{ height: "100vh", overflow: "hidden" }}>
+        <section className='hero-section position-relative' style={{ height: "calc(100vh + 75px)", overflow: "hidden" }}>
           <div className='position-absolute w-100 h-100' style={{ zIndex: 1 }}>
             <GatsbyImage image={getImage(heroImage)} alt='Hero background' className='w-100 h-100' style={{ objectFit: "cover" }} />
           </div>
@@ -166,15 +173,15 @@ const IndexPage = ({ data }) => {
           </div>
         </section>
 
-        {/* CHAT - THERE STYLE SLIDE */}
-        <section className='py-5 container' style={{ backgroundColor: "#ffffff" }}>
+        {/* // Recent Albums Section */}
+        <section className='py-5 container'>
             <div className='row'>
               <div className='col-12 text-center mb-5'>
                 <h2 className='display-5 fw-light'>Recent Albums</h2>
               </div>
             </div>
             <div className='row '>
-              <div className='col-md-8 offset-md-2 col-12'>
+              <div className='col-md-8 p-0 offset-md-2 col-12'>
                 <div className='d-flex justify-content-center align-items-center gap-2 gap-sm-3'>
                   {recentAlbumEntries.map(([albumDir, albumData], index) => {
                       const albumTitle = createAlbumTitle(albumDir, albumData);
@@ -219,14 +226,14 @@ const IndexPage = ({ data }) => {
         </section>
 
         {/* Blog Posts Grid */}
-        <section className='py-5' style={{ backgroundColor: "#f8f9fa" }}>
+        <section className='py-5' >
           <div className='container'>
             <div className='row'>
               <div className='col-12 text-center mb-5'>
                 <h2 className='display-5 fw-light'>Latest Blog Posts</h2>
               </div>
             </div>
-            <div className='row g-4'>
+            <div className='row g-4 justify-content-center'>
               {posts.slice(0, 6).map(({ node }, index) => {
                 // Generate the correct blog post URL
                 const slug = node.fields.slug;
@@ -235,7 +242,7 @@ const IndexPage = ({ data }) => {
                 const blogPostUrl = `/news/${filename}/`;
 
                 return (
-                  <div key={index} className='blog-cards col-6 p-0 m-0'>
+                  <div key={index} className='blog-cards col-6 col-sm-5 p-0 m-0' style={{ aspectRatio: "1.2/1", overflow: "hidden" }}>
                     <Link to={blogPostUrl} className='text-decoration-none'>
                       <article className='blog-post-card position-relative overflow-hidden' style={{ height: "400px", cursor: "pointer" }}>
                         {/* Background Image */}

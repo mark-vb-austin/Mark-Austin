@@ -117,11 +117,12 @@ main#site-main {
   margin-right: auto;
   margin-left: auto;
 }
-@media (max-width: 850px) {
-  .site-wrapper {
-    padding: 6vw;
-  }
-}
+
+// @media (max-width: 850px) {
+//   .site-wrapper {
+//     padding: 6vw;
+//   }
+// }
 
 .page-head {
   display: flex;
@@ -205,8 +206,8 @@ footer.site-foot a {
 /* ---------------------------------------------------------- */
 
 .site-head {
-  padding: 3vw 3vw 0;
-  position: absolute;
+  padding: 25px 3vw 0;
+  position: relative;
   z-index: 300;
   margin-top: -10px;
   font-size: 1.35rem;
@@ -360,8 +361,11 @@ footer.site-foot a {
 
 @media (max-width: 850px) {
   .site-head {
-    padding: 0;
+    padding: 6vw;
+
   }
+
+  
   .nav-burger {
     display: block;
   }

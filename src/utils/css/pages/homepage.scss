@@ -108,6 +108,14 @@
     .site-wrapper {
       padding: 0vw !important;
     }
+
+    &:hover .blog-post-hover-overlay{
+      display: none;
+    }
+
+    .badge {
+      display: none;
+    }
   }
 }
 
