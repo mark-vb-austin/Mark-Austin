@@ -136,7 +136,7 @@ const WorkSubPage = ({ data, pageContext }) => {
 
               <Masonry
                 breakpointCols={breakpointColumnsObj}
-                className="masonry-grid"
+                className="masonry-grid justify-content-center"
                 columnClassName="masonry-grid_column"
               >
                 {images.map((file, i) => (

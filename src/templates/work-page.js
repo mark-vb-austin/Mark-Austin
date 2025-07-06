@@ -33,9 +33,16 @@ const WorkPage = ({ data }) => {
       albumMap[dir] = {
         imageCount: 1,
         cover: file,
+        mostRecentTime: new Date(file.mtime)
       };
     } else {
       albumMap[dir].imageCount += 1;
+      // Update cover to the most recent image
+      const fileTime = new Date(file.mtime);
+      if (fileTime > albumMap[dir].mostRecentTime) {
+        albumMap[dir].mostRecentTime = fileTime;
+        albumMap[dir].cover = file;
+      }
     }
   });
 
@@ -78,7 +85,9 @@ const WorkPage = ({ data }) => {
               className="masonry-grid"
               columnClassName="masonry-grid_column"
             >          
-              {Object.entries(albumMap).map(
+              {Object.entries(albumMap)
+                .sort(([,a], [,b]) => b.mostRecentTime - a.mostRecentTime) // Sort by most recent file time descending
+                .map(
                 ([albumName, { imageCount, cover }]) => {
                   // albumName could be 'work/2024/album-one' or '2024/album-one'
                   const parts = albumName.split("/");
@@ -129,10 +138,11 @@ export const query = graphql`
         sourceInstanceName: { eq: "work" }
         extension: { regex: "/(jpg|jpeg|png)/" }
       }
-      sort: { relativePath: ASC }
+      sort: { mtime: DESC }
     ) {
       nodes {
         relativeDirectory
+        mtime
         childImageSharp {
           gatsbyImageData(placeholder: BLURRED)
         }

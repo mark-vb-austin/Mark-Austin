@@ -4,6 +4,8 @@ import { graphql, Link } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
+import GlasgowIcon from "../../static/icons//icon--glasgow-gold.svg";
+
 import { Helmet } from "react-helmet";
 
 // eslint-disable-next-line
@@ -12,7 +14,6 @@ const IndexPage = ({ data }) => {
   const social = data.site.siteMetadata.social;
   const posts = data.allMarkdownRemark.edges;
   const heroImage = data.heroImage;
-  const aboutImage = data.aboutImage;
   const recentWorkImages = data.recentWorkImages.nodes;
   const recentAlbums = data.recentAlbums.nodes;
   const albumMetadata = data.albumMetadata.nodes;
@@ -37,18 +38,24 @@ const IndexPage = ({ data }) => {
           imageCount: 1,
           cover: file,
           images: [file],
-          metadata: metadataMap[dir] || null
+          metadata: metadataMap[dir] || null,
+          mostRecentTime: new Date(file.mtime)
         };
       } else {
         albumMap[dir].imageCount += 1;
         albumMap[dir].images.push(file);
+        // Update most recent time if this file is newer
+        const fileTime = new Date(file.mtime);
+        if (fileTime > albumMap[dir].mostRecentTime) {
+          albumMap[dir].mostRecentTime = fileTime;
+        }
       }
     }
   });
 
-  // Get the 3 most recent albums (sorted by directory name which includes year)
+  // Get the 3 most recent albums (sorted by most recent file time in each album)
   const recentAlbumEntries = Object.entries(albumMap)
-    .sort(([a], [b]) => b.localeCompare(a)) // Sort by directory name descending (most recent first)
+    .sort(([,a], [,b]) => b.mostRecentTime - a.mostRecentTime) // Sort by most recent file time descending
     .slice(0, 3);
 
   // Helper function to create album title from directory path or metadata
@@ -138,7 +145,7 @@ const IndexPage = ({ data }) => {
 
         {/* intro Content */}
         <section className='container' id="home-main-content">
-          <div className='row my-100 px-4 px-md-0'>
+          <div className='row px-4 px-md-0'>
             <div className='col-md-4 offset-md-2 col-6'>
               <div className='intro-image-container' style={{ aspectRatio: "4/5", overflow: "hidden" }}>
                 <GatsbyImage image={getImage(recentWorkImages[0])} alt='Wedding photography' className='w-100 h-100' style={{ objectFit: "cover" }} />
@@ -173,13 +180,22 @@ const IndexPage = ({ data }) => {
           </div>
         </section>
 
+        {/* Glasgow Icon Section */}
+        <div className="container">
+          <div className="row vh-50 justify-content-center">
+            <div className="col-2">
+              <img src={GlasgowIcon} alt=''  />
+            </div>
+          </div>
+        </div>
+
         {/* // Recent Albums Section */}
-        <section className='py-5 container'>
-            <div className='row'>
+        <section className='container'>
+            {/* <div className='row'>
               <div className='col-12 text-center mb-5'>
                 <h2 className='display-5 fw-light'>Recent Albums</h2>
               </div>
-            </div>
+            </div> */}
             <div className='row '>
               <div className='col-md-8 p-0 offset-md-2 col-12'>
                 <div className='d-flex justify-content-center align-items-center gap-2 gap-sm-3'>
@@ -225,14 +241,23 @@ const IndexPage = ({ data }) => {
           </div>
         </section>
 
+        {/* Divider Line */}
+        <div className="container">
+          <div className="row vh-50">
+            <div className="col">
+              <hr />
+            </div>
+          </div>
+        </div>
+
         {/* Blog Posts Grid */}
-        <section className='py-5' >
+        <section className='' >
           <div className='container'>
-            <div className='row'>
+            {/* <div className='row'>
               <div className='col-12 text-center mb-5'>
                 <h2 className='display-5 fw-light'>Latest Blog Posts</h2>
               </div>
-            </div>
+            </div> */}
             <div className='row g-4 justify-content-center'>
               {posts.slice(0, 6).map(({ node }, index) => {
                 // Generate the correct blog post URL
@@ -244,7 +269,7 @@ const IndexPage = ({ data }) => {
                 return (
                   <div key={index} className='blog-cards col-6 col-sm-5 p-0 m-0' style={{ aspectRatio: "1.2/1", overflow: "hidden" }}>
                     <Link to={blogPostUrl} className='text-decoration-none'>
-                      <article className='blog-post-card position-relative overflow-hidden' style={{ height: "400px", cursor: "pointer" }}>
+                      <article className='blog-post-card position-relative overflow-hidden' style={{ height: "100%", cursor: "pointer" }}>
                         {/* Background Image */}
                         <div className='position-absolute w-100 h-100' style={{ zIndex: 1 }}>
                           {node.frontmatter.thumbnail ? (
@@ -303,28 +328,57 @@ const IndexPage = ({ data }) => {
                 );
               })}
             </div>
-            <div className='text-center mt-4'>
-              <div className='rotating-text d-inline-block'>
-                <span>CHECKOUT THE BLOGS</span>
-              </div>
-            </div>
           </div>
         </section>
 
+        {/* Glasgow Icon Section */}
+        <div className="container">
+          <div className="row vh-50 justify-content-center">
+            <div className="col-2">
+              <img src={GlasgowIcon} alt=''  />
+            </div>
+          </div>
+        </div>
+
         {/* Recent Work Section */}
-        <section className='py-5'>
-          <div className='container'>
+        <section className=''>
+          <div className='container'> 
             <div className='row'>
               <div className='col-12 text-center mb-5'>
-                <h2 className='display-5 fw-light'>3 images from most recent album</h2>
+                <h2 className='display-5 fw-light'>Most Recent Shoot</h2>
               </div>
             </div>
-            <div className='row g-4'>
-              {recentWorkImages.slice(0, 3).map((image, index) => (
-                <div key={index} className='col-lg-4 col-md-6'>
-                  <GatsbyImage image={getImage(image)} alt={`Recent work ${index + 1}`} className='w-100' style={{ height: "400px", objectFit: "cover" }} />
-                </div>
-              ))}
+            <div className='row g-4 justify-content-center'>
+              {(() => {
+                // Get the most recent album (first entry after sorting)
+                const mostRecentAlbum = recentAlbumEntries[0];
+                if (mostRecentAlbum) {
+                  const [albumDir, albumData] = mostRecentAlbum;
+                  const albumTitle = createAlbumTitle(albumDir, albumData);
+                  return albumData.images.slice(0, 3).map((image, index) => (
+                    <div key={index} className='col-lg-4 col-md-6'>
+                      <GatsbyImage 
+                        image={getImage(image)} 
+                        alt={`${albumTitle} - Image ${index + 1}`} 
+                        className='w-100' 
+                        style={{ height: "400px", objectFit: "cover" }} 
+                      />
+                    </div>
+                  ));
+                } else {
+                  // Fallback to general recent work images if no albums found
+                  return recentWorkImages.slice(0, 3).map((image, index) => (
+                    <div key={index} className='col-lg-4 col-md-6'>
+                      <GatsbyImage 
+                        image={getImage(image)} 
+                        alt={`Recent work ${index + 1}`} 
+                        className='w-100' 
+                        style={{ height: "400px", objectFit: "cover" }} 
+                      />
+                    </div>
+                  ));
+                }
+              })()}
             </div>
             <div className='text-center mt-4'>
               <Link to='/work' className='btn btn-outline-dark'>
@@ -384,11 +438,6 @@ export const IndexPageQuery = graphql`
         gatsbyImageData(layout: FULL_WIDTH, placeholder: NONE)
       }
     }
-    aboutImage: file(relativePath: { eq: "clay-images-15.jpg" }, sourceInstanceName: { eq: "uploads" }) {
-      childImageSharp {
-        gatsbyImageData(width: 400, height: 300, placeholder: NONE)
-      }
-    }
     recentWorkImages: allFile(filter: { sourceInstanceName: { eq: "uploads" }, extension: { regex: "/(jpg|jpeg|png)/" }, relativePath: { regex: "/clay-images-/" } }, limit: 10, sort: { relativePath: ASC }) {
       nodes {
         childImageSharp {
@@ -403,11 +452,12 @@ export const IndexPageQuery = graphql`
         relativeDirectory: { regex: "/work\\/20/" }
       },
       limit: 50,
-      sort: { relativePath: ASC }
+      sort: { mtime: DESC }
     ) {
       nodes {
         relativePath
         relativeDirectory
+        mtime
         childImageSharp {
           gatsbyImageData(width: 600, height: 400, placeholder: NONE)
         }

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
-// import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
 // eslint-disable-next-line
@@ -13,7 +13,7 @@ const BioPage = (props) => {
     <Layout location={props.location} title={site.siteMetadata.title} social={site.siteMetadata.social}>
       <Seo keywords={[`Gatsby Theme`, `Free Gatsby Template`, `Clay Gatsby Theme`]} title={post.frontmatter.title} description={post.frontmatter.description || ""} image={post.frontmatter.thumbnail.childImageSharp.gatsbyImageData.images.fallback.src} />
      
-      {/* <article className='post-content page-template no-image'>
+      <article className='post-content page-template no-image'>
         <div className='post-content-body'>
           <h1 id='heading-level-1'>Heading Level 1</h1>
           <h2 id='heading-level-2'>Heading Level 2</h2>
@@ -430,7 +430,7 @@ const BioPage = (props) => {
         </div>
 
         <footer className='post-content-footer'></footer>
-      </article> */}
+      </article>
 
     </Layout>
   );
