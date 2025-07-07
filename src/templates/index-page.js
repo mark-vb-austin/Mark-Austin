@@ -129,11 +129,11 @@ const IndexPage = ({ data }) => {
           <div className='position-absolute w-100 h-100 d-flex align-items-center justify-content-center' style={{ zIndex: 2, backgroundColor: "rgba(0,0,0,0.4)" }}>
             <div className='text-center text-white p-4'>
               <h1 className='display-1 fw-light mb-3' style={{ fontSize: "4rem", fontFamily: "serif" }}>
-                WE BELIEVE
+                A PLACE TO
                 <br />
-                THE ARTIST
+                KEEP MOMENTS
               </h1>
-              <p className='lead mb-4'>Photography is the art of frozen time... the ability to store emotion and feelings within a frame.</p>
+              <p className='lead mb-4'>At first, I just wanted to capture my family growing up. Now it’s part of how I see the world.</p>
               <div className='mt-5'>
                 <button
                   onClick={() => {

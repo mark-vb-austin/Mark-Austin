@@ -140,8 +140,7 @@ button.btn.btn-send {
   padding-left: 0.9em;
   display: flex;
   align-items: center;
-    border: 2px solid vars.$color-base;
-
+  border: 1px solid vars.$color-base;
   border-radius: 3px;
   overflow: hidden;
   transition: all 0.2s;

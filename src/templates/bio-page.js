@@ -24,7 +24,7 @@ const BioPage = (props) => {
             {post.frontmatter.description && <p className='post-content-excerpt'>{post.frontmatter.description}</p>}
 
             {post.frontmatter.hero && (
-              <div className='post-content-image'>
+              <div className='post-content-image wave-bounce'>
                 <GatsbyImage image={getImage(post.frontmatter.hero)} className='bio-page-hero' alt={post.frontmatter.title} />
               </div>
             )}

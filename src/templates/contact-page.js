@@ -65,7 +65,7 @@ const ContactPage = ({ data }, location) => {
                 No pressure, no awkward sales stuff—just real conversation and honest photography.
               </p>
 
-              <h3 id="forms">Let's Talk Moments</h3>
+              <h3 id="forms">What's Your Story?</h3>
               <form name="contact" method="POST" data-netlify="true" netlify action="thanks" onSubmit={handleSubmit}
               >
                 <input type="hidden" name="form-name" value="contact" />
