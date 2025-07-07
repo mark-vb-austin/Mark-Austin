@@ -92,6 +92,12 @@ const IndexPage = ({ data }) => {
       <Helmet>
         <style>
           {`
+            @media (min-width: 850px) {
+              .site-wrapper:not(.site-head-open) .site-head {
+                background: linear-gradient(to bottom,  rgba(0,0,0,6) 0%,rgba(0,0,0,0.6) 1%,rgba(0,0,0,0) 100%);
+              }
+            }
+            
             .site-wrapper:not(.site-head-open) .site-head-container *, 
             .site-wrapper:not(.site-head-open) .site-head-container a{
               color: #fff;
