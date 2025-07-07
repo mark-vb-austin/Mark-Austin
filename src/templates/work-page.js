@@ -73,7 +73,7 @@ const WorkPage = ({ data }) => {
         }
       />
 
-      <div className="container mt-50">
+      <div className="container">
         <div className="row">
 
 
@@ -112,7 +112,7 @@ const WorkPage = ({ data }) => {
                         className="column-wrap"
                       />
                       <div className="masonry__titles">
-                        <h2>{getLastDir(albumName)}</h2>
+                        <h3>{getLastDir(albumName)}</h3>
                         <div className="hl"></div>
                         <h3>
                           {imageCount} image{imageCount > 1 ? "s" : ""}

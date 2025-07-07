@@ -5,6 +5,8 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
 import GlasgowIcon from "../../static/icons//icon--glasgow-gold.svg";
+import PaisleyIcon from "../../static/icons//icon--paisley-gold.svg";
+import ScotlandIcon from "../../static/icons//icon--scotland-gold.svg";
 
 import { Helmet } from "react-helmet";
 
@@ -90,25 +92,32 @@ const IndexPage = ({ data }) => {
       <Helmet>
         <style>
           {`
-              .site-main {
-                margin-top: -75px;
-              }
-              .site-head-container *,
-              .site-head-container a {
-                color: white;
-              } 
+            .site-wrapper:not(.site-head-open) .site-head-container *, 
+            .site-wrapper:not(.site-head-open) .site-head-container a{
+              color: #fff;
+            }
 
-              .hero-section {
-                margin-top: -100px;
-              }
-              .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after,
-              .site-head-open .hamburger-inner, .site-head-open .hamburger-inner::before, .site-head-open .hamburger-inner::after {
-                background-color: #fff;
-              }
-            `}
+            .site-wrapper:not(.site-head-open) .hamburger-inner, .site-wrapper:not(.site-head-open) .hamburger-inner::before, .site-wrapper:not(.site-head-open) .hamburger-inner::after,
+            .site-wrapper:not(.site-head-open) .site-head-open .hamburger-inner, .site-wrapper:not(.site-head-open) .site-head-open .hamburger-inner::before, .site-wrapper:not(.site-head-open) .site-head-open .hamburger-inner::after {
+              background-color: #fff;
+            }
+
+            .site-main {
+              margin-top: -75px;
+              padding-left: 0;
+              padding-right: 0;
+            }
+
+            .hero-section {
+              // margin-top: -110px;
+            }
+
+            main#site-main h1 {
+              color: #fff;
+            }
+          `}
         </style>
       </Helmet>
-
       <Layout title={siteTitle} social={social}>
         <Seo keywords={[`Gatsby Theme`, `Free Gatsby Template`, `Clay Gatsby Theme`]} title={data.markdownRemark.frontmatter.title} description={data.markdownRemark.frontmatter.description || ""} image={data.markdownRemark.frontmatter.thumbnail.childImageSharp.fluid.src} />
 
@@ -118,7 +127,7 @@ const IndexPage = ({ data }) => {
             <GatsbyImage image={getImage(heroImage)} alt='Hero background' className='w-100 h-100' style={{ objectFit: "cover" }} />
           </div>
           <div className='position-absolute w-100 h-100 d-flex align-items-center justify-content-center' style={{ zIndex: 2, backgroundColor: "rgba(0,0,0,0.4)" }}>
-            <div className='text-center text-white'>
+            <div className='text-center text-white p-4'>
               <h1 className='display-1 fw-light mb-3' style={{ fontSize: "4rem", fontFamily: "serif" }}>
                 WE BELIEVE
                 <br />
@@ -126,16 +135,15 @@ const IndexPage = ({ data }) => {
               </h1>
               <p className='lead mb-4'>Photography is the art of frozen time... the ability to store emotion and feelings within a frame.</p>
               <div className='mt-5'>
-                <button 
+                <button
                   onClick={() => {
-                    document.getElementById('home-main-content')?.scrollIntoView({ 
-                      behavior: 'smooth' 
+                    document.getElementById("home-main-content")?.scrollIntoView({
+                      behavior: "smooth",
                     });
                   }}
-                  className='border rounded-circle d-inline-flex align-items-center justify-content-center bg-transparent text-white' 
+                  className='border rounded-circle d-inline-flex align-items-center justify-content-center bg-transparent text-white'
                   style={{ width: "60px", height: "60px", borderColor: "white", cursor: "pointer", boxShadow: "none" }}
-                  aria-label="Scroll to main content"
-                >
+                  aria-label='Scroll to main content'>
                   <span style={{ fontSize: "24px" }}>↓</span>
                 </button>
               </div>
@@ -144,8 +152,8 @@ const IndexPage = ({ data }) => {
         </section>
 
         {/* intro Content */}
-        <section className='container' id="home-main-content">
-          <div className='row px-4 px-md-0'>
+        <section className='container' id='home-main-content' style={{ scrollMarginTop: "75px" }}>
+          <div className='row px-4 px-md-0 mt-100'>
             <div className='col-md-4 offset-md-2 col-6'>
               <div className='intro-image-container' style={{ aspectRatio: "4/5", overflow: "hidden" }}>
                 <GatsbyImage image={getImage(recentWorkImages[0])} alt='Wedding photography' className='w-100 h-100' style={{ objectFit: "cover" }} />
@@ -155,7 +163,8 @@ const IndexPage = ({ data }) => {
                   THE HEART OF MY WORK
                   <br />
                   ISN'T IN POSED PERFECTION —<br />
-                  <strong>IT'S IN REAL MOMENTS</strong><br />
+                  <strong>IT'S IN REAL MOMENTS</strong>
+                  <br />
                   YOU'LL WANT TO REMEMBER.
                   <br />
                 </div>
@@ -180,175 +189,157 @@ const IndexPage = ({ data }) => {
           </div>
         </section>
 
-        {/* Glasgow Icon Section */}
-        <div className="container">
-          <div className="row vh-50 justify-content-center">
-            <div className="col-2">
-              <img src={GlasgowIcon} alt=''  />
+        {/* Glasgow Icon Devider */}
+        <div className='container hr-icon'>
+          <div className='row vh-half justify-content-center'>
+            <div className='col-sm-2 col-4'>
+              <img src={GlasgowIcon} alt='' />
             </div>
           </div>
         </div>
 
         {/* // Recent Albums Section */}
         <section className='container'>
-            {/* <div className='row'>
+          {/* <div className='row'>
               <div className='col-12 text-center mb-5'>
-                <h2 className='display-5 fw-light'>Recent Albums</h2>
+                <h2 className=' fw-light'>Recent Albums</h2>
               </div>
             </div> */}
-            <div className='row '>
-              <div className='col-md-8 p-0 offset-md-2 col-12'>
-                <div className='d-flex justify-content-center align-items-center gap-2 gap-sm-3'>
-                  {recentAlbumEntries.map(([albumDir, albumData], index) => {
-                      const albumTitle = createAlbumTitle(albumDir, albumData);
-                      const albumUrl = createAlbumUrl(albumDir);
-                      const images = albumData.images.slice(0, 2); // Get first 2 images for sliding
-                      
-                      return (
-                        <Link key={albumDir} to={albumUrl} className='text-decoration-none' style={{ width: index === 1 ? '35%' : '30%', aspectRatio:'4/5' }}>
-                          <div className={`album-card ${index === 1 ? 'album-card-center' : ''}`} >
+          <div className='row '>
+            <div className='col-md-8 offset-md-2 col-12'>
+              <div className='d-flex justify-content-center align-items-center gap-2 gap-sm-3'>
+                {recentAlbumEntries.map(([albumDir, albumData], index) => {
+                  const albumTitle = createAlbumTitle(albumDir, albumData);
+                  const albumUrl = createAlbumUrl(albumDir);
+                  const images = albumData.images.slice(0, 2); // Get first 2 images for sliding
 
-                            <div className='album-card-container position-relative overflow-hidden' style={{ width: '100%', height: '100%' }}>
-                              <div className={`album-slide album-slide-${index + 1} d-flex`} style={{ width: '200%', height: '100%', transform: 'translateX(0%)', transition: 'transform 0.5s ease' }}>
-                                <div className='album-image-1' style={{ width: '50%', height: '100%' }}>
-                                  <GatsbyImage 
-                                    image={getImage(images[0])} 
-                                    alt={`${albumTitle} - Image 1`} 
-                                    className='w-100 h-100' 
-                                    style={{ objectFit: 'cover' }} 
-                                  />
-                                </div>
-                                <div className='album-image-2' style={{ width: '50%', height: '100%' }}>
-                                  <GatsbyImage 
-                                    image={getImage(images[1] || images[0])} 
-                                    alt={`${albumTitle} - Image 2`} 
-                                    className='w-100 h-100' 
-                                    style={{ objectFit: 'cover' }} 
-                                  />
-                                </div>
-                              </div>
-                              <div className='album-overlay position-absolute bottom-0 start-0 w-100 p-3'>
-                                <h5 className='mb-1'>{albumTitle}</h5>
-                                <p className='mb-0 small'>{albumData.imageCount} Image{albumData.imageCount !== 1 ? 's' : ''}</p>
-                              </div>
+                  return (
+                    <Link key={albumDir} to={albumUrl} className='text-decoration-none' style={{ width: index === 1 ? "35%" : "30%", aspectRatio: "4/5" }}>
+                      <div className={`album-card ${index === 1 ? "album-card-center" : ""}`}>
+                        <div className='album-card-container position-relative overflow-hidden' style={{ width: "100%", height: "100%" }}>
+                          <div className={`album-slide album-slide-${index + 1} d-flex`} style={{ width: "200%", height: "100%", transform: "translateX(0%)", transition: "transform 0.5s ease" }}>
+                            <div className='album-image-1' style={{ width: "50%", height: "100%" }}>
+                              <GatsbyImage image={getImage(images[0])} alt={`${albumTitle} - Image 1`} className='w-100 h-100' style={{ objectFit: "cover" }} />
+                            </div>
+                            <div className='album-image-2' style={{ width: "50%", height: "100%" }}>
+                              <GatsbyImage image={getImage(images[1] || images[0])} alt={`${albumTitle} - Image 2`} className='w-100 h-100' style={{ objectFit: "cover" }} />
                             </div>
                           </div>
-                        </Link>
-                      );
-                    })}
+                          <div className='album-overlay position-absolute bottom-0 start-0 w-100 p-3'>
+                            <h5 className='mb-1'>{albumTitle}</h5>
+                            <p className='mb-0 small'>
+                              {albumData.imageCount} Image{albumData.imageCount !== 1 ? "s" : ""}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>
         </section>
 
-        {/* Divider Line */}
-        <div className="container">
-          <div className="row vh-50">
-            <div className="col">
-              <hr />
+        {/* Paisley Icon Devider */}
+        <div className='container hr-icon'>
+          <div className='row vh-half justify-content-center'>
+            <div className='col-sm-1 col-2'>
+              <img src={PaisleyIcon} alt='' />
             </div>
           </div>
         </div>
 
         {/* Blog Posts Grid */}
-        <section className='' >
-          <div className='container'>
-            {/* <div className='row'>
-              <div className='col-12 text-center mb-5'>
-                <h2 className='display-5 fw-light'>Latest Blog Posts</h2>
-              </div>
-            </div> */}
-            <div className='row g-4 justify-content-center'>
-              {posts.slice(0, 6).map(({ node }, index) => {
-                // Generate the correct blog post URL
-                const slug = node.fields.slug;
-                const slugParts = slug.replace(/\/$/, "").split("/");
-                const filename = slugParts[slugParts.length - 1];
-                const blogPostUrl = `/news/${filename}/`;
+        <section className='container'>
+          {/* <div className='row'>
+            <div className='col-12 text-center mb-5'>
+              <h2 className=' fw-light'>Latest Blog Posts</h2>
+            </div>
+          </div> */}
+          <div className='row p-4 justify-content-center'>
+            {posts.slice(0, 6).map(({ node }, index) => {
+              // Generate the correct blog post URL
+              const slug = node.fields.slug;
+              const slugParts = slug.replace(/\/$/, "").split("/");
+              const filename = slugParts[slugParts.length - 1];
+              const blogPostUrl = `/news/${filename}/`;
 
-                return (
-                  <div key={index} className='blog-cards col-6 col-sm-5 p-0 m-0' style={{ aspectRatio: "1.2/1", overflow: "hidden" }}>
-                    <Link to={blogPostUrl} className='text-decoration-none'>
-                      <article className='blog-post-card position-relative overflow-hidden' style={{ height: "100%", cursor: "pointer" }}>
-                        {/* Background Image */}
-                        <div className='position-absolute w-100 h-100' style={{ zIndex: 1 }}>
-                          {node.frontmatter.thumbnail ? (
-                            <GatsbyImage 
-                              image={getImage(node.frontmatter.thumbnail)} 
-                              alt={node.frontmatter.title} 
-                              className='w-100 h-100' 
-                              style={{ objectFit: "cover" }} 
-                            />
-                          ) : (
-                            <div className='w-100 h-100 d-flex align-items-center justify-content-center bg-light'>
-                              <span className='text-muted'>BACKGROUND IMAGE</span>
-                            </div>
+              return (
+                <div key={index} className='blog-cards col-6 col-sm-5 p-0 m-0' style={{ aspectRatio: "1.2/1", overflow: "hidden" }}>
+                  <Link to={blogPostUrl} className='text-decoration-none'>
+                    <article className='blog-post-card position-relative overflow-hidden' style={{ height: "100%", cursor: "pointer" }}>
+                      {/* Background Image */}
+                      <div className='position-absolute w-100 h-100' style={{ zIndex: 1 }}>
+                        {node.frontmatter.thumbnail ? (
+                          <GatsbyImage image={getImage(node.frontmatter.thumbnail)} alt={node.frontmatter.title} className='w-100 h-100' style={{ objectFit: "cover" }} />
+                        ) : (
+                          <div className='w-100 h-100 d-flex align-items-center justify-content-center bg-light'>
+                            <span className='text-muted'>BACKGROUND IMAGE</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Date, Tags, and Title Overlay */}
+                      <div className='position-absolute top-0 start-0 p-3' style={{ zIndex: 3 }}>
+                        <div className='d-flex align-items-center flex-wrap mb-2'>
+                          <small className='text-white bg-dark px-2 py-1 rounded me-2'>{node.frontmatter.date}</small>
+                          {node.frontmatter.tags && (
+                            <>
+                              {node.frontmatter.tags.map((tag) => (
+                                <small key={tag} className='badge bg-light text-dark px-2 py-0 rounded me-2'>
+                                  {tag}
+                                </small>
+                              ))}
+                            </>
                           )}
                         </div>
-                        
-                        {/* Date, Tags, and Title Overlay */}
-                        <div className='position-absolute top-0 start-0 p-3' style={{ zIndex: 3 }}>
-                          <div className='d-flex align-items-center flex-wrap mb-2'>
-                            <small className='text-white bg-dark px-2 py-1 rounded me-2'>
-                              {node.frontmatter.date}
-                            </small>
-                            {node.frontmatter.tags && (
-                              <>
-                                {node.frontmatter.tags.map((tag) => (
-                                  <small key={tag} className='badge bg-light text-dark px-2 py-0 rounded me-2'>
-                                    {tag}
-                                  </small>
-                                ))}
-                              </>
-                            )}
-                          </div>
-                          <h5 className='text-white my-0' style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}>
-                            {node.frontmatter.title}
-                          </h5>
-                        </div>
+                        <h5 className='text-white my-0' style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}>
+                          {node.frontmatter.title}
+                        </h5>
+                      </div>
 
-                        {/* Hover Description Overlay */}
-                        <div className='blog-post-hover-overlay position-absolute bottom-0 start-0 w-100 p-4' style={{ 
-                          zIndex: 4, 
-                          backgroundColor: "rgba(0,0,0,0.75)", 
+                      {/* Hover Description Overlay */}
+                      <div
+                        className='blog-post-hover-overlay position-absolute bottom-0 start-0 w-100 p-4'
+                        style={{
+                          zIndex: 4,
+                          backgroundColor: "rgba(0,0,0,0.75)",
                           backdropFilter: "blur(10px)",
                           transform: "translateY(100%)",
-                          transition: "transform 0.4s ease" 
+                          transition: "transform 0.4s ease",
                         }}>
-                          <div className='text-start'>
-                            <p className='text-white mb-3'>{node.frontmatter.description}</p>
-                            <span className='btn btn-light btn-sm text-white text-decoration-underline'>
-                              Read More {'>'}
-                            </span>
-                          </div>
+                        <div className='text-start'>
+                          <p className='text-white mb-3'>{node.frontmatter.description}</p>
+                          <span className='btn btn-light btn-sm text-white text-decoration-underline'>Read More {">"}</span>
                         </div>
-                      </article>
-                    </Link>
-                  </div>
-                );
-              })}
-            </div>
+                      </div>
+                    </article>
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         </section>
 
-        {/* Glasgow Icon Section */}
-        <div className="container">
-          <div className="row vh-50 justify-content-center">
-            <div className="col-2">
-              <img src={GlasgowIcon} alt=''  />
+        {/* Scotland Icon Devider */}
+        <div className='container hr-icon'>
+          <div className='row vh-half justify-content-center'>
+            <div className='col-sm-2 col-4  '>
+              <img src={ScotlandIcon} alt='' />
             </div>
           </div>
         </div>
 
         {/* Recent Work Section */}
         <section className=''>
-          <div className='container'> 
+          <div className='container'>
             <div className='row'>
-              <div className='col-12 text-center mb-5'>
-                <h2 className='display-5 fw-light'>Most Recent Shoot</h2>
+              <div className='col-12 text-center'>
+                <h2 className='d-flex justify-content-center align-items-center'>Most Recent Shoot</h2>
               </div>
             </div>
-            <div className='row g-4 justify-content-center'>
+            <div className='row p-4 justify-content-center'>
               {(() => {
                 // Get the most recent album (first entry after sorting)
                 const mostRecentAlbum = recentAlbumEntries[0];
@@ -356,25 +347,15 @@ const IndexPage = ({ data }) => {
                   const [albumDir, albumData] = mostRecentAlbum;
                   const albumTitle = createAlbumTitle(albumDir, albumData);
                   return albumData.images.slice(0, 3).map((image, index) => (
-                    <div key={index} className='col-lg-4 col-md-6'>
-                      <GatsbyImage 
-                        image={getImage(image)} 
-                        alt={`${albumTitle} - Image ${index + 1}`} 
-                        className='w-100' 
-                        style={{ height: "400px", objectFit: "cover" }} 
-                      />
+                    <div key={index} className={`col-lg-4 col-md-6 ${index === 1 ? "col-6" : "col-12"}`}>
+                      <GatsbyImage image={getImage(image)} alt={`${albumTitle} - Image ${index + 1}`} className='w-100' style={{ height: "400px", objectFit: "cover" }} />
                     </div>
                   ));
                 } else {
                   // Fallback to general recent work images if no albums found
                   return recentWorkImages.slice(0, 3).map((image, index) => (
                     <div key={index} className='col-lg-4 col-md-6'>
-                      <GatsbyImage 
-                        image={getImage(image)} 
-                        alt={`Recent work ${index + 1}`} 
-                        className='w-100' 
-                        style={{ height: "400px", objectFit: "cover" }} 
-                      />
+                      <GatsbyImage image={getImage(image)} alt={`Recent work ${index + 1}`} className='w-100' style={{ height: "400px", objectFit: "cover" }} />
                     </div>
                   ));
                 }
@@ -387,23 +368,6 @@ const IndexPage = ({ data }) => {
             </div>
           </div>
         </section>
-
-        {/* Old content - commented out */}
-        {/* 
-            <div className="post-feed">
-                {posts.map(({ node }) => {
-                    postCounter++
-                    return (
-                        <PostCard
-                            key={node.fields.slug}
-                            count={postCounter}
-                            node={node}
-                            postClass={`post`}
-                        />
-                    )
-                })}
-            </div>
-            */}
       </Layout>
     </>
   );

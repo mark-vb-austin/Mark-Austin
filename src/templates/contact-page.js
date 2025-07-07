@@ -60,15 +60,18 @@ const ContactPage = ({ data }, location) => {
             </div>
           )}
             <div className="post-content-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis urna cursus eget nunc scelerisque. Nullam non nisi est sit amet facilisis. Quisque id diam vel quam. Morbi tincidunt augue interdum velit. Pellentesque adipiscing commodo elit at imperdiet dui accumsan. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. Commodo odio aenean sed adipiscing diam donec adipiscing tristique risus. Mi tempus imperdiet nulla malesuada pellentesque. Maecenas ultricies mi eget mauris pharetra et ultrices. Cursus risus at ultrices mi tempus imperdiet nulla. Sit amet nisl suscipit adipiscing bibendum est ultricies. At volutpat diam ut venenatis tellus in. Cursus eget nunc scelerisque viverra mauris in. Ut aliquam purus sit amet luctus venenatis lectus.</p>
+              <p>
+                Whether you're planning a session, have a few questions, or just want to say hello—drop me a message below. I'm always up for hearing about your ideas, your story, or the moments you want to remember.<br/>
+                No pressure, no awkward sales stuff—just real conversation and honest photography.
+              </p>
 
-              <h3 id="forms">Form</h3>
+              <h3 id="forms">Let's Talk Moments</h3>
               <form name="contact" method="POST" data-netlify="true" netlify action="thanks" onSubmit={handleSubmit}
               >
                 <input type="hidden" name="form-name" value="contact" />
                 <p hidden>
                   <label>
-                    Don’t fill this out: <input name="bot-field" onChange={handleChange} />
+                    Don't fill this out: <input name="bot-field" onChange={handleChange} />
                   </label>
                 </p>
                 <div className="row gtr-uniform">

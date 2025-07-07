@@ -120,7 +120,7 @@ const WorkSubPage = ({ data, pageContext }) => {
           </Link>
         </div>
         
-        <div className="container mt-50">
+        <div className="container">
           <div className="row">
 
             <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
@@ -189,46 +189,46 @@ const WorkSubPage = ({ data, pageContext }) => {
               thumbnailsProps={{ draggable: true }}
             />
 
-            {/* Album Navigation */}
-            {(previousAlbum || nextAlbum) && (
-              <div className="post-link">
-                <div>
-                  {previousAlbum && (
-                    <Link 
-                      to={previousAlbum.path}
-                      style={{ 
-                        display: "flex", 
-                        alignItems: "center", 
-                        color: "inherit", 
-                        fontSize: "2rem",
-                        textDecoration: "none"
-                      }}
-                    >
-                      <img src={LeftIcon} alt='' width={30} height={30} />
-                      <span>{previousAlbum.album}</span>
-                    </Link>
-                  )}
-                </div>
-                <div>
-                  {nextAlbum && (
-                    <Link 
-                      to={nextAlbum.path}
-                      style={{ 
-                        display: "flex", 
-                        alignItems: "center", 
-                        color: "inherit", 
-                        fontSize: "2rem",
-                        textDecoration: "none"
-                      }}
-                    >
-                      <span>{nextAlbum.album}</span>
-                      <img src={RightIcon} alt='' width={30} height={30} />
-                    </Link>
-                  )}
-                </div>
-              </div>
-            )}
+           
 
+          </div>
+        </div>
+
+        {/* Album Navigation */}
+        <div className="post-link" style={{padding: "0 3vw"}}>
+          <div>
+            {previousAlbum && (
+              <Link 
+                to={previousAlbum.path}
+                style={{ 
+                  display: "flex", 
+                  alignItems: "center", 
+                  color: "inherit", 
+                  fontSize: "2rem",
+                  textDecoration: "none"
+                }}
+              >
+                <img src={LeftIcon} alt='' width={30} height={30} />
+                <span>{previousAlbum.album}</span>
+              </Link>
+            )}
+          </div>
+          <div>
+            {nextAlbum && (
+              <Link 
+                to={nextAlbum.path}
+                style={{ 
+                  display: "flex", 
+                  alignItems: "center", 
+                  color: "inherit", 
+                  fontSize: "2rem",
+                  textDecoration: "none"
+                }}
+              >
+                <span>{nextAlbum.album}</span>
+                <img src={RightIcon} alt='' width={30} height={30} />
+              </Link>
+            )}
           </div>
         </div>
 

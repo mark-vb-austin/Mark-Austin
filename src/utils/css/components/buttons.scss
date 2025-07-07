@@ -135,12 +135,12 @@ button.btn.btn-send {
   font-family: inherit;
   font-size: 20px;
   background: #fff;
-  color: vars.$color-primary;
+  color: vars.$color-base;
   padding: 0.7em 1em;
   padding-left: 0.9em;
   display: flex;
   align-items: center;
-    border: 2px solid vars.$color-primary;
+    border: 2px solid vars.$color-base;
 
   border-radius: 3px;
   overflow: hidden;
@@ -150,13 +150,13 @@ button.btn.btn-send {
   
   span {
     display: block;
-    color: vars.$color-primary;
+    color: vars.$color-base;
     margin-left: 0.3em;
     transition: all 0.3s ease-in-out;
   }
   
   svg {
-    color: vars.$color-primary;
+    color: vars.$color-base;
 
     display: block;
     transform-origin: center center;
