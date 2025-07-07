@@ -11,7 +11,7 @@ const BioPage = (props) => {
 
   return (
     <Layout location={props.location} title={site.siteMetadata.title} social={site.siteMetadata.social}>
-      <Seo keywords={[`Gatsby Theme`, `Free Gatsby Template`, `Clay Gatsby Theme`]} title={post.frontmatter.title} description={post.frontmatter.description || ""} image={post.frontmatter.thumbnail.childImageSharp.gatsbyImageData.images.fallback.src} />
+      <Seo keywords={[`Mark Austin Photography`, `Scottish Photographer`, `Photography Portfolio`, `Professional Photography`]} title={post.frontmatter.title} description={post.frontmatter.description || ""} image={post.frontmatter.thumbnail.childImageSharp.gatsbyImageData.images.fallback.src} />
      
       <article className='post-content page-template no-image'>
         <div className='post-content-body'>

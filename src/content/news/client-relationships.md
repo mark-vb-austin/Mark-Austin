@@ -1,13 +1,13 @@
 ---
 templateKey: blog-post
-thumbnail: /img/clay-images-17.jpg
+thumbnail: /img/mark-austin-photos-17.jpg
 date: 2024-05-12T16:45:00.000Z
 title: Building Client Relationships
 description: "Learn how to build strong, lasting relationships with your photography clients through trust, communication, and exceptional service."
 tags: ["clients", "business", "relationships"]
 ---
 
-![client relationships](/img/clay-images-20.jpg)
+![client relationships](/img/mark-austin-photos-20.jpg)
 
 In the photography business, technical skills will only take you so far. The real secret to long-term success lies in building strong, meaningful relationships with your clients.
 
@@ -22,7 +22,7 @@ Trust is the cornerstone of any successful client relationship. When clients tru
 - **Show genuine interest** in their story and needs
 - **Deliver on your promises** consistently
 
-![trust building](/img/clay-images-2.jpg)
+![trust building](/img/mark-austin-photos-2.jpg)
 
 ## Communication is Key
 

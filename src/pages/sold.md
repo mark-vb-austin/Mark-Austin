@@ -1,13 +1,13 @@
 ---
 templateKey: exhibitions-page
-title: Sold
+title: Print Sales & Commissioned Work
 date: 2023-03-02T10:17:05.133Z
-thumbnail: /img/clay-images-8.jpg
-description: Discover success stories on our Clay theme Sold page. Explore our achievements and see how we turn visions into realities.
+thumbnail: /img/mark-austin-photos-8.jpg
+description: Discover Mark Austin's available prints and commissioned photography work. Explore stunning photographs available for purchase and past client projects.
 number: 3
 pagetype:
   - main
-featuredimage: /img/clay-images-8.jpg
+featuredimage: /img/mark-austin-photos-8.jpg
 ---
 
 

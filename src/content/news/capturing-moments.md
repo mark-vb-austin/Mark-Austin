@@ -1,13 +1,13 @@
 ---
 templateKey: blog-post
-thumbnail: /img/clay-image-1.jpg
+thumbnail: /img/mark-austin-photos-1.jpg
 date: 2024-01-15T08:00:00.000Z
 title: Capturing Authentic Moments
 description: "Learn the art of capturing genuine emotions and authentic moments in your photography sessions."
 tags: ["photography", "moments", "authentic"]
 ---
 
-![capturing moments](/img/clay-images-2.jpg)
+![capturing moments](/img/mark-austin-photos-2.jpg)
 
 Photography is about more than just taking pictures—it's about capturing the essence of a moment, the emotion behind a smile, and the story that unfolds in the space between heartbeats.
 
@@ -17,7 +17,7 @@ In this post, we'll explore techniques for capturing authentic moments that trul
 
 The best photographers are keen observers. They watch for those fleeting moments when guards are down, when laughter is genuine, and when emotions are raw and real.
 
-![authentic photography](/img/clay-images-3.jpg)
+![authentic photography](/img/mark-austin-photos-3.jpg)
 
 ## Techniques for Authentic Photography
 

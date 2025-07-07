@@ -1,9 +1,9 @@
 {
-  "name": "clay-personal-gatsby-theme",
+  "name": "mark-austin-photography",
   "private": true,
-  "description": "A custom, image-centric theme for Gatsby",
+  "description": "Professional photography portfolio for Mark Austin, Scottish photographer",
   "version": "1.0.0",
-  "author": "Travis lord <travis.lord89@gmail.com> & Abdul Waqar <abdulwaqar844@gmail.com>",
+  "author": "Mark Austin <mark.vb.austin@example.com>",
   "dependencies": {
     "bootstrap": "^5.3.7",
     "exiftool": "^0.0.3",
@@ -58,19 +58,20 @@
     "prettier": "^3.3.3",
     "pretty-quick": "^4.0.0"
   },
-  "homepage": "https://github.com/lilxyzz/gatsby-clay#readme",
+  "homepage": "https://github.com/yourusername/mark-austin-photography#readme",
   "keywords": [
     "gatsby",
-    "personal-website",
-    "gallery",
-    "blog",
-    "starter"
+    "photography",
+    "portfolio",
+    "scotland",
+    "landscape",
+    "professional"
   ],
   "license": "MIT",
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lilxyzz/gatsby-clay.git"
+    "url": "git+https://github.com/yourusername/mark-austin-photography.git"
   },
   "scripts": {
     "build": "npm run generate:exif && gatsby clean && gatsby build",

@@ -1,12 +1,12 @@
 ---
 templateKey: index-page
-title: Clay Gatsby Theme 
-image: /img/clay-images-7.jpg
-description: A stunning Gatsby theme designed for captivating image-centric websites, perfect for photographers, portfolios, and blogs.
-thumbnail: /img/clay-images-7.jpg
-heading: Main Heading
-subheading: Sub HEading
-featuredimage: /img/clay-images-7.jpg
-introLeftImage: /img/clay-images-1.jpg
-introRightImage: /img/clay-images-2.jpg
+title: Mark Austin Photography
+image: /img/mark-austin-photos-7.jpg
+description: Professional Scottish photographer specializing in landscape, portrait, and documentary photography. Capturing the beauty of Scotland and beyond.
+thumbnail: /img/mark-austin-photos-7.jpg
+heading: Professional Photography Services
+subheading: Capturing Scotland's Beauty Through My Lens
+featuredimage: /img/mark-austin-photos-7.jpg
+introLeftImage: /img/mark-austin-photos-1.jpg
+introRightImage: /img/mark-austin-photos-2.jpg
 ---

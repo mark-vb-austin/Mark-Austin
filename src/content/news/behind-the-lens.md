@@ -1,13 +1,13 @@
 ---
 templateKey: blog-post
-thumbnail: /img/clay-images-8.jpg
+thumbnail: /img/mark-austin-photos-8.jpg
 date: 2024-03-10T14:00:00.000Z
 title: Behind the Lens - My Journey
 description: "A personal reflection on my journey as a photographer and the lessons learned along the way."
 tags: ["personal", "journey", "photography"]
 ---
 
-![photographer journey](/img/clay-images-10.jpg)
+![photographer journey](/img/mark-austin-photos-10.jpg)
 
 Photography has been my companion for over a decade now, and what a journey it has been. From my first camera to the thousands of images I've captured, each moment has taught me something new about both the craft and myself.
 
@@ -21,7 +21,7 @@ It all started with a simple point-and-shoot camera and a desire to capture the 
 - **Chasing the perfect shot** - I discovered that imperfection often holds more beauty
 - **Ignoring the emotional connection** - Technical perfection means nothing without soul
 
-![early photography](/img/clay-images-11.jpg)
+![early photography](/img/mark-austin-photos-11.jpg)
 
 ## Finding My Voice
 

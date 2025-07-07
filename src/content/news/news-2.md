@@ -1,14 +1,18 @@
 ---
 templateKey: blog-post
-thumbnail: /img/clay-images-11.jpg
+thumbnail: /img/mark-austin-photos-11.jpg
 date: 2023-03-06T05:10:14.676Z
-title: News 2
-description: "Generate Lorem Ipsum placeholder text. Select the number of characters, words, sentences or paragraphs, and hit generate!"
-tags: ["photography", "portfolio", "art"]
+title: Behind the Lens - Equipment and Technique
+description: "A deep dive into the gear and techniques I use for landscape photography in Scotland's challenging weather conditions. From camera settings to post-processing workflows."
+tags: ["photography", "equipment", "technique", "landscape"]
 ---
-![clay-images-10](/img/clay-images-10.jpg)
+![Camera setup in the field](/img/mark-austin-photos-10.jpg)
 
-![clay-images-12](/img/clay-images-12.jpg)
+![Equipment and technique](/img/mark-austin-photos-12.jpg)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis urna cursus eget nunc scelerisque. Nullam non nisi est sit amet facilisis. Quisque id diam vel quam. Morbi tincidunt augue interdum velit. Pellentesque adipiscing commodo elit at imperdiet dui accumsan. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. Commodo odio aenean sed adipiscing diam donec adipiscing tristique risus. Mi tempus imperdiet nulla malesuada pellentesque. Maecenas ultricies mi eget mauris pharetra et ultrices. Cursus risus at ultrices mi tempus imperdiet nulla. Sit amet nisl suscipit adipiscing bibendum est ultricies. At volutpat diam ut venenatis tellus in. Cursus eget nunc scelerisque viverra mauris in. Ut aliquam purus sit amet luctus venenatis lectus.
+Equipment choices matter significantly when shooting in Scotland's often challenging weather conditions. From waterproof camera bags to understanding how to protect your gear in harsh Highland storms, the right preparation can make the difference between a successful shoot and a ruined camera.
+
+My approach focuses on lightweight, weather-sealed equipment that can handle everything from misty mornings in the Trossachs to the brutal winds of the Western Isles. I'll share specific techniques for maintaining sharp images in low light conditions and how to make the most of Scotland's famous golden hour light that appears so briefly during winter months.
+
+Post-processing is equally important, especially when working with the dramatic skies and moody atmospheres that make Scottish landscapes so compelling. I'll walk through my workflow for bringing out the best in these challenging lighting conditions while maintaining the natural beauty of the scene.
 

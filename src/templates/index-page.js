@@ -119,7 +119,7 @@ const IndexPage = ({ data }) => {
         </style>
       </Helmet>
       <Layout title={siteTitle} social={social}>
-        <Seo keywords={[`Gatsby Theme`, `Free Gatsby Template`, `Clay Gatsby Theme`]} title={data.markdownRemark.frontmatter.title} description={data.markdownRemark.frontmatter.description || ""} image={data.markdownRemark.frontmatter.thumbnail.childImageSharp.fluid.src} />
+        <Seo keywords={[`Mark Austin Photography`, `Scottish Photographer`, `Professional Photography`, `Landscape Photography`]} title={data.markdownRemark.frontmatter.title} description={data.markdownRemark.frontmatter.description || ""} image={data.markdownRemark.frontmatter.thumbnail.childImageSharp.fluid.src} />
 
         {/* HERO SECTION */}
         <section className='hero-section position-relative' style={{ height: "calc(100vh + 75px)", overflow: "hidden" }}>
@@ -158,7 +158,7 @@ const IndexPage = ({ data }) => {
               <div className='intro-image-container' style={{ aspectRatio: "4/5", overflow: "hidden" }}>
                 {/* <GatsbyImage image={getImage(recentWorkImages[0])} alt='Wedding photography' className='w-100 h-100' style={{ objectFit: "cover" }} /> */}
 
-                <GatsbyImage image={getImage(data.markdownRemark.frontmatter.intro.introLeftImage)} alt='Wedding photography' className='w-100 h-100' style={{ objectFit: "cover" }} />
+                <GatsbyImage image={getImage(data.markdownRemark.frontmatter.introLeftImage)} alt='Wedding photography' className='w-100 h-100' style={{ objectFit: "cover" }} />
 
               </div>
               <div className='mt-3'>
@@ -412,12 +412,12 @@ export const IndexPageQuery = graphql`
         }
       }
     }
-    heroImage: file(relativePath: { eq: "clay-images-7.jpg" }, sourceInstanceName: { eq: "uploads" }) {
+    heroImage: file(relativePath: { eq: "mark-austin-photos-7.jpg" }, sourceInstanceName: { eq: "uploads" }) {
       childImageSharp {
         gatsbyImageData(layout: FULL_WIDTH, placeholder: NONE)
       }
     }
-    recentWorkImages: allFile(filter: { sourceInstanceName: { eq: "uploads" }, extension: { regex: "/(jpg|jpeg|png)/" }, relativePath: { regex: "/clay-images-/" } }, limit: 10, sort: { relativePath: ASC }) {
+    recentWorkImages: allFile(filter: { sourceInstanceName: { eq: "uploads" }, extension: { regex: "/(jpg|jpeg|png)/" }, relativePath: { regex: "/mark-austin-photos-/" } }, limit: 10, sort: { relativePath: ASC }) {
       nodes {
         childImageSharp {
           gatsbyImageData(width: 600, height: 400, placeholder: NONE)

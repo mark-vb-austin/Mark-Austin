@@ -1,13 +1,13 @@
 ---
 templateKey: blog-post
-thumbnail: /img/clay-images-4.jpg
+thumbnail: /img/mark-austin-photos-4.jpg
 date: 2024-02-20T10:30:00.000Z
 title: The Art of Visual Storytelling
 description: "Discover how to tell compelling stories through your photography and create images that speak to the soul."
 tags: ["storytelling", "composition", "narrative"]
 ---
 
-![visual storytelling](/img/clay-images-6.jpg)
+![visual storytelling](/img/mark-austin-photos-6.jpg)
 
 Every photograph tells a story. Whether it's a portrait, a landscape, or a candid moment, the best images transport viewers to another place and time, making them feel as though they were there.
 
@@ -19,7 +19,7 @@ Visual storytelling in photography combines technical skill with creative vision
 
 The way you frame your subject, the angles you choose, and the elements you include or exclude all contribute to the narrative of your image.
 
-![composition example](/img/clay-images-7.jpg)
+![composition example](/img/mark-austin-photos-7.jpg)
 
 ### Lighting as Mood
 

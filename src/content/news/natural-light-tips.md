@@ -1,13 +1,13 @@
 ---
 templateKey: blog-post
-thumbnail: /img/clay-images-12.jpg
+thumbnail: /img/mark-austin-photos-12.jpg
 date: 2024-04-05T09:15:00.000Z
 title: Natural Light Photography Tips
 description: "Master the art of natural light photography with these essential tips and techniques for stunning results."
 tags: ["lighting", "natural light", "tips"]
 ---
 
-![natural light photography](/img/clay-images-15.jpg)
+![natural light photography](/img/mark-austin-photos-15.jpg)
 
 Natural light is one of the most beautiful and challenging aspects of photography. Unlike artificial lighting, you can't control the sun, but you can learn to work with it to create stunning images.
 
@@ -19,7 +19,7 @@ Natural light changes throughout the day, offering different qualities and moods
 
 The golden hour—that magical time just after sunrise and before sunset—provides the most flattering light for portraits and landscapes alike.
 
-![golden hour](/img/clay-images-16.jpg)
+![golden hour](/img/mark-austin-photos-16.jpg)
 
 ### Blue Hour Beauty
 
