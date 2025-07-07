@@ -156,7 +156,10 @@ const IndexPage = ({ data }) => {
           <div className='row px-4 px-md-0 mt-100'>
             <div className='col-md-4 offset-md-2 col-6'>
               <div className='intro-image-container' style={{ aspectRatio: "4/5", overflow: "hidden" }}>
-                <GatsbyImage image={getImage(recentWorkImages[0])} alt='Wedding photography' className='w-100 h-100' style={{ objectFit: "cover" }} />
+                {/* <GatsbyImage image={getImage(recentWorkImages[0])} alt='Wedding photography' className='w-100 h-100' style={{ objectFit: "cover" }} /> */}
+
+                <GatsbyImage image={getImage(data.markdownRemark.frontmatter.intro.introLeftImage)} alt='Wedding photography' className='w-100 h-100' style={{ objectFit: "cover" }} />
+
               </div>
               <div className='mt-3'>
                 <div className='text-end'>
@@ -183,7 +186,7 @@ const IndexPage = ({ data }) => {
                 <br />
               </div>
               <div className='intro-image-container' style={{ aspectRatio: "4/5", overflow: "hidden" }}>
-                <GatsbyImage image={getImage(recentWorkImages[1])} alt='Wedding photography' className='w-100 h-100' style={{ objectFit: "cover" }} />
+                <GatsbyImage image={getImage(data.markdownRemark.frontmatter.introRightImage)} alt='Wedding photography' className='w-100 h-100' style={{ objectFit: "cover" }} />
               </div>
             </div>
           </div>
@@ -393,6 +396,18 @@ export const IndexPageQuery = graphql`
             fluid(maxWidth: 1360) {
               ...GatsbyImageSharpFluid
             }
+          }
+        }
+        introLeftImage {
+          name
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
+        introRightImage {
+          name
+          childImageSharp {
+            gatsbyImageData
           }
         }
       }

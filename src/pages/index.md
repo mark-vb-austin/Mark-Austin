@@ -7,4 +7,6 @@ thumbnail: /img/clay-images-7.jpg
 heading: Main Heading
 subheading: Sub HEading
 featuredimage: /img/clay-images-7.jpg
+introLeftImage: /img/clay-images-1.jpg
+introRightImage: /img/clay-images-2.jpg
 ---
