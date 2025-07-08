@@ -99,7 +99,7 @@ body {
 /* Layout
 /* ---------------------------------------------------------- */
 .site-main {
-  padding-bottom: 75px;
+  padding-bottom: 100px;
 }
 
 main#site-main {
@@ -226,6 +226,7 @@ main#site-main {
   bottom: 0;
   width: 100%;
   padding: 25px 0;
+  margin-bottom: 25px;
   
 }
 footer.site-foot a {
@@ -242,7 +243,6 @@ footer.site-foot a {
   padding: 25px 3vw 0;
   position: relative;
   z-index: 300;
-  margin-top: -10px;
   font-size: 1.35rem;
   width: 100%;
   left: 0;

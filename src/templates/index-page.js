@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // import PropTypes from "prop-types";
 import { graphql, Link } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
@@ -10,12 +10,110 @@ import ScotlandIcon from "../../static/icons//icon--scotland-gold.svg";
 
 import { Helmet } from "react-helmet";
 
+// Hero Images Rotation Component
+const RotatingHeroImages = ({ heroImages }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    if (!heroImages || heroImages.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        (prevIndex + 1) % heroImages.length
+      );
+    }, 4000); // Change image every 4 seconds
+
+    return () => clearInterval(interval);
+  }, [heroImages]);
+
+  if (!heroImages || heroImages.length === 0) {
+    return (
+      <div className='w-100 h-100 bg-dark d-flex align-items-center justify-content-center'>
+        <span className='text-white'>No hero images available</span>
+      </div>
+    );
+  }
+
+  // If only one image, no need for rotation
+  if (heroImages.length === 1) {
+    return (
+      <GatsbyImage 
+        image={getImage(heroImages[0])} 
+        alt="Hero background" 
+        className='w-100 h-100' 
+        style={{ objectFit: "cover" }} 
+      />
+    );
+  }
+
+  return (
+    <div className='position-relative w-100 h-100'>
+      {heroImages.map((image, index) => (
+        <div
+          key={index}
+          className='position-absolute w-100 h-100'
+          style={{
+            opacity: index === currentImageIndex ? 1 : 0,
+            transition: 'opacity 1.5s ease-in-out',
+            zIndex: index === currentImageIndex ? 1 : 0
+          }}
+        >
+          <GatsbyImage 
+            image={getImage(image)} 
+            alt={`Hero background ${index + 1}`} 
+            className='w-100 h-100' 
+            style={{ objectFit: "cover" }} 
+          />
+        </div>
+      ))}
+      
+      {/* Optional: Add subtle indicators */}
+      <div 
+        className='position-absolute d-flex gap-2' 
+        style={{ 
+          bottom: '20px', 
+          left: '50%', 
+          transform: 'translateX(-50%)', 
+          zIndex: 10 
+        }}
+      >
+        {heroImages.map((_, index) => (
+          <div
+            key={index}
+            className='rounded-circle bg-white'
+            style={{
+              width: '8px',
+              height: '8px',
+              opacity: index === currentImageIndex ? 0.9 : 0.4,
+              transition: 'opacity 0.3s ease'
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 // eslint-disable-next-line
 const IndexPage = ({ data }) => {
   const siteTitle = data.site.siteMetadata.title;
   const social = data.site.siteMetadata.social;
   const posts = data.allMarkdownRemark.edges;
-  const heroImage = data.heroImage;
+  
+  // Extract hero images from frontmatter, filter out null/undefined values
+  const heroImages = [
+    data.markdownRemark.frontmatter.heroImage1,
+    data.markdownRemark.frontmatter.heroImage2,
+    data.markdownRemark.frontmatter.heroImage3,
+    data.markdownRemark.frontmatter.heroImage4,
+    data.markdownRemark.frontmatter.heroImage5,
+  ].filter(Boolean);
+  
+  // Fallback to the old heroImage if no frontmatter hero images are available
+  if (heroImages.length === 0 && data.heroImage) {
+    heroImages.push(data.heroImage);
+  }
+  
   const recentWorkImages = data.recentWorkImages.nodes;
   const recentAlbums = data.recentAlbums.nodes;
   const albumMetadata = data.albumMetadata.nodes;
@@ -121,6 +219,19 @@ const IndexPage = ({ data }) => {
             main#site-main h1 {
               color: #fff;
             }
+
+            /* Hero Image Rotation Styles */
+            .hero-section .position-absolute {
+              will-change: opacity;
+            }
+            
+            .hero-section .gatsby-image-wrapper {
+              transition: transform 0.3s ease;
+            }
+            
+            .hero-section:hover .gatsby-image-wrapper {
+              transform: scale(1.02);
+            }
           `}
         </style>
       </Helmet>
@@ -128,9 +239,9 @@ const IndexPage = ({ data }) => {
         <Seo keywords={[`Mark Austin Photography`, `Scottish Photographer`, `Professional Photography`, `Landscape Photography`]} title={data.markdownRemark.frontmatter.title} description={data.markdownRemark.frontmatter.description || ""} image={data.markdownRemark.frontmatter.thumbnail.childImageSharp.fluid.src} />
 
         {/* HERO SECTION */}
-        <section className='hero-section position-relative' style={{ height: "calc(100vh + 75px)", overflow: "hidden" }}>
+        <section className='hero-section position-relative' style={{ height: "100vh", overflow: "hidden" }}>
           <div className='position-absolute w-100 h-100' style={{ zIndex: 1 }}>
-            <GatsbyImage image={getImage(heroImage)} alt='Hero background' className='w-100 h-100' style={{ objectFit: "cover" }} />
+            <RotatingHeroImages heroImages={heroImages} />
           </div>
           <div className='position-absolute w-100 h-100 d-flex align-items-center justify-content-center' style={{ zIndex: 2, backgroundColor: "rgba(0,0,0,0.4)" }}>
             <div className='text-center text-white p-4'>
@@ -414,6 +525,31 @@ export const IndexPageQuery = graphql`
           name
           childImageSharp {
             gatsbyImageData
+          }
+        }
+        heroImage1 {
+          childImageSharp {
+            gatsbyImageData(layout: FULL_WIDTH, placeholder: NONE)
+          }
+        }
+        heroImage2 {
+          childImageSharp {
+            gatsbyImageData(layout: FULL_WIDTH, placeholder: NONE)
+          }
+        }
+        heroImage3 {
+          childImageSharp {
+            gatsbyImageData(layout: FULL_WIDTH, placeholder: NONE)
+          }
+        }
+        heroImage4 {
+          childImageSharp {
+            gatsbyImageData(layout: FULL_WIDTH, placeholder: NONE)
+          }
+        }
+        heroImage5 {
+          childImageSharp {
+            gatsbyImageData(layout: FULL_WIDTH, placeholder: NONE)
           }
         }
       }
