@@ -41,9 +41,9 @@ const Layout = (props) => {
                 <Link to={`/work`}>Work</Link>
               </li>
               
-              {/* <li className={`nav-home  ${data.pathname.includes("/news") ? "nav-current" : ""} `}>
-                <Link to={`/news`}>News</Link>
-              </li> */}
+              <li className={`nav-home  ${data.pathname.includes("/blog") ? "nav-current" : ""} `}>
+                <Link to={`/blog`}>Blog</Link>
+              </li>
               
               <li className={`nav-home  ${data.pathname.includes("/contact") ? "nav-current" : ""} `}>
                 <Link to={`/contact`}>Contact</Link>

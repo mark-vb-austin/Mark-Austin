@@ -51,10 +51,10 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     // Remove trailing slash, split, and get the last non-empty part
     const slugParts = slug.replace(/\/$/, '').split('/');
     const filename = slugParts[slugParts.length - 1];
-    const newsPath = `/news/${filename}/`;
+    const blogPath = `/blog/${filename}/`;
 
     createPage({
-      path: newsPath,
+      path: blogPath,
       component: path.resolve(`src/templates/blog-post.js`),
       context: {
         slug: post.node.fields.slug,

@@ -6,7 +6,7 @@ import Seo from "../components/seo"
 import PostCard from "../components/postCard"
 
 // eslint-disable-next-line
-const WorkPage = ({ data }) => {
+const BlogPage = ({ data }) => {
   const siteTitle = data.site.siteMetadata.title
   const social = data.site.siteMetadata.social
   const posts = data.allMarkdownRemark.edges
@@ -44,9 +44,9 @@ const WorkPage = ({ data }) => {
     </Layout>
   )
 }
-export default WorkPage
-export const WorkPageQuery = graphql`
-query IndexPage {
+export default BlogPage
+export const BlogPageQuery = graphql`
+query BlogPage {
   site {
     siteMetadata {
       title
@@ -56,7 +56,7 @@ query IndexPage {
       }
     }
   }
-  markdownRemark(frontmatter: {templateKey: {eq: "news-page"}}) {
+  markdownRemark(frontmatter: {templateKey: {eq: "blog-page"}}) {
     frontmatter {
       title
       description

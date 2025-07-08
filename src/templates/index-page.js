@@ -383,7 +383,7 @@ const IndexPage = ({ data }) => {
               const slug = node.fields.slug;
               const slugParts = slug.replace(/\/$/, "").split("/");
               const filename = slugParts[slugParts.length - 1];
-              const blogPostUrl = `/news/${filename}/`;
+              const blogPostUrl = `/blog/${filename}/`;
 
               return (
                 <div key={index} className='blog-cards col-6 col-sm-5 p-0 m-0' style={{ aspectRatio: "1.2/1", overflow: "hidden" }}>

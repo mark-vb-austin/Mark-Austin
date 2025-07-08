@@ -14,8 +14,8 @@ public_folder: /img
 
 collections:
   - name: "blog"
-    label: "News"
-    folder: "src/content/news"
+    label: "Blog"
+    folder: "src/content/blog"
     create: true
     slug: "{{slug}}"
     fields:
@@ -225,15 +225,15 @@ collections:
               options: [{ label: "Main", value: "main" }],
             }
 
-      - file: "src/pages/news/index.md"
-        label: "News"
-        name: "news"
+      - file: "src/pages/blog/index.md"
+        label: "Blog"
+        name: "blog"
         fields:
           - {
               label: "Template Key",
               name: "templateKey",
               widget: "hidden",
-              default: "news-page",
+              default: "blog-page",
             }
           - {
               label: "Thumbnail",
