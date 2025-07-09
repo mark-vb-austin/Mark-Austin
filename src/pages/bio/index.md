@@ -20,9 +20,4 @@ Outside the camera, I'm big on family, lifting weights, and doing things right t
 
 In the end, I just want to capture memories—moments that you can look back on and still feel something. If you see that in my work, then I'm doing something right.
 
-![Portfolio Sample 1](/img/mark-austin-photos-11.jpg)
-
-![Portfolio Sample 2](/img/mark-austin-photos-12.jpg)
-
-
-
+![Portfolio Sample 1](/img/pages/bio/Contact-DP2.jpg)
