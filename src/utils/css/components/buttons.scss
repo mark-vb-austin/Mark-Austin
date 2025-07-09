@@ -140,7 +140,7 @@ button.btn.btn-send {
   padding-left: 0.9em;
   display: flex;
   align-items: center;
-  border: 1px solid vars.$color-base;
+  border: 1px solid #a9a9ac;
   border-radius: 3px;
   overflow: hidden;
   transition: all 0.2s;
@@ -155,7 +155,7 @@ button.btn.btn-send {
   }
   
   svg {
-    color: vars.$color-base;
+    color: vars.$color-primary;
 
     display: block;
     transform-origin: center center;
