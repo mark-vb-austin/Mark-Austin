@@ -37,39 +37,26 @@ const RotatingHeroImages = ({ heroImages }) => {
   // If only one image, no need for rotation
   if (heroImages.length === 1) {
     return (
-      <GatsbyImage 
-        image={getImage(heroImages[0])} 
-        alt="Hero background" 
-        className='w-100 h-100' 
-        style={{ objectFit: "cover" }} 
-      />
+      <GatsbyImage  image={getImage(heroImages[0])}  alt="Hero background"  className='w-100 h-100'  style={{ objectFit: "cover" }} />
     );
   }
 
   return (
     <div className='position-relative w-100 h-100'>
       {heroImages.map((image, index) => (
-        <div
-          key={index}
-          className='position-absolute w-100 h-100'
+        <div key={index} className='position-absolute w-100 h-100'
           style={{
             opacity: index === currentImageIndex ? 1 : 0,
             transition: 'opacity 1.5s ease-in-out',
             zIndex: index === currentImageIndex ? 1 : 0
           }}
         >
-          <GatsbyImage 
-            image={getImage(image)} 
-            alt={`Hero background ${index + 1}`} 
-            className='w-100 h-100' 
-            style={{ objectFit: "cover" }} 
-          />
+          <GatsbyImage image={getImage(image)} alt={`Hero background ${index + 1}`} className='w-100 h-100' style={{ objectFit: "cover" }} />
         </div>
       ))}
       
       {/* Optional: Add subtle indicators */}
-      <div 
-        className='position-absolute d-flex gap-2' 
+      <div className='position-absolute d-flex gap-2' 
         style={{ 
           bottom: '20px', 
           left: '50%', 
@@ -78,9 +65,7 @@ const RotatingHeroImages = ({ heroImages }) => {
         }}
       >
         {heroImages.map((_, index) => (
-          <div
-            key={index}
-            className='rounded-circle bg-white'
+          <div key={index} className='rounded-circle bg-white'
             style={{
               width: '8px',
               height: '8px',
@@ -239,7 +224,7 @@ const IndexPage = ({ data }) => {
         <Seo keywords={[`Mark Austin Photography`, `Scottish Photographer`, `Professional Photography`, `Landscape Photography`]} title={data.markdownRemark.frontmatter.title} description={data.markdownRemark.frontmatter.description || ""} image={data.markdownRemark.frontmatter.thumbnail.childImageSharp.fluid.src} />
 
         {/* HERO SECTION */}
-        <section className='hero-section position-relative' style={{ height: "100vh", overflow: "hidden" }}>
+        <section className='hero-section position-relative' style={{ height: "100vh", overflow: "hidden", backgroundColor: "#000" }}>
           <div className='position-absolute w-100 h-100' style={{ zIndex: 1 }}>
             <RotatingHeroImages heroImages={heroImages} />
           </div>
