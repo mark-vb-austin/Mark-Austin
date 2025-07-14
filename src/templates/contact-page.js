@@ -47,18 +47,15 @@ const ContactPage = ({ data }, location) => {
       <div className="container">
         <div className="row">
 
-
-    
-    
           <article className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-          {data.markdownRemark.frontmatter.thumbnail && (
+            {data.markdownRemark.frontmatter.thumbnail && (
             <div className="post-content-image">
               <GatsbyImage
                 image={getImage(data.markdownRemark.frontmatter.thumbnail)}
-                className="kg-image"
+                className="kg-image-card "
                 alt={data.markdownRemark.frontmatter.title} />
             </div>
-          )}
+            )}
             <div className="post-content-body">
               <p>
                 Whether you're planning a session, have a few questions, or just want to say hello—drop me a message below. I'm always up for hearing about your ideas, your story, or the moments you want to remember.<br/>

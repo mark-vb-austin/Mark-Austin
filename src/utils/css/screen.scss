@@ -295,14 +295,13 @@ footer.site-foot a {
 }
 
 .site-head-center {
-  // position: absolute;
+  position: absolute;
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-left: -10px;
 
-  @media (min-width: 850px) {
-    margin-left: -40px;
+  @media (max-width: 850px) {
+    margin-left: -10px;
   }
 }
 
