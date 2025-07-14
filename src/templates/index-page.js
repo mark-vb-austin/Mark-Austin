@@ -85,19 +85,8 @@ const IndexPage = ({ data }) => {
   const social = data.site.siteMetadata.social;
   const posts = data.allMarkdownRemark.edges;
   
-  // Extract hero images from frontmatter, filter out null/undefined values
-  const heroImages = [
-    data.markdownRemark.frontmatter.heroImage1,
-    data.markdownRemark.frontmatter.heroImage2,
-    data.markdownRemark.frontmatter.heroImage3,
-    data.markdownRemark.frontmatter.heroImage4,
-    data.markdownRemark.frontmatter.heroImage5,
-  ].filter(Boolean);
-  
-  // Fallback to the old heroImage if no frontmatter hero images are available
-  if (heroImages.length === 0 && data.heroImage) {
-    heroImages.push(data.heroImage);
-  }
+  // Extract hero images from src/img/home/hero directory
+  const heroImages = data.heroImages.nodes;
   
   const recentWorkImages = data.recentWorkImages.nodes;
   const recentAlbums = data.recentAlbums.nodes;
@@ -214,9 +203,6 @@ const IndexPage = ({ data }) => {
               transition: transform 0.3s ease;
             }
             
-            .hero-section:hover .gatsby-image-wrapper {
-              transform: scale(1.02);
-            }
           `}
         </style>
       </Helmet>
@@ -512,30 +498,20 @@ export const IndexPageQuery = graphql`
             gatsbyImageData
           }
         }
-        heroImage1 {
-          childImageSharp {
-            gatsbyImageData(layout: FULL_WIDTH, placeholder: NONE)
-          }
-        }
-        heroImage2 {
-          childImageSharp {
-            gatsbyImageData(layout: FULL_WIDTH, placeholder: NONE)
-          }
-        }
-        heroImage3 {
-          childImageSharp {
-            gatsbyImageData(layout: FULL_WIDTH, placeholder: NONE)
-          }
-        }
-        heroImage4 {
-          childImageSharp {
-            gatsbyImageData(layout: FULL_WIDTH, placeholder: NONE)
-          }
-        }
-        heroImage5 {
-          childImageSharp {
-            gatsbyImageData(layout: FULL_WIDTH, placeholder: NONE)
-          }
+      }
+    }
+    heroImages: allFile(
+      filter: { 
+        sourceInstanceName: { eq: "work" },
+        relativeDirectory: { eq: "home/hero" },
+        extension: { in: ["jpg", "jpeg", "png", "webp"] }
+      },
+      limit: 10,
+      sort: { name: ASC }
+    ) {
+      nodes {
+        childImageSharp {
+          gatsbyImageData(layout: FULL_WIDTH, placeholder: NONE)
         }
       }
     }
