@@ -1,8 +1,51 @@
 {
-  "Clay-Gatsby-theme.png": {},
   "favicon.png": {},
-  "mark-austin-gallery-1.jpg": {},
-  "mark-austin-gallery-2.jpg": {},
+  "home/two-column/Craigie's Farm__27-April-24____IMG002.jpg": {
+    "Model": "NIKON Z 6_2",
+    "Lens": "NIKKOR Z 24-70mm f/4 S",
+    "FNumber": 4,
+    "ISO": 100,
+    "Flash": "No Flash",
+    "FocalLength": "24.0 mm",
+    "FocalLengthIn35mmFormat": "24 mm",
+    "HyperfocalDistance": "4.79 m",
+    "ExposureTime": "1/400",
+    "DateTimeOriginal": {
+      "_ctor": "ExifDateTime",
+      "year": 2024,
+      "month": 4,
+      "day": 27,
+      "hour": 12,
+      "minute": 54,
+      "second": 10,
+      "tzoffsetMinutes": 60,
+      "rawValue": "2024:04:27 12:54:10",
+      "zoneName": "UTC+1",
+      "inferredZone": true
+    }
+  },
+  "home/two-column/Ferguslie Foraging__04-September-21____IMG001.jpg": {
+    "Model": "NIKON D5600",
+    "Lens": "35.0 mm f/1.8",
+    "FNumber": 2.8,
+    "ISO": 160,
+    "Flash": "Off, Did not fire",
+    "FocalLength": "35.0 mm",
+    "FocalLengthIn35mmFormat": "52 mm",
+    "HyperfocalDistance": "21.63 m",
+    "ExposureTime": "1/60",
+    "DateTimeOriginal": {
+      "_ctor": "ExifDateTime",
+      "year": 2021,
+      "month": 9,
+      "day": 4,
+      "hour": 10,
+      "minute": 17,
+      "second": 28,
+      "rawValue": "2021:09:04 10:17:28",
+      "inferredZone": false
+    }
+  },
   "new-gorbals_404.jpg": {
     "Model": "NIKON Z 6_2",
     "Lens": "NIKKOR Z 85mm f/1.8 S",

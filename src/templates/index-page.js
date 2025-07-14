@@ -236,6 +236,11 @@ const IndexPage = ({ data }) => {
   const social = data.site.siteMetadata.social;
   const posts = data.allMarkdownRemark.edges;
   
+  // Extract intro images from src/img/home/two-column directory
+  const introImages = data.introImages.nodes;
+  const introLeftImage = introImages[0]; // First image for left
+  const introRightImage = introImages[1]; // Second image for right
+  
   // Extract hero images from src/img/home/hero directory
   const heroImages = data.heroImages.nodes;
   
@@ -395,10 +400,7 @@ const IndexPage = ({ data }) => {
           <div className='row px-4 px-md-0 mt-100'>
             <div className='col-md-4 offset-md-2 col-6'>
               <div className='intro-image-container' style={{ aspectRatio: "4/5", overflow: "hidden" }}>
-                {/* <GatsbyImage image={getImage(recentWorkImages[0])} alt='Wedding photography' className='w-100 h-100' style={{ objectFit: "cover" }} /> */}
-
-                <GatsbyImage image={getImage(data.markdownRemark.frontmatter.introLeftImage)} alt='Wedding photography' className='w-100 h-100' style={{ objectFit: "cover" }} />
-
+                <GatsbyImage image={getImage(introLeftImage)} alt='Wedding photography' className='w-100 h-100' style={{ objectFit: "cover" }} />
               </div>
               <div className='mt-3'>
                 <div className='text-end'>
@@ -425,7 +427,7 @@ const IndexPage = ({ data }) => {
                 <br />
               </div>
               <div className='intro-image-container' style={{ aspectRatio: "4/5", overflow: "hidden" }}>
-                <GatsbyImage image={getImage(data.markdownRemark.frontmatter.introRightImage)} alt='Wedding photography' className='w-100 h-100' style={{ objectFit: "cover" }} />
+                <GatsbyImage image={getImage(introRightImage)} alt='Wedding photography' className='w-100 h-100' style={{ objectFit: "cover" }} />
               </div>
             </div>
           </div>
@@ -648,6 +650,21 @@ export const IndexPageQuery = graphql`
           childImageSharp {
             gatsbyImageData
           }
+        }
+      }
+    }
+    introImages: allFile(
+      filter: { 
+        sourceInstanceName: { eq: "work" },
+        relativeDirectory: { eq: "home/two-column" },
+        extension: { in: ["jpg", "jpeg", "png", "webp"] }
+      },
+      limit: 2,
+      sort: { name: ASC }
+    ) {
+      nodes {
+        childImageSharp {
+          gatsbyImageData(width: 600, height: 750, placeholder: NONE)
         }
       }
     }
