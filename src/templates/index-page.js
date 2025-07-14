@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 // import PropTypes from "prop-types";
 import { graphql, Link } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
@@ -10,21 +10,183 @@ import ScotlandIcon from "../../static/icons//icon--scotland-gold.svg";
 
 import { Helmet } from "react-helmet";
 
-// Hero Images Rotation Component
+// Hero Images Rotation Component with Canvas
 const RotatingHeroImages = ({ heroImages }) => {
+  const canvasRef = useRef(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [loadedImages, setLoadedImages] = useState([]);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const animationRef = useRef(null);
 
+  // Load all images
   useEffect(() => {
-    if (!heroImages || heroImages.length <= 1) return;
+    if (!heroImages || heroImages.length === 0) return;
+
+    const loadImages = async () => {
+      const imagePromises = heroImages.map((heroImage) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          
+          // Get the Gatsby processed image URL
+          const imageData = getImage(heroImage);
+          const imageSrc = imageData?.images?.fallback?.src;
+          
+          if (!imageSrc) {
+            reject(new Error('No image source found'));
+            return;
+          }
+
+          img.onload = () => resolve(img);
+          img.onerror = reject;
+          img.src = imageSrc;
+        });
+      });
+
+      try {
+        const images = await Promise.all(imagePromises);
+        setLoadedImages(images);
+      } catch (error) {
+        console.error('Error loading hero images:', error);
+      }
+    };
+
+    loadImages();
+  }, [heroImages]);
+
+  // Canvas drawing function
+  const drawImage = useCallback((canvas, img, opacity = 1) => {
+    if (!canvas || !img) return;
+    
+    const ctx = canvas.getContext('2d');
+    const { width, height } = canvas;
+    
+    // Calculate aspect ratio and positioning for cover effect
+    const imgAspect = img.naturalWidth / img.naturalHeight;
+    const canvasAspect = width / height;
+    
+    let drawWidth, drawHeight, offsetX, offsetY;
+    
+    if (imgAspect > canvasAspect) {
+      // Image is wider than canvas
+      drawHeight = height;
+      drawWidth = height * imgAspect;
+      offsetX = (width - drawWidth) / 2;
+      offsetY = 0;
+    } else {
+      // Image is taller than canvas
+      drawWidth = width;
+      drawHeight = width / imgAspect;
+      offsetX = 0;
+      offsetY = (height - drawHeight) / 2;
+    }
+    
+    ctx.globalAlpha = opacity;
+    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+    ctx.globalAlpha = 1;
+  }, []);
+
+  // Animation function for smooth transitions
+  const animateTransition = useCallback((canvas, fromImg, toImg, duration = 1500) => {
+    if (!canvas || !fromImg || !toImg) return;
+    
+    const startTime = performance.now();
+    setIsTransitioning(true);
+    
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function (ease-in-out)
+      const easeProgress = progress < 0.5 
+        ? 2 * progress * progress 
+        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+      
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw outgoing image with decreasing opacity
+      drawImage(canvas, fromImg, 1 - easeProgress);
+      
+      // Draw incoming image with increasing opacity
+      drawImage(canvas, toImg, easeProgress);
+      
+      if (progress < 1) {
+        animationRef.current = requestAnimationFrame(animate);
+      } else {
+        setIsTransitioning(false);
+      }
+    };
+    
+    animationRef.current = requestAnimationFrame(animate);
+  }, [drawImage]);
+
+  // Handle canvas resize
+  const resizeCanvas = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    const container = canvas.parentElement;
+    if (!container) return;
+    
+    const rect = container.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+    
+    // Redraw current image
+    if (loadedImages[currentImageIndex]) {
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawImage(canvas, loadedImages[currentImageIndex]);
+    }
+  }, [loadedImages, currentImageIndex, drawImage]);
+
+  // Setup canvas and initial image
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || loadedImages.length === 0) return;
+    
+    resizeCanvas();
+    
+    // Handle window resize
+    window.addEventListener('resize', resizeCanvas);
+    
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+    };
+  }, [loadedImages, resizeCanvas]);
+
+  // Image rotation logic
+  useEffect(() => {
+    if (!loadedImages || loadedImages.length <= 1) return;
 
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
-        (prevIndex + 1) % heroImages.length
-      );
+      if (isTransitioning) return; // Skip if already transitioning
+      
+      setCurrentImageIndex((prevIndex) => {
+        const newIndex = (prevIndex + 1) % loadedImages.length;
+        
+        // Animate transition
+        const canvas = canvasRef.current;
+        if (canvas && loadedImages[prevIndex] && loadedImages[newIndex]) {
+          animateTransition(canvas, loadedImages[prevIndex], loadedImages[newIndex]);
+        }
+        
+        return newIndex;
+      });
     }, 4000); // Change image every 4 seconds
 
     return () => clearInterval(interval);
-  }, [heroImages]);
+  }, [loadedImages, isTransitioning, animateTransition]);
+
+  // Cleanup animation frame
+  useEffect(() => {
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, []);
 
   if (!heroImages || heroImages.length === 0) {
     return (
@@ -34,47 +196,36 @@ const RotatingHeroImages = ({ heroImages }) => {
     );
   }
 
-  // If only one image, no need for rotation
-  if (heroImages.length === 1) {
-    return (
-      <GatsbyImage  image={getImage(heroImages[0])}  alt="Hero background"  className='w-100 h-100'  style={{ objectFit: "cover" }} />
-    );
-  }
-
   return (
     <div className='position-relative w-100 h-100'>
-      {heroImages.map((image, index) => (
-        <div key={index} className='position-absolute w-100 h-100'
-          style={{
-            opacity: index === currentImageIndex ? 1 : 0,
-            transition: 'opacity 1.5s ease-in-out',
-            zIndex: index === currentImageIndex ? 1 : 0
-          }}
-        >
-          <GatsbyImage image={getImage(image)} alt={`Hero background ${index + 1}`} className='w-100 h-100' style={{ objectFit: "cover" }} />
-        </div>
-      ))}
+      <canvas
+        ref={canvasRef}
+        className='w-100 h-100'
+        style={{ display: 'block', objectFit: 'cover' }}
+      />
       
       {/* Optional: Add subtle indicators */}
-      <div className='position-absolute d-flex gap-2' 
-        style={{ 
-          bottom: '20px', 
-          left: '50%', 
-          transform: 'translateX(-50%)', 
-          zIndex: 10 
-        }}
-      >
-        {heroImages.map((_, index) => (
-          <div key={index} className='rounded-circle bg-white'
-            style={{
-              width: '8px',
-              height: '8px',
-              opacity: index === currentImageIndex ? 0.9 : 0.4,
-              transition: 'opacity 0.3s ease'
-            }}
-          />
-        ))}
-      </div>
+      {loadedImages.length > 1 && (
+        <div className='position-absolute d-flex gap-2' 
+          style={{ 
+            bottom: '20px', 
+            left: '50%', 
+            transform: 'translateX(-50%)', 
+            zIndex: 10 
+          }}
+        >
+          {loadedImages.map((_, index) => (
+            <div key={index} className='rounded-circle bg-white'
+              style={{
+                width: '8px',
+                height: '8px',
+                opacity: index === currentImageIndex ? 0.9 : 0.4,
+                transition: 'opacity 0.3s ease'
+              }}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
