@@ -89,16 +89,13 @@ const WorkPage = ({ data }) => {
                 .sort(([,a], [,b]) => b.mostRecentTime - a.mostRecentTime) // Sort by most recent file time descending
                 .map(
                 ([albumName, { imageCount, cover }]) => {
-                  // albumName could be 'work/2024/album-one' or '2024/album-one'
+                  // albumName should be '2024/album-one' format since we're now pointing directly to work directory
                   const parts = albumName.split("/");
-                  let year, album;
-                  if (parts.length === 3 && parts[0] === 'work') {
-                    [ , year, album] = parts;
-                  } else if (parts.length === 2) {
-                    [year, album] = parts;
-                  } else {
+                  if (parts.length !== 2) {
+                    // Skip if not in expected year/album format
                     return null;
                   }
+                  const [year, album] = parts;
                   return (
                     <Link
                       key={albumName}

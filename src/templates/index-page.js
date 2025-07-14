@@ -261,8 +261,8 @@ const IndexPage = ({ data }) => {
   
   recentAlbums.forEach((file) => {
     const dir = file.relativeDirectory;
-    // Only process files that are in the work/20XX/ directory structure and have images
-    if (dir && dir.startsWith('work/20') && file.childImageSharp) {
+    // Only process files that are in the 20XX/ directory structure and have images
+    if (dir && dir.match(/^20\d{2}\//) && file.childImageSharp) {
       if (!albumMap[dir]) {
         albumMap[dir] = {
           imageCount: 1,
@@ -296,7 +296,7 @@ const IndexPage = ({ data }) => {
     }
     // Fallback to directory name
     const parts = dir.split('/');
-    if (parts.length >= 3) {
+    if (parts.length >= 2) {
       const albumName = parts[parts.length - 1];
       return albumName.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     }
@@ -306,9 +306,9 @@ const IndexPage = ({ data }) => {
   // Helper function to create album URL
   const createAlbumUrl = (dir) => {
     const parts = dir.split('/');
-    if (parts.length >= 3) {
-      const year = parts[1];
-      const albumName = parts[2];
+    if (parts.length >= 2) {
+      const year = parts[0];
+      const albumName = parts[1];
       return `/work/${year}/${albumName}`;
     }
     return '/work';
@@ -655,8 +655,8 @@ export const IndexPageQuery = graphql`
     }
     introImages: allFile(
       filter: { 
-        sourceInstanceName: { eq: "work" },
-        relativeDirectory: { eq: "home/two-column" },
+        sourceInstanceName: { eq: "home" },
+        relativeDirectory: { eq: "two-column" },
         extension: { in: ["jpg", "jpeg", "png", "webp"] }
       },
       limit: 2,
@@ -670,8 +670,8 @@ export const IndexPageQuery = graphql`
     }
     heroImages: allFile(
       filter: { 
-        sourceInstanceName: { eq: "work" },
-        relativeDirectory: { eq: "home/hero" },
+        sourceInstanceName: { eq: "home" },
+        relativeDirectory: { eq: "hero" },
         extension: { in: ["jpg", "jpeg", "png", "webp"] }
       },
       limit: 10,
@@ -699,7 +699,7 @@ export const IndexPageQuery = graphql`
       filter: { 
         sourceInstanceName: { eq: "work" },
         extension: { in: ["jpg", "jpeg", "png"] },
-        relativeDirectory: { regex: "/work\\/20/" }
+        relativeDirectory: { regex: "/20/" }
       },
       limit: 50,
       sort: { mtime: DESC }
