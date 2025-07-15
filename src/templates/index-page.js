@@ -215,10 +215,11 @@ const RotatingHeroImages = ({ heroImages }) => {
           }}
         >
           {loadedImages.map((_, index) => (
-            <div key={index} className='rounded-circle bg-white'
+            <div key={index} className='rounded-circle'
               style={{
                 width: '8px',
                 height: '8px',
+                backgroundColor: '#fff',
                 opacity: index === currentImageIndex ? 0.9 : 0.4,
                 transition: 'opacity 0.3s ease'
               }}
@@ -364,7 +365,7 @@ const IndexPage = ({ data }) => {
           <div className='position-absolute w-100 h-100' style={{ zIndex: 1 }}>
             <RotatingHeroImages heroImages={heroImages} />
           </div>
-          <div className='position-absolute w-100 h-100 d-flex align-items-center justify-content-center' style={{ zIndex: 2, backgroundColor: "rgba(0,0,0,0.4)" }}>
+          <div className='position-absolute w-100 h-100 d-flex align-items-center justify-content-center' style={{ zIndex: 2, backgroundColor: "rgba(0,0,0,0.3)" }}>
             <div className='text-center text-white p-4'>
               <h1 className=' mb-3' style={{ fontSize: "4rem", fontFamily: "serif" }}>
                 A PLACE TO
