@@ -1,0 +1,23 @@
+.breadcrumb-back {
+    position: absolute;
+    padding: 0 3vw;
+    top: 3rem; // height of margin top of content mt-5
+    
+    @media (max-width: 850px) {
+        position: relative;
+        margin-bottom: 2rem;
+    }
+
+    a {
+        display: inline-flex;
+        align-items: center;
+        color: inherit;
+        font-size: inherit;
+        text-decoration: none;
+        font-weight: 300;
+    }
+
+    img {
+        margin-right: 0.5rem;
+    }
+}
