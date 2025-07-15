@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 
 const PostCard = props => (
   <article
-    className={`post-card ${props.count % 3 === 0 && `post-card-large`} ${
+    className={`post-card mt-5 ${props.count % 3 === 0 && `post-card-large`} ${
       props.postClass
     } ${props.node.frontmatter.thumbnail ? `with-image` : `no-image`}`}
     style={

@@ -28,18 +28,25 @@ const BlogPage = ({ data }) => {
           </h2>
         </header>
       )}
-      <div className="post-feed">
-        {posts.map(({ node }) => {
-          postCounter++
-          return (
-            <PostCard
-              key={node.fields.slug}
-              count={postCounter}
-              node={node}
-              postClass={`post`}
-            />
-          )
-        })}
+
+      <div className=" container">
+        <div className="row">
+          <div className="col-md-10 offset-md-1">
+            <div className="d-flex flex-wrap">
+            {posts.map(({ node }) => {
+              postCounter++
+              return (
+                <PostCard
+                  key={node.fields.slug}
+                  count={postCounter}
+                  node={node}
+                  postClass={`post`}
+                />
+              )
+            })}
+            </div>
+          </div>
+        </div>
       </div>
     </Layout>
   )

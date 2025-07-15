@@ -561,6 +561,7 @@ footer.site-foot a {
   left: 0;
   color: #fff;
   background: rgba(0, 0, 0, 0.6);
+  opacity: 1;
   transition: opacity 0.5s cubic-bezier(0.33, 0, 0.2, 1);
 }
 
@@ -581,8 +582,9 @@ footer.site-foot a {
 
 .post-card-title {
   margin: 0;
-  display: inline-block;
-  font-size: 3.4rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.5625em;
   max-width: 70%;
   text-align: center;
   transition: all 0.3s cubic-bezier(0.33, 0, 0.2, 1);
