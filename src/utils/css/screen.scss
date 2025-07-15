@@ -20,8 +20,11 @@ production stylesheet in assets/built/screen.css using gulp dev
 @use "./components/masonry.scss";
 @use "./components/lightbox.scss";
 @use "./components/three-album-cards.scss";
+
+/* Pages - Page specific styles */
 @use "./pages/homepage.scss";
 @use "./pages/work-sub-page.scss";
+@use "./pages/blog.scss";
 
 
  
@@ -557,8 +560,7 @@ footer.site-foot a {
   bottom: 0;
   left: 0;
   color: #fff;
-  background: rgba(0, 0, 0, 0.1);
-  opacity: 1;
+  background: rgba(0, 0, 0, 0.6);
   transition: opacity 0.5s cubic-bezier(0.33, 0, 0.2, 1);
 }
 
@@ -574,6 +576,7 @@ footer.site-foot a {
 .post-card-link:hover .post-card-content {
   opacity: 1;
   transition: opacity 0.3s cubic-bezier(0.33, 0, 0.2, 1);
+  // background-color: rgba(0, 0, 0, 0.4);
 }
 
 .post-card-title {

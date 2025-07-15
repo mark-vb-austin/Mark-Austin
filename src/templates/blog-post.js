@@ -28,7 +28,7 @@ const BlogPostTemplate = (props) => {
 
       />
       <article
-        className={`post-content ${post.frontmatter.thumbnail || `no-image`}`}
+        className={`post-content blog-post ${post.fields.slug.replace(/\//g, '-').replace(/^-+|-+$/g, '')}`}
       >
         <header className="post-content-header">
           <h1 className="post-content-title">{post.frontmatter.title}</h1>
@@ -50,7 +50,7 @@ const BlogPostTemplate = (props) => {
           className="post-content-body"
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
-        <div className="post-link">
+        <div className="post-link d-flex justify-content-between mt-5 pt-5">
           <div>
           <a style={{ display: nextLinkStatus ? "flex" : 'none', alignItems: "center", color: "vars.$color-base", fontSize: "2rem" }} href={nextSlug} >
               <img src={LeftIcon} alt='' width={30} height={30} />
@@ -90,6 +90,9 @@ export const pageQuery = graphql`
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       html
+      fields {
+        slug
+      }
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
