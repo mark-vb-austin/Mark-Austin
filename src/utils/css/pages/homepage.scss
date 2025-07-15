@@ -1,63 +1,56 @@
 /* Homepage specific styles */
+@use "../vars.scss" as vars;
 
 .hero-section {
   background: linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%);
+
+  h1 {
+    font-family: vars.$font-primary;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: vars.$fw-light;
+  }
 }
 
-.hero-section .display-1 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 300;
-  letter-spacing: 2px;
-  line-height: 1.2;
+#intro-content__two-column {
+  font-family: vars.$font-tertiary;
+  font-weight: vars.$fw-normal;
+  font-size: 1em;
+  color: vars.$color-base;
+
+  span {
+    color: vars.$color-primary;
+    font-size: 1.2em;
+  } 
+  
+  .intro-image-container {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+  
+  .intro-image-container .gatsby-image-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  .intro-image-container img {
+    object-fit: cover !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
 }
 
-.intro-image-container {
-  position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-
-.intro-image-container .gatsby-image-wrapper {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.intro-image-container img {
-  object-fit: cover !important;
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.portfolio-item {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.portfolio-item:hover .overlay {
-  opacity: 1 !important;
-}
-
-.portfolio-item .overlay {
-  transition: all 0.3s ease;
-  background: rgba(0,0,0,0.8);
-}
-
-.section-divider {
-  height: 1px;
-  background: linear-gradient(to right, transparent, #ddd, transparent);
-  margin: 3rem 0;
-}
-
-.btn-outline-dark {
-  border-color: #333;
+.btn-highlight-gold {
+  border-color: vars.$color-base;
   color: #333;
   transition: all 0.3s ease;
+  padding: 4px 6px;
 }
 
-.btn-outline-dark:hover {
-  background-color: #333;
+.btn-highlight-gold:hover {
+  background-color: vars.$color-primary;
   border-color: #333;
   color: white;
 }

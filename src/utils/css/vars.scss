@@ -1,8 +1,8 @@
 /* Variables
 /* ---------------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css?family=Muli:400,400i,600,700,700i,800&display=swap');
-
-/* @use url('../../../static/font/OldLondon.woff'; */
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap');
 
     /* Colours */
  $color-primary: #b08e21;
@@ -13,13 +13,15 @@
     /* Old BG--color-bg: #f8f8f8;*/
     
     /* Fonts */
- $font-sans-serif: 'Muli', sans-serif;
- $font-serif: Georgia, Times, serif;
- $font-mono: Menlo, Courier, monospace;
- $font-light: 100;
- $font-normal: 400;
- $font-bold: 700;
- $font-heavy: 800;
+ $font-primary: 'Muli', sans-serif;
+ $font-secondry: 'Newsreader', serif;
+ $font-tertiary: 'IBM Plex Mono', monospace;
+
+    /* Font Weights */
+ $fw-light: 100;
+ $fw-normal: 400;
+ $fw-bold: 700;
+ $fw-heavy: 800;
 
     /* Breakpoints */
  $xlarge: 1680px;
@@ -32,3 +34,13 @@
  $height: 4rem;
  $margin: 2rem;
  $radius: 0.5rem;
+
+//  Declrations
+.font-secondry {font-family: $font-secondry;}
+.font-primary {font-family: $font-primary;}
+.font-tertiary {font-family: $font-tertiary;}
+
+.fw-light {font-weight: $fw-light;}
+.fw-normal {font-weight: $fw-normal;}
+.fw-bold {font-weight: $fw-bold;}
+.fw-heavy {font-weight: $fw-heavy;}

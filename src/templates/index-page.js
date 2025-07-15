@@ -342,23 +342,17 @@ const IndexPage = ({ data }) => {
               padding-right: 0;
             }
 
-            .hero-section {
-              // margin-top: -110px;
-            }
-
             main#site-main h1 {
               color: #fff;
             }
 
-            /* Hero Image Rotation Styles */
-            .hero-section .position-absolute {
-              will-change: opacity;
-            }
-            
             .hero-section .gatsby-image-wrapper {
               transition: transform 0.3s ease;
             }
-            
+
+            #swup > .col {
+              padding: 0;
+            }
           `}
         </style>
       </Helmet>
@@ -372,16 +366,16 @@ const IndexPage = ({ data }) => {
           </div>
           <div className='position-absolute w-100 h-100 d-flex align-items-center justify-content-center' style={{ zIndex: 2, backgroundColor: "rgba(0,0,0,0.4)" }}>
             <div className='text-center text-white p-4'>
-              <h1 className='display-1 fw-light mb-3' style={{ fontSize: "4rem", fontFamily: "serif" }}>
+              <h1 className=' mb-3' style={{ fontSize: "4rem", fontFamily: "serif" }}>
                 A PLACE TO
                 <br />
                 KEEP MOMENTS
               </h1>
-              <p className='lead mb-4'>At first, I just wanted to capture my family growing up. Now it’s part of how I see the world.</p>
+              <p className='mb-4 italic'>At first, I just wanted to capture my family growing up. Now it’s part of how I see the world.</p>
               <div className='mt-5'>
                 <button
                   onClick={() => {
-                    document.getElementById("home-main-content")?.scrollIntoView({
+                    document.getElementById("intro-content__two-column")?.scrollIntoView({
                       behavior: "smooth",
                     });
                   }}
@@ -396,7 +390,7 @@ const IndexPage = ({ data }) => {
         </section>
 
         {/* intro Content */}
-        <section className='container' id='home-main-content' style={{ scrollMarginTop: "75px" }}>
+        <section className='container' id='intro-content__two-column' style={{ scrollMarginTop: "75px" }}>
           <div className='row px-4 px-md-0 mt-100'>
             <div className='col-md-4 offset-md-2 col-6'>
               <div className='intro-image-container' style={{ aspectRatio: "4/5", overflow: "hidden" }}>
@@ -404,27 +398,20 @@ const IndexPage = ({ data }) => {
               </div>
               <div className='mt-3'>
                 <div className='text-end'>
-                  THE HEART OF MY WORK
-                  <br />
-                  ISN'T IN POSED PERFECTION —<br />
-                  <strong>IT'S IN REAL MOMENTS</strong>
-                  <br />
-                  YOU'LL WANT TO REMEMBER.
-                  <br />
+                  <p>THE HEART OF MY WORK</p>
+                  <p>ISN'T IN POSED PERFECTION</p>
+                  <p><span className="fw-heavy">IT'S IN REAL MOMENTS</span></p>
+                  <p className="m-0">YOU'LL WANT TO REMEMBER</p>
                 </div>
               </div>
             </div>
 
             <div className='col-md-4 col-6 d-flex flex-column justify-content-end'>
               <div className='mb-3'>
-                HONEST
-                <br />
-                <strong>CANDID</strong>
-                <br />
-                STORY-LED
-                <br />
-                <strong>MEANINGFUL</strong>
-                <br />
+                <p>HONEST</p>
+                <p><span className="fw-heavy">CANDID</span></p>
+                <p>STORY-LED</p>
+                <p className="m-0"><span className="fw-heavy">MEANINGFUL</span></p>
               </div>
               <div className='intro-image-container' style={{ aspectRatio: "4/5", overflow: "hidden" }}>
                 <GatsbyImage image={getImage(introRightImage)} alt='Wedding photography' className='w-100 h-100' style={{ objectFit: "cover" }} />
@@ -446,7 +433,7 @@ const IndexPage = ({ data }) => {
         <section className='container'>
           {/* <div className='row'>
               <div className='col-12 text-center mb-5'>
-                <h2 className=' fw-light'>Recent Albums</h2>
+                <h2 className=' '>Recent Albums</h2>
               </div>
             </div> */}
           <div className='row '>
@@ -498,7 +485,7 @@ const IndexPage = ({ data }) => {
         <section className='container'>
           {/* <div className='row'>
             <div className='col-12 text-center mb-5'>
-              <h2 className=' fw-light'>Latest Blog Posts</h2>
+              <h2 className=' '>Latest Blog Posts</h2>
             </div>
           </div> */}
           <div className='row p-4 justify-content-center'>
@@ -606,7 +593,7 @@ const IndexPage = ({ data }) => {
               })()}
             </div>
             <div className='text-center mt-4'>
-              <Link to='/work' className='btn btn-outline-dark'>
+              <Link to='/work' className='btn btn-highlight-gold'>
                 View All Work
               </Link>
             </div>

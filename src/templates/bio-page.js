@@ -21,7 +21,7 @@ const BioPage = (props) => {
               <h1 className='post-content-title'>{post.frontmatter.title}</h1>
             </header>
 
-            {post.frontmatter.description && <p className='post-content-excerpt'>{post.frontmatter.description}</p>}
+            {post.frontmatter.description && <p className='post-content-excerpt italic'>{post.frontmatter.description}</p>}
 
             {post.frontmatter.hero && (
               <div className='post-content-image wave-bounce'>
@@ -29,7 +29,7 @@ const BioPage = (props) => {
               </div>
             )}
 
-            <div className='post-content-body' dangerouslySetInnerHTML={{ __html: post.html }} />
+            <div className='post-content-body font-primary' dangerouslySetInnerHTML={{ __html: post.html }} />
 
             <footer className='post-content-footer'></footer>
           </article>

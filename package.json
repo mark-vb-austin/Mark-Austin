@@ -42,10 +42,6 @@
     "remark-mdx": "3.1.0",
     "sass": "^1.89.2",
     "sass-loader": "^16.0.5",
-    "typeface-alegreya": "^1.1.13",
-    "typeface-merriweather": "1.1.13",
-    "typeface-montserrat": "1.1.13",
-    "typeface-nunito": "^1.1.13",
     "url-join": "^5.0.0",
     "yet-another-react-lightbox": "^3.23.3"
   },

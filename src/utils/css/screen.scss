@@ -21,6 +21,8 @@ production stylesheet in assets/built/screen.css using gulp dev
 @use "./components/lightbox.scss";
 @use "./components/three-album-cards.scss";
 @use "./pages/homepage.scss";
+@use "./pages/work-sub-page.scss";
+
 
  
 /* Lib - Third-party imports
@@ -32,7 +34,7 @@ production stylesheet in assets/built/screen.css using gulp dev
 /* ---------------------------------------------------------- */
 
 body {
-  font-family: "Muli", sans-serif;
+  font-family: vars.$font-primary;
   background: vars.$color-bg;
   transition: background 0.3s ease-out;
   transition-delay: 0.25;
@@ -109,9 +111,9 @@ main#site-main {
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-family: "Muli", sans-serif;
+    font-family: vars.$font-primary;
     font-size: 2.5rem;
-    font-weight: 700;
+    font-weight: lighter;
     color: #131313;
     text-transform: uppercase;
 
@@ -177,7 +179,7 @@ main#site-main {
   margin: 0;
   font-size: 7rem;
   line-height: 1.1em;
-  font-weight: vars.$font-heavy;
+  font-weight: vars.$fw-heavy;
   letter-spacing: 10px;
 }
 
@@ -218,7 +220,7 @@ main#site-main {
 }
 
 .site-foot {
-  font-family: 'Muli', sans-serif;
+  font-family: vars.$font-primary;
   text-align: center;
   color: vars.$color-base;
   font-size: 1.5rem;
@@ -306,8 +308,7 @@ footer.site-foot a {
 }
 
 .site-head-logo {
-  /*font-family: 'Libre Barcode 39', cursive;*/
-  font-family: 'Muli',sans-serif;
+  font-family: vars.$font-primary;
   flex-shrink: 0;
   display: block;
   padding: 10px;
@@ -594,7 +595,7 @@ footer.site-foot a {
   right: 5vw;
   font-size: 28vw;
   line-height: 1em;
-  font-weight: vars.$font-heavy;
+  font-weight: vars.$fw-heavy;
   letter-spacing: -0.1em;
   color: rgba(0, 0, 0, 0.2);
 }
