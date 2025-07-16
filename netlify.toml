@@ -5,7 +5,9 @@
   NODE_VERSION = "18"
   YARN_VERSION = "1.22.4"
   YARN_FLAGS = "--no-ignore-optional"
-
+  NODE_ENV = "production"
+  NODE_OPTIONS = "--max_old_space_size=4096"
+  NPM_FLAGS = "--legacy-peer-deps"
 
 [[headers]]
   for = "/*"
