@@ -111,9 +111,9 @@ const WorkPage = ({ data }) => {
                       <div className="masonry__titles">
                         <h3>{getLastDir(albumName)}</h3>
                         <div className="hl"></div>
-                        <h3>
+                        <h4 style={{fontSize: "1.4rem"}}>
                           {imageCount} image{imageCount > 1 ? "s" : ""}
-                        </h3>
+                        </h4>
                       </div>
                     </Link>
                   );
