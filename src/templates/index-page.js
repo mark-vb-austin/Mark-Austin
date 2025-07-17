@@ -284,6 +284,7 @@ const IndexPage = ({ data }) => {
     }
   });
 
+
   // Get the 3 most recent albums (sorted by most recent file time in each album)
   const recentAlbumEntries = Object.entries(albumMap)
     .sort(([,a], [,b]) => b.mostRecentTime - a.mostRecentTime) // Sort by most recent file time descending
@@ -575,22 +576,14 @@ const IndexPage = ({ data }) => {
               {(() => {
                 // Get the most recent album (first entry after sorting)
                 const mostRecentAlbum = recentAlbumEntries[0];
-                if (mostRecentAlbum) {
                   const [albumDir, albumData] = mostRecentAlbum;
                   const albumTitle = createAlbumTitle(albumDir, albumData);
                   return albumData.images.slice(0, 3).map((image, index) => (
-                    <div key={index} className={`col-lg-4 col-md-6 ${index === 1 ? "col-6" : "col-12"}`}>
-                      <GatsbyImage image={getImage(image)} alt={`${albumTitle} - Image ${index + 1}`} className='w-100' style={{ height: "400px", objectFit: "cover" }} />
+                    <div key={index} className={`col-lg-4 col-md-4`}>
+                      <GatsbyImage image={getImage(image)} alt={`${albumTitle} - Image ${index + 1}`} className='w-100' style={{ aspectRatio: "4/5", overflow: "hidden" }} />
                     </div>
                   ));
-                } else {
-                  // Fallback to general recent work images if no albums found
-                  return recentWorkImages.slice(0, 3).map((image, index) => (
-                    <div key={index} className='col-lg-4 col-md-6'>
-                      <GatsbyImage image={getImage(image)} alt={`Recent work ${index + 1}`} className='w-100' style={{ height: "400px", objectFit: "cover" }} />
-                    </div>
-                  ));
-                }
+                
               })()}
             </div>
             <div className='text-center mt-4'>
