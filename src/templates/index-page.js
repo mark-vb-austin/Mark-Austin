@@ -209,7 +209,7 @@ const RotatingHeroImages = ({ heroImages }) => {
       {loadedImages.length > 1 && (
         <div className='position-absolute d-flex gap-2' 
           style={{ 
-            bottom: '20px', 
+            bottom: '5%', 
             left: '50%', 
             transform: 'translateX(-50%)', 
             zIndex: 10 
