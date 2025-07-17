@@ -11,7 +11,7 @@ const WorkPage = ({ data }) => {
   const albumMap = {};
 
   const breakpointColumnsObj = {
-    default: 4,
+    default: 3,
     1100: 3,
     700: 2,
   };
@@ -77,7 +77,7 @@ const WorkPage = ({ data }) => {
         <div className="row">
 
 
-          <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+          <div className=" col-md-10 offset-md-1">
           
             
             <Masonry

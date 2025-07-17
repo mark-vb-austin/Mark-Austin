@@ -123,7 +123,7 @@ const WorkSubPage = ({ data, pageContext }) => {
         <div className="container">
           <div className="row">
 
-            <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-5">
+            <div className="col-md-10 offset-md-1 mt-5">
               
               <h1 className="post-content-title">{meta?.title || album}</h1>
               
