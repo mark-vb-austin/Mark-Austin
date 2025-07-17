@@ -47,7 +47,7 @@ const ContactPage = ({ data }, location) => {
       <div className="container">
         <div className="row">
 
-          <article className="col-lg-6 offset-lg-3 col-md-10 offset-md-1">
+          <article className="col-lg-6 offset-lg-3 col-sm-8 offset-sm-2 col-10 offset-1">
             {data.markdownRemark.frontmatter.thumbnail && (
             <div className="post-content-image">
               <GatsbyImage
