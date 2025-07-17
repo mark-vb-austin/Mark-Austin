@@ -367,6 +367,11 @@ const IndexPage = ({ data }) => {
               padding-right: 0;
             }
 
+            @media (max-width: 850px) {
+            .site-wrapper.site-head-open .site-main {
+              margin-top: 0px;
+            }
+
             main#site-main h1 {
               color: #ffffff !important;
             }
