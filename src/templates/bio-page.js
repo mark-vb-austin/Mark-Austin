@@ -16,7 +16,7 @@ const BioPage = (props) => {
       <div className="container mt-50">
         <div className="row">
 
-          <article className={`col-lg-6 offset-lg-3 col-md-10 offset-md-1 ${post.frontmatter.thumbnail.name || `no-image`}`}>
+          <article className={`col-lg-6 offset-lg-3 col-sm-8 offset-sm-2 col-10 offset-1 ${post.frontmatter.thumbnail.name || `no-image`}`}>
             <header className='post-content-header'>
               <h1 className='post-content-title'>{post.frontmatter.title}</h1>
             </header>
