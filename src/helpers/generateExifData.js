@@ -26,6 +26,7 @@ const OUT_PATH = path.join(__dirname, "../img/exif-data.json");
         HyperfocalDistance: metadata.HyperfocalDistance,
         ExposureTime: metadata.ExposureTime,
         DateTimeOriginal: metadata.DateTimeOriginal,
+        MetadataDate: metadata.MetadataDate,
       };
     } catch (e) {
       console.error(`Error reading ${imgPath}`, e);

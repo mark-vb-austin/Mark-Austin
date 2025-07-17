@@ -7,6 +7,7 @@ import Seo from "../components/seo";
 import GlasgowIcon from "../../static/icons//icon--glasgow-gold.svg";
 import PaisleyIcon from "../../static/icons//icon--paisley-gold.svg";
 import ScotlandIcon from "../../static/icons//icon--scotland-gold.svg";
+import exifData from "../img/exif-data.json";
 
 import { Helmet } from "react-helmet";
 
@@ -256,13 +257,45 @@ const IndexPage = ({ data }) => {
     }
   });
 
+  // Helper function to parse EXIF date format
+  const parseExifDate = (exifDateString) => {
+    const match = exifDateString.match(/^(\d{4}):(\d{2}):(\d{2}) (\d{2}):(\d{2}):(\d{2})(.*)$/);
+    if (!match) return null;
+    
+    const [, year, month, day, hour, minute, second, timezone] = match;
+    const isoString = `${year}-${month}-${day}T${hour}:${minute}:${second}${timezone}`;
+    return new Date(isoString);
+  };
+
+  // Helper function to get the most recent MetadataDate from an album
+  const getAlbumMetadataDate = (albumDir) => {
+    let mostRecentMetadataDate = null;
+    
+    // Look for all images in this album directory
+    Object.keys(exifData).forEach(imagePath => {
+      if (imagePath.startsWith(`work/${albumDir}/`)) {
+        const imageExif = exifData[imagePath];
+        if (imageExif && imageExif.MetadataDate) {
+          const metadataDate = parseExifDate(imageExif.MetadataDate.rawValue);
+          
+          if (metadataDate && (!mostRecentMetadataDate || metadataDate > mostRecentMetadataDate)) {
+            mostRecentMetadataDate = metadataDate;
+          }
+        }
+      }
+    });
+    
+    return mostRecentMetadataDate;
+  };
+
   // Process grouped album data - albums are already grouped by directory
   const processedAlbums = recentAlbums.map((albumGroup) => {
     const dir = albumGroup.fieldValue;
     const images = albumGroup.nodes;
     
-    // Find the most recent file time in this album
-    const mostRecentTime = Math.max(...images.map(file => new Date(file.mtime).getTime()));
+    // Get the most recent MetadataDate or fallback to file mtime
+    const metadataDate = getAlbumMetadataDate(dir);
+    const mostRecentTime = metadataDate || new Date(Math.max(...images.map(file => new Date(file.mtime).getTime())));
     
     return {
       directory: dir,
@@ -270,7 +303,7 @@ const IndexPage = ({ data }) => {
       cover: images[0], // First image as cover
       images: images.slice(0, 4), // Keep up to 4 images: 2 for sliding + 2 for "Most Recent Shoot"
       metadata: metadataMap[dir] || null,
-      mostRecentTime: new Date(mostRecentTime)
+      mostRecentTime: mostRecentTime
     };
   });
 
@@ -335,7 +368,7 @@ const IndexPage = ({ data }) => {
             }
 
             main#site-main h1 {
-              color: #fff;
+              color: #ffffff !important;
             }
 
             .hero-section .gatsby-image-wrapper {
@@ -560,20 +593,48 @@ const IndexPage = ({ data }) => {
             <div className='row'>
               <div className='col-12 text-center'>
                 <h2 className='d-flex justify-content-center align-items-center'>Most Recent Shoot</h2>
+                {(() => {
+                  // Show the album title for the most recent album
+                  if (recentAlbumEntries.length > 0) {
+                    const [albumDir, albumData] = recentAlbumEntries[0];
+                    const albumTitle = createAlbumTitle(albumDir, albumData);
+                    const albumUrl = createAlbumUrl(albumDir);
+                    return (
+                      <p className='text-muted'>
+                        <Link to={albumUrl} className='text-decoration-none'>
+                          {albumTitle}
+                        </Link>
+                      </p>
+                    );
+                  }
+                  return null;
+                })()}
               </div>
             </div>
             <div className='row p-4 justify-content-center'>
               {(() => {
-                // Get the most recent album (first entry after sorting)
-                const mostRecentAlbum = recentAlbumEntries[0];
-                  const [albumDir, albumData] = mostRecentAlbum;
-                  const albumTitle = createAlbumTitle(albumDir, albumData);
-                  return albumData.images.slice(0, 3).map((image, index) => (
-                    <div key={index} className={`col-lg-4 col-md-4`}>
-                      <GatsbyImage image={getImage(image)} alt={`${albumTitle} - Image ${index + 1}`} className='w-100' style={{ aspectRatio: "4/5", overflow: "hidden" }} />
-                    </div>
-                  ));
+                // Get the most recent album (first entry after sorting by MetadataDate)
+                if (recentAlbumEntries.length === 0) {
+                  return <div className='col-12 text-center'><p>No recent albums available</p></div>;
+                }
                 
+                const mostRecentAlbum = recentAlbumEntries[0];
+                const [albumDir, albumData] = mostRecentAlbum;
+                const albumTitle = createAlbumTitle(albumDir, albumData);
+                
+                // Ensure we have enough images for the section
+                const imagesToShow = albumData.images.slice(0, 3);
+                if (imagesToShow.length === 0) {
+                  return <div className='col-12 text-center'><p>No images available for the most recent album</p></div>;
+                }
+                
+                return imagesToShow.map((image, index) => (
+                  <div key={index} className={`col-lg-4 col-md-4`}>
+                    <Link to={createAlbumUrl(albumDir)} className='text-decoration-none'>
+                      <GatsbyImage image={getImage(image)} alt={`${albumTitle} - Image ${index + 1}`} className='w-100' style={{ aspectRatio: "4/5", overflow: "hidden", cursor: "pointer" }} />
+                    </Link>
+                  </div>
+                ));
               })()}
             </div>
             <div className='text-center mt-4'>
@@ -663,9 +724,8 @@ export const IndexPageQuery = graphql`
       filter: { 
         sourceInstanceName: { eq: "work" },
         extension: { in: ["jpg", "jpeg", "png"] },
-        relativeDirectory: { regex: "/20/" }
-      },
-      sort: { mtime: DESC }
+        relativeDirectory: { regex: "/^20/" }
+      }
     ) {
       group(field: relativeDirectory) {
         fieldValue

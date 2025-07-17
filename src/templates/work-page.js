@@ -4,6 +4,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
 import Masonry from "react-masonry-css";
+import exifData from "../img/exif-data.json";
 
 const WorkPage = ({ data }) => {
   const siteTitle = data.site.siteMetadata.title;
@@ -23,6 +24,36 @@ const WorkPage = ({ data }) => {
     return parts[parts.length - 1];
   };
 
+  // Helper function to parse EXIF date format
+  const parseExifDate = (exifDateString) => {
+    const match = exifDateString.match(/^(\d{4}):(\d{2}):(\d{2}) (\d{2}):(\d{2}):(\d{2})(.*)$/);
+    if (!match) return null;
+    
+    const [, year, month, day, hour, minute, second, timezone] = match;
+    const isoString = `${year}-${month}-${day}T${hour}:${minute}:${second}${timezone}`;
+    return new Date(isoString);
+  };
+
+  // Helper function to get the most recent MetadataDate from an album
+  const getAlbumMetadataDate = (albumDir) => {
+    let mostRecentMetadataDate = null;
+    
+    // Look for all images in this album directory
+    Object.keys(exifData).forEach(imagePath => {
+      if (imagePath.startsWith(`work/${albumDir}/`)) {
+        const imageExif = exifData[imagePath];
+        if (imageExif && imageExif.MetadataDate) {
+          const metadataDate = parseExifDate(imageExif.MetadataDate.rawValue);
+          if (metadataDate && (!mostRecentMetadataDate || metadataDate > mostRecentMetadataDate)) {
+            mostRecentMetadataDate = metadataDate;
+          }
+        }
+      }
+    });
+    
+    return mostRecentMetadataDate;
+  };
+
   // Get all files from the work directory
   // and create a map of albums with their cover image and image count
   data.allFile.nodes.forEach((file) => {
@@ -30,15 +61,17 @@ const WorkPage = ({ data }) => {
     
     // Skip if the directory is empty
     if (!albumMap[dir]) {
+      const metadataDate = getAlbumMetadataDate(dir);
       albumMap[dir] = {
         imageCount: 1,
         cover: file,
-        mostRecentTime: new Date(file.mtime)
+        mostRecentTime: metadataDate || new Date(file.mtime) // Fallback to mtime if no MetadataDate
       };
     } else {
       albumMap[dir].imageCount += 1;
-      // Update cover to the most recent image
-      const fileTime = new Date(file.mtime);
+      // Update cover to the most recent image based on MetadataDate
+      const metadataDate = getAlbumMetadataDate(dir);
+      const fileTime = metadataDate || new Date(file.mtime);
       if (fileTime > albumMap[dir].mostRecentTime) {
         albumMap[dir].mostRecentTime = fileTime;
         albumMap[dir].cover = file;
@@ -79,7 +112,7 @@ const WorkPage = ({ data }) => {
 
           <div className=" col-md-10 offset-md-1">
           
-            
+            {console.log(albumMap)}
             <Masonry
               breakpointCols={breakpointColumnsObj}
               className="masonry-grid"

@@ -1,5 +1,13 @@
 const path = require(`path`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
+const fs = require(`fs`);
+
+// Load exif data for album sorting
+const exifDataPath = path.join(__dirname, 'src/img/exif-data.json');
+let exifData = {};
+if (fs.existsSync(exifDataPath)) {
+  exifData = JSON.parse(fs.readFileSync(exifDataPath, 'utf8'));
+}
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
@@ -151,9 +159,53 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     return;
   }
 
+  // Helper function to parse EXIF date format
+  const parseExifDate = (exifDateString) => {
+    const match = exifDateString.match(/^(\d{4}):(\d{2}):(\d{2}) (\d{2}):(\d{2}):(\d{2})(.*)$/);
+    if (!match) return null;
+    
+    const [, year, month, day, hour, minute, second, timezone] = match;
+    const isoString = `${year}-${month}-${day}T${hour}:${minute}:${second}${timezone}`;
+    return new Date(isoString);
+  };
+
+  // Helper function to get the most recent MetadataDate from an album
+  const getAlbumMetadataDate = (albumDir) => {
+    let mostRecentMetadataDate = null;
+    
+    // Look for all images in this album directory
+    Object.keys(exifData).forEach(imagePath => {
+      if (imagePath.startsWith(`work/${albumDir}/`)) {
+        const imageExif = exifData[imagePath];
+        if (imageExif && imageExif.MetadataDate) {
+          const metadataDate = parseExifDate(imageExif.MetadataDate.rawValue);
+          if (metadataDate && (!mostRecentMetadataDate || metadataDate > mostRecentMetadataDate)) {
+            mostRecentMetadataDate = metadataDate;
+          }
+        }
+      }
+    });
+    
+    return mostRecentMetadataDate;
+  };
+
   const albums = Array.from(
     new Set(albumResult.data.allFile.nodes.map(node => node.relativeDirectory))
-  ).sort(); // Sort albums for consistent navigation order
+  ).sort((a, b) => {
+    // Sort by MetadataDate descending (most recent first)
+    const aDate = getAlbumMetadataDate(a);
+    const bDate = getAlbumMetadataDate(b);
+    
+    if (aDate && bDate) {
+      return bDate - aDate;
+    } else if (aDate) {
+      return -1; // a has metadata date, b doesn't - a comes first
+    } else if (bDate) {
+      return 1; // b has metadata date, a doesn't - b comes first
+    } else {
+      return a.localeCompare(b); // fallback to alphabetical sorting
+    }
+  }); // Sort albums by MetadataDate for consistent navigation order
 
   albums.forEach((dir, index) => {
     const parts = dir.split("/"); // e.g. ['work', '2024', 'album-one'] or ['2024', 'album-one']
