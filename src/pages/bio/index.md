@@ -1,6 +1,6 @@
 ---
 templateKey: bio-page
-thumbnail: /img/mark-austin-photos-1.jpg
+thumbnail: /img/mark-austin_thumbnail.png
 hero: /img/pages/bio/mark-hero.png
 date: 2025-06-17T10:21:55.133Z
 title: About Mark Austin
@@ -8,7 +8,7 @@ description: Hi, I'm Mark Austin—a photographer based in Scotland with a love 
 number: 1
 pagetype:
   - main
-featuredimage: /img/mark-austin-photos-1.jpg
+featuredimage: /img/mark-austin_thumbnail.png
 ---
 I've always had an interest in photography, but things really clicked into place when my first child was born. That's when I picked up my camera with more purpose: to document the moments that matter most—the ones that slip past when you're not looking.
 
