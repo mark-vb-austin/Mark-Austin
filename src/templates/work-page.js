@@ -183,7 +183,6 @@ export const query = graphql`
         title
         author
         social {
-          facebook
           instagram
         }
       }

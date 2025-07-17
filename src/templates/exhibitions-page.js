@@ -52,8 +52,7 @@ query IndexPage {
       title
       author
       social{
-        twitter
-        facebook
+        instagram
       }
     }
   }

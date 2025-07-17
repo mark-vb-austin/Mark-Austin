@@ -199,8 +199,7 @@ const indexQuery = graphql`
       siteMetadata {
         title
         social{
-          twitter
-          facebook
+          instagram
         }
       }
     }

@@ -58,8 +58,7 @@ query BlogPage {
     siteMetadata {
       title
       social{
-        twitter
-        facebook
+        instagram
       }
     }
   }

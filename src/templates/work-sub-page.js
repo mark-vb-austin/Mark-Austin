@@ -253,7 +253,6 @@ export const query = graphql`
       siteMetadata {
         title
         social {
-          facebook
           instagram
         }
       }
