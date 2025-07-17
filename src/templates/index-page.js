@@ -245,8 +245,7 @@ const IndexPage = ({ data }) => {
   // Extract hero images from src/img/home/hero directory
   const heroImages = data.heroImages.nodes;
   
-  const recentWorkImages = data.recentWorkImages.nodes;
-  const recentAlbums = data.recentAlbums.nodes;
+  const recentAlbums = data.recentAlbums.group;
   const albumMetadata = data.albumMetadata.nodes;
 
   // Create a map of album metadata by directory
@@ -257,38 +256,30 @@ const IndexPage = ({ data }) => {
     }
   });
 
-  // Process album data to group by directory and get recent albums
-  const albumMap = {};
-  
-  recentAlbums.forEach((file) => {
-    const dir = file.relativeDirectory;
-    // Only process files that are in the 20XX/ directory structure and have images
-    if (dir && dir.match(/^20\d{2}\//) && file.childImageSharp) {
-      if (!albumMap[dir]) {
-        albumMap[dir] = {
-          imageCount: 1,
-          cover: file,
-          images: [file],
-          metadata: metadataMap[dir] || null,
-          mostRecentTime: new Date(file.mtime)
-        };
-      } else {
-        albumMap[dir].imageCount += 1;
-        albumMap[dir].images.push(file);
-        // Update most recent time if this file is newer
-        const fileTime = new Date(file.mtime);
-        if (fileTime > albumMap[dir].mostRecentTime) {
-          albumMap[dir].mostRecentTime = fileTime;
-        }
-      }
-    }
+  // Process grouped album data - albums are already grouped by directory
+  const processedAlbums = recentAlbums.map((albumGroup) => {
+    const dir = albumGroup.fieldValue;
+    const images = albumGroup.nodes;
+    
+    // Find the most recent file time in this album
+    const mostRecentTime = Math.max(...images.map(file => new Date(file.mtime).getTime()));
+    
+    return {
+      directory: dir,
+      imageCount: albumGroup.totalCount,
+      cover: images[0], // First image as cover
+      images: images.slice(0, 4), // Keep up to 4 images: 2 for sliding + 2 for "Most Recent Shoot"
+      metadata: metadataMap[dir] || null,
+      mostRecentTime: new Date(mostRecentTime)
+    };
   });
 
-
-  // Get the 3 most recent albums (sorted by most recent file time in each album)
-  const recentAlbumEntries = Object.entries(albumMap)
-    .sort(([,a], [,b]) => b.mostRecentTime - a.mostRecentTime) // Sort by most recent file time descending
-    .slice(0, 3);
+  // Sort by most recent time and get top 3
+  const recentAlbumEntries = processedAlbums
+    .sort((a, b) => b.mostRecentTime - a.mostRecentTime)
+    .slice(0, 3)
+    .map(album => [album.directory, album]); // Convert to [dir, albumData] format for compatibility
+console.log(processedAlbums);
 
   // Helper function to create album title from directory path or metadata
   const createAlbumTitle = (dir, albumData) => {
@@ -669,28 +660,24 @@ export const IndexPageQuery = graphql`
         gatsbyImageData(layout: FULL_WIDTH, placeholder: NONE)
       }
     }
-    recentWorkImages: allFile(filter: { sourceInstanceName: { eq: "uploads" }, extension: { regex: "/(jpg|jpeg|png)/" }, relativePath: { regex: "/mark-austin-photos-/" } }, limit: 10, sort: { relativePath: ASC }) {
-      nodes {
-        childImageSharp {
-          gatsbyImageData(width: 600, height: 400, placeholder: NONE)
-        }
-      }
-    }
     recentAlbums: allFile(
       filter: { 
         sourceInstanceName: { eq: "work" },
         extension: { in: ["jpg", "jpeg", "png"] },
         relativeDirectory: { regex: "/20/" }
       },
-      limit: 50,
       sort: { mtime: DESC }
     ) {
-      nodes {
-        relativePath
-        relativeDirectory
-        mtime
-        childImageSharp {
-          gatsbyImageData(width: 600, height: 400, placeholder: NONE)
+      group(field: relativeDirectory) {
+        fieldValue
+        totalCount
+        nodes {
+          relativePath
+          relativeDirectory
+          mtime
+          childImageSharp {
+            gatsbyImageData(width: 600, height: 400, placeholder: NONE)
+          }
         }
       }
     }
