@@ -279,7 +279,6 @@ const IndexPage = ({ data }) => {
     .sort((a, b) => b.mostRecentTime - a.mostRecentTime)
     .slice(0, 3)
     .map(album => [album.directory, album]); // Convert to [dir, albumData] format for compatibility
-console.log(processedAlbums);
 
   // Helper function to create album title from directory path or metadata
   const createAlbumTitle = (dir, albumData) => {
