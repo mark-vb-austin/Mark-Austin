@@ -634,7 +634,7 @@ const IndexPage = ({ data }) => {
                 }
                 
                 return imagesToShow.map((image, index) => (
-                  <div key={index} className={`col-lg-4 col-md-4`}>
+                  <div key={index} className={`col-4`}>
                     <Link to={createAlbumUrl(albumDir)} className='text-decoration-none'>
                       <GatsbyImage image={getImage(image)} alt={`${albumTitle} - Image ${index + 1}`} className='w-100' style={{ aspectRatio: "4/5", overflow: "hidden", cursor: "pointer" }} />
                     </Link>
