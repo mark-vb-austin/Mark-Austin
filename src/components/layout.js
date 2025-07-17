@@ -59,10 +59,6 @@ const Layout = (props) => {
 
           <div className="site-head-right">
             <div className="social-links">
-              <a href={`https://www.facebook.com/markvbaustin`} title="Facebook" target="_blank" rel="noopener noreferrer">
-                Facebook
-              </a>
-           
               <a href={`https://instagram.com/mark.vb.austin`} title="Instagram" target="_blank" rel="noopener noreferrer">
                 Instagram
               </a>

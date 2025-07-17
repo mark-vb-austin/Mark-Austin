@@ -7,7 +7,7 @@ const siteConfig = {
   author: 'Mark Austin',
   twitter: 'twitterLink' ,
   instagram: 'mark.vb.austin',
-  facebook:'mark.vb.austin',
+  // facebook:'mark.vb.austin',
   github:'',
   manifest_icon:`src/img/favicon.png`,
   image:`/favicon.png`

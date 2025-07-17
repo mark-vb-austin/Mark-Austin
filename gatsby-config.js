@@ -12,7 +12,7 @@ module.exports = {
     siteUrl: "https://markaustin.photo",
     social: {
       instagram: siteConfig.instagram,
-      facebook: siteConfig.facebook,
+      // facebook: siteConfig.facebook,
       twitter: siteConfig.twitter,
       github: siteConfig.github,
     },
