@@ -91,7 +91,7 @@ const WorkSubPage = ({ data, pageContext }) => {
 }
 
   const breakpointColumnsObj = {
-    default: 4,
+    default: 3,
     1100: 3,
     700: 2,
     // 500: 1,
@@ -128,10 +128,13 @@ const WorkSubPage = ({ data, pageContext }) => {
               <h1 className="post-content-title">{meta?.title || album}</h1>
               
               {meta?.description && 
-                <p className="post-content-excerpt italic">
-                  {meta.description} <br />
+              <>
+                <div className='post-content-excerpt italic' style={{ fontSize: "1.85rem" }} dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
+
+                {/* <p className="post-content-excerpt italic">
                   {meta?.date && <small>- {meta.date}</small>}
-                </p>
+                </p> */}
+              </>
               }
 
               <Masonry
@@ -263,6 +266,7 @@ export const query = graphql`
         description
         date(formatString: "MMMM D, YYYY")
       }
+      html
     }
   }
 `;
