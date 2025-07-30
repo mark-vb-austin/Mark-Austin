@@ -941,7 +941,9 @@ export const IndexPageQuery = graphql`
         sourceInstanceName: { eq: "work" },
         extension: { in: ["jpg", "jpeg", "png"] },
         relativeDirectory: { regex: "/^20/" }
-      }
+      },
+      sort: { mtime: DESC },
+      limit: 60
     ) {
       group(field: relativeDirectory) {
         fieldValue
