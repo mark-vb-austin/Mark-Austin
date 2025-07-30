@@ -112,7 +112,6 @@ const WorkPage = ({ data }) => {
 
           <div className=" col-md-10 offset-md-1">
           
-            {console.log(albumMap)}
             <Masonry
               breakpointCols={breakpointColumnsObj}
               className="masonry-grid"
