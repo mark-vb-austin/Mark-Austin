@@ -96,7 +96,7 @@ const RotatingHeroImages = React.memo(({ heroImages }) => {
         }
       } catch (error) {
         if (isMounted) {
-          console.error('Error loading hero images:', error);
+  
         }
       }
     };
@@ -631,15 +631,7 @@ const useProcessedAlbums = (recentAlbums, metadataMap) => {
 // Main IndexPage component with comprehensive optimizations
 const IndexPage = ({ data }) => {
   const { site, markdownRemark, introImages, heroImages, recentAlbums, albumMetadata, allMarkdownRemark } = data;
-  
-  // Debug logging - detailed breakdown
-  console.log('🔍 STEP 1 - Raw GraphQL Data:');
-  console.log('recentAlbums:', recentAlbums);
-  console.log('recentAlbums.group length:', recentAlbums.group?.length || 0);
-  console.log('recentAlbums.group:', recentAlbums.group);
-  console.log('albumMetadata:', albumMetadata);
-  console.log('albumMetadata.nodes length:', albumMetadata.nodes?.length || 0);
-  console.log('albumMetadata.nodes:', albumMetadata.nodes);
+
   
   const siteTitle = site.siteMetadata.title;
   const social = site.siteMetadata.social;
@@ -652,26 +644,24 @@ const IndexPage = ({ data }) => {
 
   // Memoize metadata map creation
   const metadataMap = useMemo(() => {
-    console.log('🔍 STEP 2 - Creating metadataMap:');
+
     const map = {};
     albumMetadata.nodes.forEach((file) => {
-      console.log('Processing metadata file:', file);
+
       if (file.childMarkdownRemark?.frontmatter) {
         map[file.relativeDirectory] = file.childMarkdownRemark.frontmatter;
-        console.log(`Added metadata for ${file.relativeDirectory}:`, file.childMarkdownRemark.frontmatter);
+
       }
     });
-    console.log('Final metadataMap:', map);
+
     return map;
   }, [albumMetadata.nodes]);
 
   // Use custom hook for processed albums
-  console.log('🔥 CALLING useProcessedAlbums with:', recentAlbums?.group?.length, 'groups');
+
   const processedAlbums = useProcessedAlbums(recentAlbums.group, metadataMap);
   
-  console.log('🔍 STEP 3 - Processed Albums:');
-  console.log('processedAlbums length:', processedAlbums?.length || 0);
-  console.log('processedAlbums:', processedAlbums);
+
 
   // Memoize pinnedAlbums to fix React hooks warning
   const pinnedAlbums = useMemo(() => {
@@ -683,8 +673,8 @@ const IndexPage = ({ data }) => {
     // Filter out empty strings to get valid pinned albums
     const validPinnedAlbums = pinnedAlbums.filter(albumPath => albumPath && albumPath.trim() !== '');
     
-    console.log('🚀 PROCESSING ALBUMS:', processedAlbums?.length, 'total albums');
-    console.log('� VALID PINNED ALBUMS:', validPinnedAlbums);
+
+
     
     if (validPinnedAlbums.length > 0) {
       // We have some pinned albums, use them
@@ -701,13 +691,13 @@ const IndexPage = ({ data }) => {
           if (pinnedPath.includes(album.directory)) return true;
           return false;
         });
-        console.log(`🔍 Looking for pinned album: ${pinnedPath}, found:`, !!foundAlbum);
+
         if (foundAlbum) {
           pinnedAlbumEntries.push([foundAlbum.directory, foundAlbum]);
         }
       });
       
-      console.log('📌 Found pinned albums:', pinnedAlbumEntries.length);
+
       
       // If we have fewer than 3 pinned albums, fill with most recent ones
       if (pinnedAlbumEntries.length < 3) {
@@ -717,17 +707,17 @@ const IndexPage = ({ data }) => {
           .slice(0, 3 - pinnedAlbumEntries.length)
           .map(album => [album.directory, album]);
         
-        console.log('🕒 Adding recent albums to fill slots:', recentAlbumsToAdd.length);
+
         pinnedAlbumEntries.push(...recentAlbumsToAdd);
       }
       
-      console.log('🚀 FINAL PINNED RESULT LENGTH:', pinnedAlbumEntries.length);
+
       return pinnedAlbumEntries.slice(0, 3); // Ensure we never return more than 3
     } else {
       // No pinned albums, use 3 most recent
-      console.log('🕒 No pinned albums, using 3 most recent');
+
       const result = processedAlbums.slice(0, 3).map(album => [album.directory, album]);
-      console.log('🚀 FINAL RECENT RESULT LENGTH:', result.length);
+
       return result;
     }
   }, [processedAlbums, pinnedAlbums]);
