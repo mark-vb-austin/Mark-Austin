@@ -945,7 +945,7 @@ export const IndexPageQuery = graphql`
       sort: { mtime: DESC },
       limit: 60
     ) {
-      group(field: relativeDirectory) {
+      group(field: {relativeDirectory: SELECT}) {
         fieldValue
         totalCount
         nodes {
