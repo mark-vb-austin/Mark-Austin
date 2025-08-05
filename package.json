@@ -75,6 +75,7 @@
   "scripts": {
     "build": "npm run generate:exif && gatsby clean && gatsby build",
     "develop": "npm run generate:exif && gatsby clean && gatsby develop",
+    "develop-fresh": "rm -f src/img/exif-data.json src/img/.exif-cache.json && npm run generate:exif && gatsby clean && gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "gatsby clean &&  npm run develop",
     "serve": "gatsby serve",
