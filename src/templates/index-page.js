@@ -45,7 +45,7 @@ const pageStyles = `
   }
 `;
 
-// Optimized Hero Images Component with comprehensive performance improvements
+// Hero Carousel with Optimized with comprehensive performance improvements
 const RotatingHeroImages = React.memo(({ heroImages }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loadedImages, setLoadedImages] = useState([]);
