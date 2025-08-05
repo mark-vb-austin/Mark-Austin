@@ -17,7 +17,7 @@ pinnedAlbums:
   # - "2024/Blair Drummond in Autumn" 
   # - "2025/Wildhood Festival 25"
   # - "2025/Scone Palace"
-  - ""
   - "Mr & Mrs Morley"
+  - ""
   - ""
 ---
