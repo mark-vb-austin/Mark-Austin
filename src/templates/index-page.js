@@ -964,7 +964,7 @@ export const IndexPageQuery = graphql`
         gatsbyImageData(layout: FULL_WIDTH, placeholder: NONE)
       }
     }
-    recentAlbums: allFile(filter: { sourceInstanceName: { eq: "work" }, extension: { in: ["jpg", "jpeg", "png", "webp"] }, relativeDirectory: { regex: "/^20/" } }, limit: 200) {
+    recentAlbums: allFile(filter: { sourceInstanceName: { eq: "work" }, extension: { in: ["jpg", "jpeg", "png", "webp"] }, relativeDirectory: { regex: "/^20/" } }) {
       group(field: { relativeDirectory: SELECT }) {
         fieldValue
         totalCount
