@@ -7,7 +7,6 @@ import GlasgowIcon from "../../static/icons//icon--glasgow-gold.svg";
 import PaisleyIcon from "../../static/icons//icon--paisley-gold.svg";
 import ScotlandIcon from "../../static/icons//icon--scotland-gold.svg";
 import exifData from "../img/exif-data.json";
-import { Helmet } from "react-helmet";
 
 // Extract CSS to prevent re-creation on each render
 const pageStyles = `
@@ -753,10 +752,6 @@ const IndexPage = ({ data }) => {
   }, [processedAlbums]);
 
   return (
-    <>
-      <Helmet>
-        <style>{pageStyles}</style>
-      </Helmet>
       <Layout title={siteTitle} social={social}>
         <Seo keywords={[`Mark Austin Photography`, `Scottish Photographer`, `Professional Photography`, `Landscape Photography`]} title={markdownRemark.frontmatter.title} description={markdownRemark.frontmatter.description || ""} image={markdownRemark.frontmatter.thumbnail.childImageSharp.fluid.src} />
 
@@ -914,11 +909,16 @@ const IndexPage = ({ data }) => {
           </div>
         </section>
       </Layout>
-    </>
   );
 };
 
 export default IndexPage;
+
+export function Head() {
+  return (
+    <style>{pageStyles}</style>
+  )
+}
 
 // Same GraphQL query - no changes needed for optimization
 export const IndexPageQuery = graphql`

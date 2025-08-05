@@ -2,7 +2,6 @@ import React, { useState} from "react";
 import { graphql, Link } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Layout from "../components/layout";
-import { Helmet } from "react-helmet";
 // import Seo from "../components/seo";
 import Masonry from "react-masonry-css";
 
@@ -98,18 +97,6 @@ const WorkSubPage = ({ data, pageContext }) => {
   };
   
   return (
-    <>
-      <Helmet> {/* Helmet for SEO and styles */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
-          rel="stylesheet"
-        />
-        {/* <Seo title={meta?.title || album} description={meta?.description} /> */}
-
-      </Helmet>
-      
       <Layout location={data.location} title={siteTitle} social={social}>
 
         {/* Back to Albums Button */}
@@ -223,9 +210,19 @@ const WorkSubPage = ({ data, pageContext }) => {
         </div>
 
       </Layout>
-    </>
   );
 };
+
+export function Head() {
+  return (
+    <>
+      <link rel='preconnect' href='https://fonts.googleapis.com' />
+      <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+      <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap' />
+      {/* <Seo title={meta?.title || album} description={meta?.description} /> */}
+    </>
+  );
+}
 
 export const query = graphql`
   query ($relativeDirectory: String!, $regex: String!) {
